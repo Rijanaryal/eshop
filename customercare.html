@@ -1,0 +1,1199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Support - Electro Bazzar</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #667eea;
+            --primary-dark: #5a6fd8;
+            --secondary: #764ba2;
+            --accent: #ff6b6b;
+            --success: #28a745;
+            --warning: #ffc107;
+            --dark-bg: #1a1a2e;
+            --darker-bg: #16213e;
+            --card-bg: #2d3748;
+            --text-light: #f8f9fa;
+            --text-gray: #a0aec0;
+            --border-color: #4a5568;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--dark-bg), var(--darker-bg));
+            color: var(--text-light);
+            min-height: 100vh;
+        }
+
+        /* Header Styles */
+        .header {
+            background: rgba(26, 26, 46, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .top-bar {
+            background: var(--darker-bg);
+            padding: 0.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .top-links a {
+            color: var(--text-gray);
+            text-decoration: none;
+            margin-right: 1.5rem;
+            transition: color 0.3s;
+        }
+
+        .top-links a:hover {
+            color: var(--primary);
+        }
+
+        .main-header {
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo i {
+            margin-right: 0.5rem;
+            font-size: 2.2rem;
+        }
+
+        .search-bar {
+            flex: 0 1 600px;
+            display: flex;
+            margin: 0 2rem;
+        }
+
+        .search-bar input {
+            flex: 1;
+            padding: 0.8rem 1rem;
+            border: none;
+            border-radius: 25px 0 0 25px;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-light);
+            font-size: 1rem;
+        }
+
+        .search-bar button {
+            padding: 0 1.5rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border: none;
+            border-radius: 0 25px 25px 0;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .search-bar button:hover {
+            background: linear-gradient(135deg, var(--primary-dark), var(--secondary));
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .action-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .action-btn i {
+            font-size: 1.5rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .action-btn:hover {
+            color: var(--primary);
+        }
+
+        .cart-count {
+            background: var(--accent);
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            font-size: 0.7rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            top: -5px;
+            right: -5px;
+        }
+
+        /* Navigation */
+        .main-nav {
+            background: rgba(45, 55, 72, 0.9);
+            padding: 0.8rem 2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-links a i {
+            margin-right: 0.5rem;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        /* Support Hero Section */
+        .support-hero {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            padding: 4rem 2rem;
+            text-align: center;
+            margin: 1rem 2rem;
+            border-radius: 15px;
+        }
+
+        .support-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .support-hero p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+
+        .support-search {
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+        }
+
+        .support-search input {
+            flex: 1;
+            padding: 1rem 1.5rem;
+            border: none;
+            border-radius: 25px 0 0 25px;
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
+            font-size: 1rem;
+        }
+
+        .support-search button {
+            padding: 0 2rem;
+            background: var(--accent);
+            border: none;
+            border-radius: 0 25px 25px 0;
+            color: white;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        .support-search button:hover {
+            background: #ff5252;
+        }
+
+        /* Quick Help Section */
+        .quick-help {
+            margin: 3rem 2rem;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--text-light);
+        }
+
+        .help-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .help-card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid var(--border-color);
+        }
+
+        .help-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .help-icon {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .help-card h3 {
+            margin-bottom: 1rem;
+            color: var(--text-light);
+        }
+
+        .help-card p {
+            color: var(--text-gray);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .help-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: color 0.3s;
+        }
+
+        .help-link:hover {
+            color: var(--accent);
+        }
+
+        /* Contact Methods */
+        .contact-methods {
+            margin: 3rem 2rem;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .contact-card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        .contact-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .contact-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .contact-card h3 {
+            margin-bottom: 1rem;
+            color: var(--text-light);
+        }
+
+        .contact-info {
+            color: var(--text-gray);
+            margin-bottom: 1rem;
+        }
+
+        .contact-time {
+            color: var(--warning);
+            font-size: 0.9rem;
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            margin: 3rem 2rem;
+        }
+
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            padding: 1.5rem;
+            background: var(--darker-bg);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        .faq-question:hover {
+            background: rgba(102, 126, 234, 0.1);
+        }
+
+        .faq-answer {
+            padding: 0 1.5rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            color: var(--text-gray);
+            line-height: 1.6;
+        }
+
+        .faq-answer.active {
+            padding: 1.5rem;
+            max-height: 500px;
+        }
+
+        .faq-toggle {
+            color: var(--primary);
+            transition: transform 0.3s;
+        }
+
+        .faq-item.active .faq-toggle {
+            transform: rotate(180deg);
+        }
+
+        /* Support Form */
+        .support-form-section {
+            margin: 3rem 2rem;
+            background: var(--card-bg);
+            padding: 3rem;
+            border-radius: 15px;
+            border: 1px solid var(--border-color);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            color: var(--text-light);
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            padding: 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            background: var(--darker-bg);
+            color: var(--text-light);
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+        }
+
+        .submit-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        /* Live Support */
+        .live-support {
+            background: var(--card-bg);
+            margin: 3rem 2rem;
+            padding: 3rem;
+            border-radius: 15px;
+            text-align: center;
+            border: 1px solid var(--border-color);
+        }
+
+        .live-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1.5rem;
+            background: var(--success);
+            color: white;
+            border-radius: 25px;
+            margin-bottom: 2rem;
+            font-weight: 600;
+        }
+
+        .live-chat-btn {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .live-chat-btn:hover {
+            background: #ff5252;
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--darker-bg);
+            padding: 3rem 2rem 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: var(--text-gray);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            color: var(--text-gray);
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: var(--primary);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid var(--border-color);
+            padding-top: 1.5rem;
+            text-align: center;
+            color: var(--text-gray);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .search-bar {
+                flex: 0 1 400px;
+            }
+            
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-header {
+                flex-wrap: wrap;
+            }
+            
+            .search-bar {
+                order: 3;
+                flex: 1 1 100%;
+                margin: 1rem 0 0;
+            }
+            
+            .support-hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .help-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .support-form-section {
+                padding: 2rem 1rem;
+                margin: 2rem 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .top-bar {
+                justify-content: center;
+            }
+            
+            .top-links:last-child {
+                display: none;
+            }
+            
+            .main-nav {
+                overflow-x: auto;
+            }
+            
+            .nav-links {
+                gap: 1rem;
+            }
+            
+            .support-hero {
+                margin: 1rem;
+                padding: 2rem 1rem;
+            }
+            
+            .quick-help,
+            .contact-methods,
+            .faq-section,
+            .live-support {
+                margin: 2rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="top-bar">
+            <div class="top-links">
+                <a href="customer-support.html" style="color: var(--primary);"><i class="fas fa-question-circle"></i> Help Center</a>
+                <a href="#"><i class="fas fa-headset"></i> Customer Support</a>
+                <a href="#"><i class="fas fa-truck"></i> Track Order</a>
+            </div>
+            <div class="top-links">
+                <!-- Sign Up and Login removed as requested -->
+            </div>
+        </div>
+        
+        <div class="main-header">
+            <a href="visit.html" class="logo">
+                <i class="fas fa-bolt"></i>
+                Electro Bazzar
+            </a>
+            
+            <div class="search-bar">
+                <input type="text" placeholder="Search for products, brands and categories...">
+                <button><i class="fas fa-search"></i></button>
+            </div>
+            
+            <div class="header-actions">
+                <a href="#" class="action-btn">
+                    <i class="fas fa-user"></i>
+                    <span>Account</span>
+                </a>
+                <a href="#" class="action-btn">
+                    <i class="fas fa-heart"></i>
+                    <span>Wishlist</span>
+                </a>
+                <a href="#" class="action-btn" style="position: relative;">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span>Cart</span>
+                    <span class="cart-count">2</span>
+                </a>
+            </div>
+        </div>
+        
+        <nav class="main-nav">
+            <ul class="nav-links">
+                <li><a href="visit.html"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="electronics.html"><i class="fas fa-laptop"></i> Electronics</a></li>
+                <li><a href="fashion.html"><i class="fas fa-tshirt"></i> Fashion</a></li>
+                <li><a href="home-kitchen.html"><i class="fas fa-home"></i> Home & Kitchen</a></li>
+                <li><a href="furniture.html"><i class="fas fa-couch"></i> Furniture</a></li>
+                <li><a href="sports.html"><i class="fas fa-dumbbell"></i> Sports</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Support Hero Section -->
+    <section class="support-hero">
+        <h1><i class="fas fa-headset"></i> How Can We Help You?</h1>
+        <p>Get instant answers, 24/7 support, and expert guidance for all your shopping needs</p>
+        <div class="support-search">
+            <input type="text" placeholder="Describe your issue...">
+            <button>Search Help</button>
+        </div>
+    </section>
+
+    <!-- Quick Help Section -->
+    <section class="quick-help">
+        <h2 class="section-title">Quick Help & Solutions</h2>
+        <div class="help-grid">
+            <div class="help-card">
+                <div class="help-icon"><i class="fas fa-shopping-bag"></i></div>
+                <h3>Order Issues</h3>
+                <p>Track your order, check status, cancel or modify existing orders</p>
+                <a href="#" class="help-link">Get Help <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <div class="help-card">
+                <div class="help-icon"><i class="fas fa-undo-alt"></i></div>
+                <h3>Returns & Refunds</h3>
+                <p>Initiate returns, check refund status, or exchange products</p>
+                <a href="#" class="help-link">Start Return <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <div class="help-card">
+                <div class="help-icon"><i class="fas fa-credit-card"></i></div>
+                <h3>Payment & Billing</h3>
+                <p>Payment issues, refund status, billing inquiries, and payment methods</p>
+                <a href="#" class="help-link">Resolve Issue <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <div class="help-card">
+                <div class="help-icon"><i class="fas fa-truck"></i></div>
+                <h3>Shipping & Delivery</h3>
+                <p>Delivery timelines, shipping costs, tracking, and address changes</p>
+                <a href="#" class="help-link">Track Order <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <div class="help-card">
+                <div class="help-icon"><i class="fas fa-user-shield"></i></div>
+                <h3>Account & Security</h3>
+                <p>Login issues, password reset, account security, and profile management</p>
+                <a href="#" class="help-link">Secure Account <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <div class="help-card">
+                <div class="help-icon"><i class="fas fa-gift"></i></div>
+                <h3>Promotions & Offers</h3>
+                <p>Coupon codes, special offers, membership benefits, and loyalty programs</p>
+                <a href="#" class="help-link">View Offers <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Methods -->
+    <section class="contact-methods">
+        <h2 class="section-title">Contact Our Support Team</h2>
+        <div class="contact-grid">
+            <div class="contact-card">
+                <div class="contact-icon"><i class="fas fa-comments"></i></div>
+                <h3>Live Chat</h3>
+                <p class="contact-info">Instant help from our support agents</p>
+                <p class="contact-time">Available 24/7</p>
+                <button class="live-chat-btn" style="margin-top: 1rem;">
+                    <i class="fas fa-comment-dots"></i> Start Chat
+                </button>
+            </div>
+            <div class="contact-card">
+                <div class="contact-icon"><i class="fas fa-phone-alt"></i></div>
+                <h3>Phone Support</h3>
+                <p class="contact-info">+1 (800) 123-4567</p>
+                <p class="contact-time">Mon-Sun: 6AM - 11PM EST</p>
+                <a href="tel:+18001234567" class="help-link" style="margin-top: 1rem;">
+                    <i class="fas fa-phone"></i> Call Now
+                </a>
+            </div>
+            <div class="contact-card">
+                <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                <h3>Email Support</h3>
+                <p class="contact-info">support@electrobazzar.com</p>
+                <p class="contact-time">Response within 2 hours</p>
+                <a href="mailto:support@electrobazzar.com" class="help-link" style="margin-top: 1rem;">
+                    <i class="fas fa-envelope"></i> Send Email
+                </a>
+            </div>
+            <div class="contact-card">
+                <div class="contact-icon"><i class="fab fa-whatsapp"></i></div>
+                <h3>WhatsApp</h3>
+                <p class="contact-info">+1 (800) 123-4567</p>
+                <p class="contact-time">24/7 Instant Messaging</p>
+                <a href="https://wa.me/18001234567" class="help-link" style="margin-top: 1rem;">
+                    <i class="fab fa-whatsapp"></i> Message Us
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <h2 class="section-title">Frequently Asked Questions</h2>
+        <div class="faq-container">
+            <div class="faq-item">
+                <div class="faq-question">
+                    How can I track my order?
+                    <span class="faq-toggle"><i class="fas fa-chevron-down"></i></span>
+                </div>
+                <div class="faq-answer">
+                    You can track your order by logging into your account and visiting the "Order History" section. Alternatively, use the tracking link sent to your email. For real-time updates, you can also contact our support team with your order number.
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    What is your return policy?
+                    <span class="faq-toggle"><i class="fas fa-chevron-down"></i></span>
+                </div>
+                <div class="faq-answer">
+                    We offer a 30-day return policy for most items. Products must be in original condition with tags attached. Electronics have a 15-day return window. Some items like personalized products or intimate apparel may not be eligible for return.
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    How long does shipping take?
+                    <span class="faq-toggle"><i class="fas fa-chevron-down"></i></span>
+                </div>
+                <div class="faq-answer">
+                    Standard shipping: 3-7 business days<br>
+                    Express shipping: 1-3 business days<br>
+                    Same-day delivery: Available in select cities<br>
+                    International shipping: 7-14 business days
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    Do you offer international shipping?
+                    <span class="faq-toggle"><i class="fas fa-chevron-down"></i></span>
+                </div>
+                <div class="faq-answer">
+                    Yes, we ship to over 50 countries worldwide. International shipping costs and delivery times vary by destination. Customs duties and taxes are the responsibility of the recipient. Check our international shipping page for detailed information.
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    How can I change my delivery address?
+                    <span class="faq-toggle"><i class="fas fa-chevron-down"></i></span>
+                </div>
+                <div class="faq-answer">
+                    You can change your delivery address within 1 hour of placing the order through your account. After that, contact our support team immediately. Once the order is shipped, address changes may not be possible and could result in delivery delays.
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    What payment methods do you accept?
+                    <span class="faq-toggle"><i class="fas fa-chevron-down"></i></span>
+                </div>
+                <div class="faq-answer">
+                    We accept all major credit/debit cards (Visa, MasterCard, American Express), PayPal, Apple Pay, Google Pay, bank transfers, and cash on delivery (available in select areas). All payments are secured with SSL encryption.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Support Form -->
+    <section class="support-form-section">
+        <h2 class="section-title">Send Us a Message</h2>
+        <form class="support-form">
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" placeholder="Enter your full name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="order">Order Number (Optional)</label>
+                    <input type="text" id="order" placeholder="Enter order number">
+                </div>
+                <div class="form-group">
+                    <label for="issue">Issue Type</label>
+                    <select id="issue" required>
+                        <option value="">Select issue type</option>
+                        <option value="order">Order Problem</option>
+                        <option value="shipping">Shipping & Delivery</option>
+                        <option value="return">Returns & Refunds</option>
+                        <option value="payment">Payment Issue</option>
+                        <option value="account">Account Problem</option>
+                        <option value="product">Product Question</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group full-width">
+                    <label for="message">Describe Your Issue</label>
+                    <textarea id="message" placeholder="Please provide detailed information about your issue..." required></textarea>
+                </div>
+                <div class="form-group full-width">
+                    <label for="attachment">Attach Files (Optional)</label>
+                    <input type="file" id="attachment" multiple>
+                </div>
+            </div>
+            <button type="submit" class="submit-btn">Submit Request</button>
+        </form>
+    </section>
+
+    <!-- Live Support -->
+    <section class="live-support">
+        <div class="live-status">
+            <i class="fas fa-circle" style="font-size: 0.8rem;"></i>
+            Live Support Available
+        </div>
+        <h2>Need Immediate Help?</h2>
+        <p>Our support agents are online and ready to assist you right now</p>
+        <button class="live-chat-btn">
+            <i class="fas fa-comment-dots"></i> Start Live Chat
+        </button>
+        <p style="margin-top: 1rem; color: var(--text-gray); font-size: 0.9rem;">
+            Average wait time: <strong>2 minutes</strong>
+        </p>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>Customer Service</h3>
+                <ul class="footer-links">
+                    <li><a href="customer-support.html">Help Center</a></li>
+                    <li><a href="#">How to Buy</a></li>
+                    <li><a href="#">Returns & Refunds</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">Purchase Protection</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>About Electro Bazzar</h3>
+                <ul class="footer-links">
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Terms & Conditions</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Blog</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Payment Methods</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Credit/Debit Card</a></li>
+                    <li><a href="#">Net Banking</a></li>
+                    <li><a href="#">Cash on Delivery</a></li>
+                    <li><a href="#">EMI Options</a></li>
+                    <li><a href="#">Wallet</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Follow Us</h3>
+                <p>Stay connected with us for the latest updates</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2024 Electro Bazzar. All rights reserved. | Designed with <i class="fas fa-heart" style="color: var(--accent);"></i> for amazing shopping experiences</p>
+        </div>
+    </footer>
+
+    <script>
+        // FAQ Toggle Functionality
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const faqItem = question.parentElement;
+                const answer = question.nextElementSibling;
+                
+                // Close all other FAQs
+                document.querySelectorAll('.faq-item').forEach(item => {
+                    if (item !== faqItem) {
+                        item.classList.remove('active');
+                        item.querySelector('.faq-answer').classList.remove('active');
+                    }
+                });
+                
+                // Toggle current FAQ
+                faqItem.classList.toggle('active');
+                answer.classList.toggle('active');
+            });
+        });
+
+        // Live Chat Simulation
+        document.querySelectorAll('.live-chat-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const chatWindows = document.querySelectorAll('.chat-window');
+                if (chatWindows.length > 0) {
+                    // If chat window already exists, show it
+                    chatWindows[0].style.display = 'block';
+                    return;
+                }
+
+                // Create chat window
+                const chatWindow = document.createElement('div');
+                chatWindow.className = 'chat-window';
+                chatWindow.innerHTML = `
+                    <div class="chat-header">
+                        <div class="chat-agent">
+                            <i class="fas fa-circle" style="color: var(--success);"></i>
+                            Support Agent - Online
+                        </div>
+                        <button class="chat-close"><i class="fas fa-times"></i></button>
+                    </div>
+                    <div class="chat-messages">
+                        <div class="message agent-message">
+                            <div class="message-content">
+                                Hello! Thank you for contacting Electro Bazzar support. How can I help you today?
+                            </div>
+                            <div class="message-time">Just now</div>
+                        </div>
+                    </div>
+                    <div class="chat-input">
+                        <input type="text" placeholder="Type your message...">
+                        <button class="send-btn"><i class="fas fa-paper-plane"></i></button>
+                    </div>
+                `;
+
+                // Add styles for chat window
+                const chatStyles = `
+                    <style>
+                        .chat-window {
+                            position: fixed;
+                            bottom: 20px;
+                            right: 20px;
+                            width: 350px;
+                            height: 500px;
+                            background: var(--card-bg);
+                            border: 1px solid var(--border-color);
+                            border-radius: 15px;
+                            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+                            display: flex;
+                            flex-direction: column;
+                            z-index: 10000;
+                        }
+                        .chat-header {
+                            background: var(--primary);
+                            color: white;
+                            padding: 1rem;
+                            border-radius: 15px 15px 0 0;
+                            display: flex;
+                            justify-content: space-between;
+                            align-items: center;
+                        }
+                        .chat-agent {
+                            display: flex;
+                            align-items: center;
+                            gap: 0.5rem;
+                            font-weight: 600;
+                        }
+                        .chat-close {
+                            background: none;
+                            border: none;
+                            color: white;
+                            cursor: pointer;
+                            font-size: 1.2rem;
+                        }
+                        .chat-messages {
+                            flex: 1;
+                            padding: 1rem;
+                            overflow-y: auto;
+                            display: flex;
+                            flex-direction: column;
+                            gap: 1rem;
+                        }
+                        .message {
+                            max-width: 80%;
+                            padding: 0.8rem;
+                            border-radius: 15px;
+                        }
+                        .agent-message {
+                            align-self: flex-start;
+                            background: var(--darker-bg);
+                            border: 1px solid var(--border-color);
+                        }
+                        .user-message {
+                            align-self: flex-end;
+                            background: var(--primary);
+                            color: white;
+                        }
+                        .message-content {
+                            margin-bottom: 0.3rem;
+                        }
+                        .message-time {
+                            font-size: 0.7rem;
+                            opacity: 0.7;
+                        }
+                        .chat-input {
+                            padding: 1rem;
+                            border-top: 1px solid var(--border-color);
+                            display: flex;
+                            gap: 0.5rem;
+                        }
+                        .chat-input input {
+                            flex: 1;
+                            padding: 0.8rem;
+                            border: 1px solid var(--border-color);
+                            border-radius: 25px;
+                            background: var(--darker-bg);
+                            color: var(--text-light);
+                        }
+                        .send-btn {
+                            background: var(--primary);
+                            color: white;
+                            border: none;
+                            border-radius: 50%;
+                            width: 40px;
+                            height: 40px;
+                            cursor: pointer;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                        }
+                    </style>
+                `;
+
+                document.head.insertAdjacentHTML('beforeend', chatStyles);
+                document.body.appendChild(chatWindow);
+
+                // Close chat functionality
+                chatWindow.querySelector('.chat-close').addEventListener('click', function() {
+                    chatWindow.style.display = 'none';
+                });
+
+                // Send message functionality
+                const sendBtn = chatWindow.querySelector('.send-btn');
+                const input = chatWindow.querySelector('input');
+                
+                sendBtn.addEventListener('click', sendMessage);
+                input.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') sendMessage();
+                });
+
+                function sendMessage() {
+                    const message = input.value.trim();
+                    if (message) {
+                        const messagesContainer = chatWindow.querySelector('.chat-messages');
+                        const messageElement = document.createElement('div');
+                        messageElement.className = 'message user-message';
+                        messageElement.innerHTML = `
+                            <div class="message-content">${message}</div>
+                            <div class="message-time">Just now</div>
+                        `;
+                        messagesContainer.appendChild(messageElement);
+                        input.value = '';
+                        
+                        // Scroll to bottom
+                        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+                        
+                        // Simulate agent response
+                        setTimeout(() => {
+                            const agentResponse = document.createElement('div');
+                            agentResponse.className = 'message agent-message';
+                            agentResponse.innerHTML = `
+                                <div class="message-content">Thank you for your message. Our support agent will assist you shortly.</div>
+                                <div class="message-time">Just now</div>
+                            `;
+                            messagesContainer.appendChild(agentResponse);
+                            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+                        }, 1000);
+                    }
+                }
+            });
+        });
+
+        // Form submission
+        document.querySelector('.support-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your message! Our support team will contact you within 2 hours.');
+            this.reset();
+        });
+
+        // Search functionality
+        document.querySelector('.support-search button').addEventListener('click', function() {
+            const query = document.querySelector('.support-search input').value;
+            if (query.trim()) {
+                alert(`Searching for: "${query}"\n\nThis would show relevant help articles in a real implementation.`);
+            }
+        });
+    </script>
+</body>
+</html>

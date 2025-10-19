@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Electro-Bazzar Luxury Scratch & Win</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Playfair+Display:wght@700&display=swap">
+  <style>
+    :root {
+      --e-color: #00a8ff;
+      --bazzar-color: #00e676;
+      --gold: #ffd700;
+      --platinum: #e5e4e2;
+      --diamond: #b9f2ff;
+      --dark-bg: #121212;
+      --luxury-bg: linear-gradient(135deg, #2b2d42, #1a1a2e, #16213e);
+      --text-glow: 0 0 10px currentColor;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--luxury-bg);
+      background-size: 400% 400%;
+      animation: gradientShift 15s ease infinite;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      overflow-x: hidden;
+      text-align: center;
+      position: relative;
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    body::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at center, transparent 0%, rgba(0, 0, 0, 0.7) 100%);
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    header {
+      position: absolute;
+      top: 30px;
+      left: 30px;
+      font-size: 16px;
+      font-weight: 600;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 12px 24px;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    header:hover {
+      background: rgba(0, 168, 255, 0.3);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 25px rgba(0, 168, 255, 0.3);
+    }
+
+    header svg {
+      width: 16px;
+      height: 16px;
+      fill: currentColor;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 500px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      margin-bottom: 2rem;
+      text-shadow: var(--text-glow);
+      position: relative;
+      display: inline-block;
+    }
+
+    h1::after {
+      content: "";
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--e-color), var(--bazzar-color));
+      border-radius: 3px;
+    }
+
+    h1 span.electro {
+      color: var(--e-color);
+      font-weight: 700;
+      text-shadow: 0 0 15px rgba(0, 168, 255, 0.7);
+    }
+
+    h1 span.bazzar {
+      color: var(--bazzar-color);
+      font-weight: 700;
+      text-shadow: 0 0 15px rgba(0, 230, 118, 0.7);
+    }
+
+    .scratch-container {
+      position: relative;
+      width: 100%;
+      max-width: 400px;
+      margin: 0 auto;
+      perspective: 1000px;
+    }
+
+    .scratch-card {
+      position: relative;
+      width: 100%;
+      height: 250px;
+      background: #ccc;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5);
+      transform-style: preserve-3d;
+      transition: transform 0.5s ease;
+    }
+
+    .scratch-card:hover {
+      transform: translateY(-5px);
+    }
+
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 20px;
+      cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'><circle cx='20' cy='20' r='18' fill='none' stroke='white' stroke-width='2'/><circle cx='20' cy='20' r='10' fill='rgba(255,255,255,0.3)'/></svg>") 20 20, grab;
+      touch-action: none;
+    }
+
+    .hidden-message {
+      width: 100%;
+      height: 100%;
+      background: var(--dark-bg);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: var(--gold);
+      letter-spacing: 1px;
+      text-shadow: var(--text-glow);
+      padding: 20px;
+      text-align: center;
+      border-radius: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hidden-message::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(
+        to bottom right,
+        transparent 45%,
+        rgba(255, 215, 0, 0.1) 50%,
+        transparent 55%
+      );
+      animation: shine 3s infinite;
+    }
+
+    @keyframes shine {
+      0% { transform: translate(-30%, -30%) rotate(30deg); }
+      100% { transform: translate(30%, 30%) rotate(30deg); }
+    }
+
+    .promo-code {
+      font-size: 2rem;
+      margin-top: 10px;
+      color: var(--diamond);
+      text-shadow: 0 0 10px var(--diamond);
+      font-family: 'Courier New', monospace;
+      letter-spacing: 3px;
+    }
+
+    .claim-btn {
+      display: none;
+      margin-top: 2rem;
+      padding: 16px 32px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      background: linear-gradient(135deg, var(--gold), var(--platinum));
+      color: #222;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 15px rgba(255, 215, 0, 0.4);
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .claim-btn::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, var(--platinum), var(--gold));
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: -1;
+    }
+
+    .claim-btn:hover {
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 8px 25px rgba(255, 215, 0, 0.6);
+    }
+
+    .claim-btn:hover::before {
+      opacity: 1;
+    }
+
+    .claim-btn:active {
+      transform: translateY(1px);
+    }
+
+    .confetti {
+      position: fixed;
+      width: 10px;
+      height: 10px;
+      background-color: var(--gold);
+      opacity: 0;
+      z-index: 1000;
+      animation: confetti-fall 5s linear forwards;
+    }
+
+    @keyframes confetti-fall {
+      0% {
+        transform: translateY(-100vh) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    .instructions {
+      margin-top: 2rem;
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.7);
+      font-style: italic;
+    }
+
+    .luxury-border {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 2px solid transparent;
+      border-image: linear-gradient(45deg, var(--gold), var(--platinum), var(--diamond), var(--platinum), var(--gold));
+      border-image-slice: 1;
+      border-radius: 20px;
+      pointer-events: none;
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
+      }
+      
+      .scratch-card {
+        height: 220px;
+      }
+      
+      .hidden-message {
+        font-size: 1.2rem;
+      }
+      
+      .promo-code {
+        font-size: 1.5rem;
+      }
+      
+      header {
+        top: 20px;
+        left: 20px;
+        padding: 10px 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="particles" id="particles"></div>
+
+  <header onclick="goHome()">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+      <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+    </svg>
+    Back to Home
+  </header>
+
+  <div class="container">
+    <h1>
+      <span class="electro">Electro</span>
+      <span class="bazzar">-Bazzar</span> Luxury Scratch & Win
+    </h1>
+
+    <div class="scratch-container">
+      <div class="scratch-card">
+        <div class="luxury-border"></div>
+        <div class="hidden-message" id="promoCode">
+          Your Exclusive Promo Code:
+          <div class="promo-code">EB-<span id="code"></span></div>
+        </div>
+        <canvas id="scratchCanvas"></canvas>
+      </div>
+    </div>
+
+    <button class="claim-btn" id="claimBtn" onclick="claimCode()">
+      ✨ Claim & Copy Code ✨
+    </button>
+
+    <p class="instructions">Scratch to reveal your exclusive discount code</p>
+  </div>
+
+  <script>
+    // Generate a luxurious promo code
+    function generateCode(length) {
+      const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+      let code = "";
+      for (let i = 0; i < length; i++) {
+        code += chars[Math.floor(Math.random() * chars.length)];
+        if ((i + 1) % 3 === 0 && i !== length - 1) code += "-";
+      }
+      return code;
+    }
+
+    // Initialize the promo code
+    const codeElement = document.getElementById("code");
+    const promoCode = generateCode(9); // Longer code for luxury feel
+    codeElement.textContent = promoCode;
+
+    // Canvas setup
+    const canvas = document.getElementById("scratchCanvas");
+    const ctx = canvas.getContext("2d");
+    let isDrawing = false;
+    let scratchEnabled = false;
+
+    // Resize canvas to match container
+    function resizeCanvas() {
+      const container = document.querySelector('.scratch-card');
+      canvas.width = container.offsetWidth;
+      canvas.height = container.offsetHeight;
+      
+      if (!scratchEnabled) {
+        initScratch();
+      } else {
+        checkScratch();
+      }
+    }
+
+    // Initialize scratch surface
+    function initScratch() {
+      // Create a luxurious scratch surface
+      const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+      gradient.addColorStop(0, "#888");
+      gradient.addColorStop(0.5, "#aaa");
+      gradient.addColorStop(1, "#888");
+      
+      ctx.fillStyle = gradient;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      
+      // Add instruction text with shine effect
+      ctx.fillStyle = "rgba(255, 255, 255, 0.8)";
+      ctx.font = "bold 16px 'Montserrat', sans-serif";
+      ctx.textAlign = "center";
+      
+      // Draw text with subtle shadow
+      ctx.shadowColor = "rgba(0, 0, 0, 0.3)";
+      ctx.shadowBlur = 3;
+      ctx.shadowOffsetX = 1;
+      ctx.shadowOffsetY = 1;
+      
+      ctx.fillText("Touch & Scratch to Reveal", canvas.width/2, canvas.height/2 - 10);
+      ctx.font = "14px 'Montserrat', sans-serif";
+      ctx.fillText("(Cover at least 60% to claim)", canvas.width/2, canvas.height/2 + 15);
+      
+      // Reset shadow
+      ctx.shadowColor = "transparent";
+    }
+
+    // Initialize on load
+    window.addEventListener('load', () => {
+      resizeCanvas();
+      createParticles();
+    });
+    window.addEventListener('resize', resizeCanvas);
+
+    // Touch and mouse event handlers
+    canvas.addEventListener("click", enableScratch);
+    canvas.addEventListener("touchstart", enableScratch);
+    
+    canvas.addEventListener("mousedown", startScratch);
+    canvas.addEventListener("mousemove", scratch);
+    canvas.addEventListener("mouseup", endScratch);
+    canvas.addEventListener("mouseleave", endScratch);
+    
+    canvas.addEventListener("touchstart", handleTouchStart, {passive: false});
+    canvas.addEventListener("touchmove", handleTouchMove, {passive: false});
+    canvas.addEventListener("touchend", endScratch);
+
+    function enableScratch() {
+      if (!scratchEnabled) {
+        scratchEnabled = true;
+        const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+        gradient.addColorStop(0, "#888");
+        gradient.addColorStop(0.5, "#aaa");
+        gradient.addColorStop(1, "#888");
+        ctx.fillStyle = gradient;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+      }
+    }
+
+    function startScratch(e) {
+      if (scratchEnabled) {
+        isDrawing = true;
+        scratch(e);
+      }
+    }
+
+    function endScratch() {
+      isDrawing = false;
+      checkScratch();
+    }
+
+    function scratch(e) {
+      if (!isDrawing || !scratchEnabled) return;
+      
+      const rect = canvas.getBoundingClientRect();
+      const x = (e.clientX || e.touches[0].clientX) - rect.left;
+      const y = (e.clientY || e.touches[0].clientY) - rect.top;
+      
+      // Create a luxurious scratch effect
+      ctx.globalCompositeOperation = "destination-out";
+      ctx.beginPath();
+      
+      // Use a more natural scratch shape
+      for (let i = 0; i < 3; i++) {
+        const offsetX = Math.random() * 10 - 5;
+        const offsetY = Math.random() * 10 - 5;
+        ctx.arc(x + offsetX, y + offsetY, 15 + Math.random() * 10, 0, Math.PI * 2);
+      }
+      
+      ctx.fill();
+    }
+
+    function handleTouchStart(e) {
+      e.preventDefault();
+      if (scratchEnabled) {
+        isDrawing = true;
+        handleTouchMove(e);
+      }
+    }
+
+    function handleTouchMove(e) {
+      if (!isDrawing || !scratchEnabled) return;
+      e.preventDefault();
+      scratch(e);
+    }
+
+    function checkScratch() {
+      const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      let cleared = 0;
+      
+      for (let i = 0; i < imageData.data.length; i += 4) {
+        if (imageData.data[i + 3] === 0) cleared++;
+      }
+      
+      const percent = (cleared / (canvas.width * canvas.height)) * 100;
+      
+      if (percent > 60) {
+        showClaimButton();
+      }
+    }
+
+    function showClaimButton() {
+      const btn = document.getElementById("claimBtn");
+      btn.style.display = "block";
+      createConfetti();
+    }
+
+    function claimCode() {
+      const code = "EB-" + promoCode;
+      navigator.clipboard.writeText(code).then(() => {
+        // Enhanced success effect
+        const btn = document.getElementById("claimBtn");
+        btn.textContent = "✓ Code Copied!";
+        btn.style.background = "linear-gradient(135deg, #00e676, #00c853)";
+        
+        // Create more confetti
+        createConfetti(50);
+        
+        // Reset button after delay
+        setTimeout(() => {
+          btn.textContent = "✨ Claim & Copy Code ✨";
+          btn.style.background = "linear-gradient(135deg, var(--gold), var(--platinum))";
+        }, 2000);
+      }).catch(err => {
+        alert("Please copy the code manually: " + code);
+      });
+    }
+
+    function createConfetti(count = 30) {
+      const colors = ['#ffd700', '#e5e4e2', '#b9f2ff', '#00e676', '#00a8ff'];
+      
+      for (let i = 0; i < count; i++) {
+        const confetti = document.createElement("div");
+        confetti.className = "confetti";
+        confetti.style.left = Math.random() * 100 + "vw";
+        confetti.style.width = Math.random() * 10 + 5 + "px";
+        confetti.style.height = Math.random() * 10 + 5 + "px";
+        confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        confetti.style.animationDuration = Math.random() * 3 + 2 + "s";
+        confetti.style.animationDelay = Math.random() * 0.5 + "s";
+        document.body.appendChild(confetti);
+        
+        // Remove confetti after animation
+        setTimeout(() => {
+          confetti.remove();
+        }, 5000);
+      }
+    }
+
+    function createParticles() {
+      const particlesContainer = document.getElementById('particles');
+      const particleCount = window.innerWidth < 600 ? 30 : 50;
+      
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.style.position = 'absolute';
+        particle.style.width = Math.random() * 3 + 1 + 'px';
+        particle.style.height = particle.style.width;
+        particle.style.backgroundColor = 'rgba(255, 255, 255, ' + (Math.random() * 0.5 + 0.1) + ')';
+        particle.style.borderRadius = '50%';
+        particle.style.top = Math.random() * 100 + 'vh';
+        particle.style.left = Math.random() * 100 + 'vw';
+        
+        // Animation
+        particle.style.animation = `float ${Math.random() * 20 + 10}s linear infinite`;
+        particle.style.animationDelay = Math.random() * 20 + 's';
+        
+        particlesContainer.appendChild(particle);
+      }
+      
+      // Add CSS for floating animation
+      const style = document.createElement('style');
+      style.textContent = `
+        @keyframes float {
+          0% {
+            transform: translateY(0) translateX(0);
+            opacity: 1;
+          }
+          50% {
+            transform: translateY(-100px) translateX(50px);
+            opacity: 0.5;
+          }
+          100% {
+            transform: translateY(-200px) translateX(0);
+            opacity: 0;
+          }
+        }
+      `;
+      document.head.appendChild(style);
+    }
+
+    function goHome() {
+      // Add a luxurious transition effect
+      document.body.style.opacity = '0';
+      document.body.style.transition = 'opacity 0.5s ease';
+      setTimeout(() => {
+        window.location.href = "real.html";
+      }, 500);
+    }
+  </script>
+</body>
+</html>

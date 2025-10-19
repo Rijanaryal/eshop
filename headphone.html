@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Electro-Bazzar | Headphones</title>
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: #1b1c36;
+      color: white;
+    }
+
+    /* Loading Screen */
+    #loading-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #1b1c36;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+
+    #loading-screen.hidden {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .loader {
+      width: 60px;
+      height: 60px;
+      border: 5px solid rgba(0, 255, 183, 0.3);
+      border-radius: 50%;
+      border-top-color: #00ffb7;
+      animation: spin 1s ease-in-out infinite;
+      margin-bottom: 20px;
+    }
+
+    .loading-text {
+      font-size: 1.2rem;
+      color: #00ffb7;
+      letter-spacing: 1px;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Navbar */
+    header {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 80px;
+      background: linear-gradient(90deg, #07070d, #0a0a12);
+      border-bottom: 2px solid #ff00aa;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    header .logo {
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: #00ffb7;
+    }
+
+    header .logo span {
+      color: #00aaff;
+    }
+
+    nav {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+    }
+
+    nav ul {
+      display: flex;
+      gap: 40px;
+      list-style: none;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      color: white;
+      font-weight: 600;
+      transition: 0.3s;
+    }
+
+    nav ul li a:hover {
+      color: #00ffb7;
+    }
+
+    /* Product Section */
+    .product-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 50px;
+      padding: 80px 10%;
+    }
+
+    .product-image {
+      flex: 1;
+      min-width: 300px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .product-image img {
+      width: 350px;
+      max-width: 100%;
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.5);
+      transition: transform 0.4s ease, filter 0.3s;
+    }
+
+    .product-image img:hover {
+      transform: scale(1.05);
+    }
+
+    .product-details {
+      flex: 1;
+      min-width: 320px;
+    }
+
+    .product-details h1 {
+      font-size: 2rem;
+      margin-bottom: 15px;
+    }
+
+    .product-details p {
+      color: #ccc;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .price {
+      font-size: 1.8rem;
+      color: #00ffb7;
+      margin-bottom: 20px;
+    }
+
+    .color-options, .quantity {
+      margin: 20px 0;
+    }
+
+    .color-options button {
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      margin-right: 10px;
+      border: 2px solid white;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+
+    .color-options button:hover {
+      transform: scale(1.1);
+    }
+
+    .quantity input {
+      width: 70px;
+      padding: 5px;
+      border-radius: 5px;
+      border: none;
+      text-align: center;
+    }
+
+    .btn-group {
+      margin-top: 25px;
+      display: flex;
+      gap: 15px;
+    }
+
+    .btn {
+      padding: 12px 25px;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .btn-buy {
+      background: #ff6600;
+      color: white;
+    }
+
+    .btn-cart {
+      background: #00ffb7;
+      color: black;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(255,255,255,0.2);
+    }
+
+    /* Related Products */
+    .related-section {
+      padding: 50px 10%;
+      text-align: center;
+    }
+
+    .related-section h2 {
+      font-size: 2rem;
+      color: #00ffb7;
+      margin-bottom: 40px;
+    }
+
+    .related-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 30px;
+    }
+
+    .product-card {
+      background: #23234a;
+      padding: 20px;
+      border-radius: 15px;
+      text-align: center;
+      transition: 0.3s;
+    }
+
+    .product-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 20px rgba(0,255,183,0.3);
+    }
+
+    .product-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+
+    .product-card h3 {
+      margin: 10px 0;
+      color: #fff;
+    }
+
+    .product-card p {
+      color: #ccc;
+      font-size: 14px;
+    }
+
+    .product-card button {
+      margin-top: 10px;
+      background: #00ffb7;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      color: black;
+      transition: 0.3s;
+    }
+
+    .product-card button:hover {
+      background: #00ffaa;
+      transform: scale(1.05);
+    }
+
+    /* Mobile Menu */
+    .mobile-menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 24px;
+      cursor: pointer;
+      padding: 10px;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1024px) {
+      header {
+        padding: 15px 40px;
+      }
+      .product-container {
+        padding: 60px 5%;
+      }
+      .product-image img {
+        width: 300px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      header {
+        padding: 15px 20px;
+      }
+
+      .mobile-menu-toggle {
+        display: block;
+      }
+
+      nav {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: linear-gradient(90deg, #07070d, #0a0a12);
+        border-top: 2px solid #ff00aa;
+        transform: translateY(-100%);
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+        z-index: 999;
+      }
+
+      nav.active {
+        transform: translateY(0);
+        opacity: 1;
+        visibility: visible;
+      }
+
+      nav ul {
+        flex-direction: column;
+        gap: 0;
+        padding: 20px;
+      }
+
+      nav ul li {
+        margin: 10px 0;
+      }
+
+      nav ul li a {
+        display: block;
+        padding: 15px;
+        text-align: center;
+        border-radius: 8px;
+        transition: background 0.3s;
+      }
+
+      nav ul li a:hover {
+        background: rgba(255, 255, 255, 0.1);
+      }
+
+      .product-container {
+        flex-direction: column;
+        text-align: center;
+        padding: 40px 5%;
+        gap: 30px;
+      }
+
+      .product-image {
+        min-width: auto;
+      }
+
+      .product-image img {
+        width: 280px;
+        max-width: 100%;
+      }
+
+      .product-details {
+        min-width: auto;
+        padding: 0 10px;
+      }
+
+      .product-details h1 {
+        font-size: 1.5rem;
+        margin-bottom: 15px;
+      }
+
+      .price {
+        font-size: 1.5rem;
+        margin-bottom: 15px;
+      }
+
+      .color-options {
+        margin: 15px 0;
+      }
+
+      .color-options button {
+        width: 40px;
+        height: 40px;
+        margin: 5px;
+      }
+
+      .btn-group {
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 20px;
+      }
+
+      .btn {
+        width: 100%;
+        padding: 15px 20px;
+        font-size: 16px;
+      }
+
+      .related-section {
+        padding: 40px 5%;
+      }
+
+      .related-section h2 {
+        font-size: 1.5rem;
+        margin-bottom: 30px;
+      }
+
+      .related-grid {
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 20px;
+      }
+
+      .product-card {
+        padding: 15px;
+      }
+
+      .product-card img {
+        height: 150px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      header {
+        padding: 10px 15px;
+      }
+
+      header .logo {
+        font-size: 1.4rem;
+      }
+
+      .product-container {
+        padding: 30px 3%;
+      }
+
+      .product-image img {
+        width: 250px;
+      }
+
+      .product-details h1 {
+        font-size: 1.3rem;
+        line-height: 1.3;
+      }
+
+      .product-details p {
+        font-size: 14px;
+        line-height: 1.5;
+      }
+
+      .price {
+        font-size: 1.3rem;
+      }
+
+      .color-options button {
+        width: 35px;
+        height: 35px;
+      }
+
+      .quantity input {
+        width: 60px;
+        font-size: 16px;
+      }
+
+      .related-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+      }
+
+      .product-card {
+        padding: 12px;
+      }
+
+      .product-card img {
+        height: 120px;
+      }
+
+      .product-card h3 {
+        font-size: 14px;
+      }
+
+      .product-card p {
+        font-size: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Loading Screen -->
+  <div id="loading-screen">
+    <div class="loader"></div>
+    <!-- <div class="loading-text">Loading Electro-Bazzar...</div> -->
+  </div>
+
+  <!-- Navbar -->
+  <header>
+    <div class="logo">Electro-<span>Bazzar</span></div>
+    <button class="mobile-menu-toggle" id="mobileToggle">
+      <i class="ri-menu-line"></i>
+    </button>
+    <nav id="navbar">
+      <ul>
+        <li><a href="real.html"><i class="ri-home-4-fill"></i> HOME</a></li>
+        <li><a href="shop.html"><i class="ri-shopping-cart-2-fill"></i> SHOP</a></li>
+        <li><a href="contact.html"><i class="ri-mail-fill"></i> CONTACT</a></li>
+        <li><a href="about.html"><i class="ri-information-fill"></i> ABOUT-US</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Product Section -->
+  <section class="product-container">
+    <div class="product-image">
+      <img id="mainHeadphone" src="https://m.media-amazon.com/images/I/61CGHv6kmWL._AC_UF1000,1000_QL80_.jpg" alt="Headphones">
+    </div>
+    <div class="product-details">
+      <h1>Premium Wireless Headphones</h1>
+      <p>Experience crystal-clear sound and deep bass with our latest noise-cancelling wireless headphones. Perfect for music, movies, and calls — all day comfort guaranteed!</p>
+      <div class="price">Rs.4500</div>
+
+      <div class="color-options">
+        <strong>Available Colors:</strong><br>
+        <button style="background:black;" onclick="changeColor('black')"></button>
+        <button style="background:#2a61ff;" onclick="changeColor('blue')"></button>
+        <button style="background:#fa0707;" onclick="changeColor('red')"></button>
+        <button style="background:#f91474;" onclick="changeColor('pink')"></button>
+      </div>
+
+      <div class="quantity">
+        <strong>Quantity:</strong><br>
+        <input type="number" id="quantity" value="1" min="1" max="10">
+      </div>
+
+      <div class="btn-group">
+        <button class="btn btn-cart" onclick="addToCart()">Add to Cart</button>
+        <!-- <button class="btn btn-buy" onclick="window.location.href='buy.html'">Buy Now</button> -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Related Products -->
+  <section class="related-section">
+    <h2>More Headphones You May Like</h2>
+    <div class="related-grid">
+      <div class="product-card">
+        <img src="https://static-01.daraz.com.np/p/bb78a814162031f0dd98aa3859c8a9f0.jpg" alt="Headphone 1">
+        <h3>Noise Cancelling Pro</h3>
+        <p>Rs.2120</p>
+        <button onclick="addToCart()">Add to Cart</button>
+      </div>
+
+      <div class="product-card">
+        <img src="https://www.rollingstone.com/wp-content/uploads/2022/09/best-haptic-headsets.png?w=896&h=554&crop=1" alt="Headphone 2">
+        <h3>Studio Bass Max</h3>
+        <p>Rs.2150</p>
+        <button onclick="addToCart()">Add to Cart</button>
+      </div>
+
+      <div class="product-card">
+        <img src="https://www.digitaltrends.com/wp-content/uploads/2021/08/corsair-hs80-cover.jpg?resize=1200%2C720&p=1" alt="Headphone 3">
+        <h3>Air Comfort Wireless</h3>
+        <p>Rs.3000</p>
+        <button onclick="addToCart()">Add to Cart</button>
+      </div>
+
+      <div class="product-card">
+        <img src="https://m.media-amazon.com/images/I/81IZqvD55YL._UF350,350_QL80_.jpg" alt="Headphone 4">
+        <h3>Sport Beat Pro</h3>
+        <p>Rs.3330</p>
+        <button onclick="addToCart()">Add to Cart</button>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // Initialize cart if it doesn't exist
+    if (!localStorage.getItem('cart')) {
+      localStorage.setItem('cart', JSON.stringify([]));
+    }
+
+    // Loading screen functionality
+    window.addEventListener('load', function() {
+      // Hide loading screen after a short delay to ensure everything is loaded
+      setTimeout(function() {
+        const loadingScreen = document.getElementById('loading-screen');
+        loadingScreen.classList.add('hidden');
+        
+        // Remove from DOM after animation completes
+        setTimeout(function() {
+          loadingScreen.style.display = 'none';
+        }, 500);
+      }, 1000); // Adjust this time if needed
+    });
+
+    // Mobile menu toggle
+    document.addEventListener('DOMContentLoaded', function() {
+      const mobileToggle = document.getElementById('mobileToggle');
+      const navbar = document.getElementById('navbar');
+      
+      if (mobileToggle && navbar) {
+        mobileToggle.addEventListener('click', function() {
+          navbar.classList.toggle('active');
+          const icon = mobileToggle.querySelector('i');
+          if (navbar.classList.contains('active')) {
+            icon.className = 'ri-close-line';
+          } else {
+            icon.className = 'ri-menu-line';
+          }
+        });
+
+        // Close menu when clicking on a link
+        const navLinks = navbar.querySelectorAll('a');
+        navLinks.forEach(link => {
+          link.addEventListener('click', function() {
+            navbar.classList.remove('active');
+            const icon = mobileToggle.querySelector('i');
+            icon.className = 'ri-menu-line';
+          });
+        });
+      }
+    });
+
+    function addToCart() {
+      let qty = document.getElementById("quantity").value;
+      let productName = document.querySelector('.product-details h1').textContent;
+      let productPrice = document.querySelector('.price').textContent;
+      let productImage = document.getElementById("mainHeadphone").src;
+      
+      // Get current cart
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      
+      // Create product object
+      let product = {
+        name: productName,
+        price: productPrice,
+        image: productImage,
+        quantity: qty,
+        id: 'headphone-' + Date.now() // Unique ID
+      };
+      
+      // Add to cart
+      cart.push(product);
+      localStorage.setItem('cart', JSON.stringify(cart));
+      
+      // Show notification
+      alert(qty + " Headphone(s) added to cart!");
+      
+      // Update cart count if element exists
+      updateCartCount();
+    }
+
+    function updateCartCount() {
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      // You can add cart count display here if needed
+    }
+
+    function changeColor(color) {
+      const img = document.getElementById("mainHeadphone");
+      if (color === "black") img.src = "https://5.imimg.com/data5/SELLER/Default/2023/8/334978061/RP/EN/DT/132716594/computer-gaming-headsets-500x500.jpg";
+      if (color === "blue") img.src = "https://i5.walmartimages.com/seo/Gaming-Headset-Mic-LED-Headphones-Stereo-Bass-Surround-For-PC-PS4-Xbox-One-BLUE-BLACK-WITH-LED-LIGHTS_ebddc5a1-b829-4a5f-9dfa-051badad835f.d9e6457b819644d88a377fc52fed2846.png";
+      if (color === "red") img.src = "https://i5.walmartimages.com/seo/Gaming-Headset-for-PS4-Headset-with-Microphone-Noise-Cancelling-PC-Headset-with-LED-Lights-Gaming-Headphones-Black-red_ec805a75-e2d3-4bfb-beea-371dacb8eb30.ad612d104b7576bfab051de972ad62d8.jpeg";
+      if (color === "pink") img.src = "https://static-01.daraz.com.np/p/b6dab8fe6d9d0400462e58c3a9f9bb43.jpg";
+    }
+  </script>
+
+</body>
+</html>

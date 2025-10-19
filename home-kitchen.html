@@ -1,0 +1,1223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home & Kitchen - Electro Bazzar</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #667eea;
+            --primary-dark: #5a6fd8;
+            --secondary: #764ba2;
+            --accent: #ff6b6b;
+            --success: #28a745;
+            --warning: #ffc107;
+            --dark-bg: #1a1a2e;
+            --darker-bg: #16213e;
+            --card-bg: #2d3748;
+            --text-light: #f8f9fa;
+            --text-gray: #a0aec0;
+            --border-color: #4a5568;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--dark-bg), var(--darker-bg));
+            color: var(--text-light);
+            min-height: 100vh;
+        }
+
+        /* Header Styles */
+        .header {
+            background: rgba(26, 26, 46, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .top-bar {
+            background: var(--darker-bg);
+            padding: 0.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .top-links a {
+            color: var(--text-gray);
+            text-decoration: none;
+            margin-right: 1.5rem;
+            transition: color 0.3s;
+        }
+
+        .top-links a:hover {
+            color: var(--primary);
+        }
+
+        .main-header {
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo i {
+            margin-right: 0.5rem;
+            font-size: 2.2rem;
+        }
+
+        .search-bar {
+            flex: 0 1 600px;
+            display: flex;
+            margin: 0 2rem;
+        }
+
+        .search-bar input {
+            flex: 1;
+            padding: 0.8rem 1rem;
+            border: none;
+            border-radius: 25px 0 0 25px;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-light);
+            font-size: 1rem;
+        }
+
+        .search-bar button {
+            padding: 0 1.5rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border: none;
+            border-radius: 0 25px 25px 0;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .search-bar button:hover {
+            background: linear-gradient(135deg, var(--primary-dark), var(--secondary));
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .action-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .action-btn i {
+            font-size: 1.5rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .action-btn:hover {
+            color: var(--primary);
+        }
+
+        .cart-count {
+            background: var(--accent);
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            font-size: 0.7rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            top: -5px;
+            right: -5px;
+        }
+
+        /* Navigation */
+        .main-nav {
+            background: rgba(45, 55, 72, 0.9);
+            padding: 0.8rem 2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-links a i {
+            margin-right: 0.5rem;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        /* Category Header */
+        .category-header {
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
+            padding: 3rem 2rem;
+            text-align: center;
+            margin: 1rem 2rem;
+            border-radius: 15px;
+        }
+
+        .category-header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .category-header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        /* Filter Section */
+        .filter-section {
+            background: var(--card-bg);
+            margin: 2rem;
+            padding: 1.5rem;
+            border-radius: 10px;
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .filter-group label {
+            font-weight: 600;
+            color: var(--text-gray);
+        }
+
+        .filter-group select {
+            padding: 0.5rem;
+            border-radius: 5px;
+            background: var(--darker-bg);
+            color: var(--text-light);
+            border: 1px solid var(--border-color);
+        }
+
+        /* Products Grid */
+        .section {
+            margin: 2rem;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .product-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid var(--border-color);
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            border-color: var(--primary);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: var(--accent);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            z-index: 2;
+        }
+
+        .product-image {
+            height: 220px;
+            width: 100%;
+            object-fit: cover;
+        }
+
+        .product-info {
+            padding: 1.5rem;
+        }
+
+        .product-category {
+            color: var(--primary);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-name {
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+            font-size: 1.1rem;
+            line-height: 1.4;
+        }
+
+        .product-price {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .current-price {
+            color: var(--primary);
+            font-weight: bold;
+            font-size: 1.3rem;
+        }
+
+        .original-price {
+            color: var(--text-gray);
+            text-decoration: line-through;
+            font-size: 1rem;
+        }
+
+        .discount {
+            color: var(--accent);
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .product-rating {
+            color: var(--warning);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .rating-count {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+        }
+
+        .product-features {
+            list-style: none;
+            margin-bottom: 1.5rem;
+        }
+
+        .product-features li {
+            color: var(--text-gray);
+            margin-bottom: 0.3rem;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .product-features li:before {
+            content: "✓";
+            color: var(--success);
+            margin-right: 0.5rem;
+            font-weight: bold;
+        }
+
+        .product-actions {
+            display: flex;
+            gap: 0.8rem;
+        }
+
+        .add-to-cart {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            flex: 1;
+            font-weight: 600;
+        }
+
+        .add-to-cart:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .wishlist {
+            background: transparent;
+            color: var(--text-gray);
+            border: 1px solid var(--border-color);
+            padding: 0.8rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .wishlist:hover {
+            color: var(--accent);
+            border-color: var(--accent);
+        }
+
+        /* Special Features */
+        .special-features {
+            background: var(--card-bg);
+            margin: 2rem;
+            padding: 1.5rem;
+            border-radius: 10px;
+            border-left: 4px solid var(--accent);
+        }
+
+        .special-features h3 {
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: var(--darker-bg);
+            border-radius: 8px;
+        }
+
+        .feature-icon {
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--darker-bg);
+            padding: 3rem 2rem 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: var(--text-gray);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            color: var(--text-gray);
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: var(--primary);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid var(--border-color);
+            padding-top: 1.5rem;
+            text-align: center;
+            color: var(--text-gray);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .search-bar {
+                flex: 0 1 400px;
+            }
+            
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-header {
+                flex-wrap: wrap;
+            }
+            
+            .search-bar {
+                order: 3;
+                flex: 1 1 100%;
+                margin: 1rem 0 0;
+            }
+            
+            .category-header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            }
+            
+            .filter-section {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .top-bar {
+                justify-content: center;
+            }
+            
+            .top-links:last-child {
+                display: none;
+            }
+            
+            .main-nav {
+                overflow-x: auto;
+            }
+            
+            .nav-links {
+                gap: 1rem;
+            }
+            
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .category-header {
+                margin: 1rem;
+                padding: 2rem 1rem;
+            }
+            
+            .section {
+                margin: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="top-bar">
+            <div class="top-links">
+                <a href="privacy.html"><i class="fas fa-question-circle"></i> Privacy Policy</a>
+                <a href="customercare.html"><i class="fas fa-headset"></i> Customer Support</a>
+                <a href="location.html"><i class="fas fa-truck"></i> Track Order(location)</a>
+            </div>
+            <div class="top-links">
+                <!-- Sign Up and Login removed as requested -->
+            </div>
+        </div>
+        
+        <div class="main-header">
+            <a href="visit.html" class="logo">
+                <i class="fas fa-bolt"></i>
+                Electro Bazzar
+            </a>
+            
+            <div class="search-bar">
+                <input type="text" placeholder="Search for home appliances, kitchenware, and decor...">
+                <button><i class="fas fa-search"></i></button>
+            </div>
+            
+            <div class="header-actions">
+                <a href="#" class="action-btn">
+                    <i class="fas fa-user"></i>
+                    <span>Account</span>
+                </a>
+                <a href="#" class="action-btn">
+                    <i class="fas fa-heart"></i>
+                    <span>Wishlist</span>
+                </a>
+        
+            </div>
+        </div>
+        
+        <nav class="main-nav">
+            <ul class="nav-links">
+                <li><a href="visit.html"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="electronics.html"><i class="fas fa-laptop"></i> Electronics</a></li>
+                <li><a href="fashion.html"><i class="fas fa-tshirt"></i> Fashion</a></li>
+                <li><a href="home-kitchen.html" style="color: var(--primary);"><i class="fas fa-home"></i> Home & Kitchen</a></li>
+                <li><a href="furniture.html"><i class="fas fa-couch"></i> Furniture</a></li>
+                <li><a href="sports.html"><i class="fas fa-dumbbell"></i> Sports</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Category Header -->
+    <section class="category-header">
+        <h1><i class="fas fa-home"></i> Home & Kitchen Store</h1>
+        <p>Transform your living space with premium home appliances, kitchenware, and decor items</p>
+    </section>
+
+    <!-- Special Features -->
+    <section class="special-features">
+        <h3><i class="fas fa-star"></i> Why Shop Home & Kitchen with Us?</h3>
+        <div class="feature-grid">
+            <div class="feature-item">
+                <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
+                <div>
+                    <div style="font-weight: 600;">2-Year Warranty</div>
+                    <div style="font-size: 0.9rem; color: var(--text-gray);">On all appliances</div>
+                </div>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon"><i class="fas fa-truck"></i></div>
+                <div>
+                    <div style="font-weight: 600;">Free Installation</div>
+                    <div style="font-size: 0.9rem; color: var(--text-gray);">For large appliances</div>
+                </div>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon"><i class="fas fa-recycle"></i></div>
+                <div>
+                    <div style="font-weight: 600;">Easy Returns</div>
+                    <div style="font-size: 0.9rem; color: var(--text-gray);">30-day return policy</div>
+                </div>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon"><i class="fas fa-headset"></i></div>
+                <div>
+                    <div style="font-weight: 600;">24/7 Support</div>
+                    <div style="font-size: 0.9rem; color: var(--text-gray);">Customer service</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Filter Section -->
+    <section class="filter-section">
+        <div class="filter-group">
+            <label>Category</label>
+            <select>
+                <option>All Home & Kitchen</option>
+                <option>Kitchen Appliances</option>
+                <option>Home Appliances</option>
+                <option>Cookware & Bakeware</option>
+                <option>Home Decor</option>
+                <option>Storage & Organization</option>
+                <option>Bed & Bath</option>
+                <option>Lighting</option>
+            </select>
+        </div>
+        <div class="filter-group">
+            <label>Brand</label>
+            <select>
+                <option>All Brands</option>
+                <option>Philips</option>
+                <option>Prestige</option>
+                <option>Morphy Richards</option>
+                <option>Butterfly</option>
+                <option>Havells</option>
+                <option>Bajaj</option>
+                <option>Milton</option>
+            </select>
+        </div>
+        <div class="filter-group">
+            <label>Price Range</label>
+            <select>
+                <option>Any Price</option>
+                <option>Under $50</option>
+                <option>$50 - $200</option>
+                <option>$200 - $500</option>
+                <option>Over $500</option>
+            </select>
+        </div>
+        <div class="filter-group">
+            <label>Sort By</label>
+            <select>
+                <option>Featured</option>
+                <option>Price: Low to High</option>
+                <option>Price: High to Low</option>
+                <option>Customer Rating</option>
+                <option>Newest Arrivals</option>
+            </select>
+        </div>
+    </section>
+
+    <!-- Featured Home & Kitchen -->
+    <section class="section">
+        <div class="section-header">
+            <h2 class="section-title">Popular Home & Kitchen Products</h2>
+            <div class="view-all">Showing 20 products</div>
+        </div>
+        
+        <div class="products-grid">
+            <!-- Product 1 -->
+            <div class="product-card">
+                <div class="product-badge">Bestseller</div>
+                <img src="https://cdn.thewirecutter.com/wp-content/media/2025/08/BEST-AIR-FRYERS-2048px-5888.jpg?auto=webp&quality=75&crop=1.91:1&width=1200" alt="Air Fryer" class="product-image">
+                <div class="product-info">
+                    <div class="product-category">Kitchen Appliances</div>
+                    <div class="product-name">Digital Air Fryer with Touch Control</div>
+                    <div class="product-price">
+                        <span class="current-price">$129.99</span>
+                        <span class="original-price">$179.99</span>
+                        <span class="discount">28% OFF</span>
+                    </div>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                        <span class="rating-count">(2,456)</span>
+                    </div>
+                    <ul class="product-features">
+                        <li>5.8L Capacity</li>
+                        <li>8 Preset Cooking Programs</li>
+                        <li>Digital Touch Display</li>
+                        <li>Overheat Protection</li>
+                    </ul>
+                    <div class="product-actions">
+                        <button class="add-to-cart" onclick="window.location.href='buy.html'">Buy</button>
+                        <button class="wishlist"><i class="far fa-heart"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 2 -->
+            <div class="product-card">
+                <div class="product-badge">New</div>
+                <img src="https://img.vevorstatic.com/us%2FTSSBJ20L1400WO5FOV1%2Fgoods_img-v1%2Fsand-ice-machine-f4.jpg?timestamp=1688697143000&format=webp" alt="Blender" class="product-image">
+                <div class="product-info">
+                    <div class="product-category">Kitchen Appliances</div>
+                    <div class="product-name">Professional Blender with Glass Jar</div>
+                    <div class="product-price">
+                        <span class="current-price">$89.99</span>
+                        <span class="original-price">$129.99</span>
+                        <span class="discount">31% OFF</span>
+                    </div>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <span class="rating-count">(1,789)</span>
+                    </div>
+                    <ul class="product-features">
+                        <li>1500W Motor Power</li>
+                        <li>2L Glass Jar</li>
+                        <li>8 Speed Settings</li>
+                        <li>Stainless Steel Blades</li>
+                    </ul>
+                    <div class="product-actions">
+                        <button class="add-to-cart" onclick="window.location.href='buy.html'">Buy</button>
+                        <button class="wishlist"><i class="far fa-heart"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 3 -->
+            <div class="product-card">
+                <img src="https://www.foodandwine.com/thmb/peVijMj987TLXx-kqg2Vp_WtzM0=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/faw-product-cafe-specialty-drip-coffee-maker-10-wdickey-156-1-f81b5eee6e774a0881190f47df9cf311.jpeg" alt="Coffee Maker" class="product-image">
+                <div class="product-info">
+                    <div class="product-category">Kitchen Appliances</div>
+                    <div class="product-name">Programmable Coffee Maker Machine</div>
+                    <div class="product-price">
+                        <span class="current-price">$149.99</span>
+                        <span class="original-price">$199.99</span>
+                        <span class="discount">25% OFF</span>
+                    </div>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <span class="rating-count">(3,234)</span>
+                    </div>
+                    <ul class="product-features">
+                        <li>12-Cup Capacity</li>
+                        <li>Programmable Timer</li>
+                        <li>Auto Shut-off</li>
+                        <li>Glass Carafe Included</li>
+                    </ul>
+                    <div class="product-actions">
+                        <button class="add-to-cart" onclick="window.location.href='buy.html'">Buy</button>
+                        <button class="wishlist"><i class="far fa-heart"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 4 -->
+            <div class="product-card">
+                <div class="product-badge">Sale</div>
+                <img src="https://m.media-amazon.com/images/I/71pn0+uoC1L._AC_SL1500_.jpg" alt="Cookware Set" class="product-image">
+                <div class="product-info">
+                    <div class="product-category">Cookware</div>
+                    <div class="product-name">Non-Stick Cookware Set 10-Piece</div>
+                    <div class="product-price">
+                        <span class="current-price">$199.99</span>
+                        <span class="original-price">$299.99</span>
+                        <span class="discount">33% OFF</span>
+                    </div>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                        <span class="rating-count">(1,567)</span>
+                    </div>
+                    <ul class="product-features">
+                        <li>Granite Coating</li>
+                        <li>Dishwasher Safe</li>
+                        <li>Oven Safe up to 350°F</li>
+                        <li>Includes Utensils</li>
+                    </ul>
+                    <div class="product-actions">
+                        <button class="add-to-cart" onclick="window.location.href='buy.html'">Buy</button>
+                        <button class="wishlist"><i class="far fa-heart"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 5 -->
+            <div class="product-card">
+                <img src="https://media3.bsh-group.com/Product_Shots/5120x/17805208_website_HC_T12_BGS21POW2_SecondaryImage-04_def.webp" alt="Vacuum Cleaner" class="product-image">
+                <div class="product-info">
+                    <div class="product-category">Home Appliances</div>
+                    <div class="product-name">Bagless Vacuum Cleaner with HEPA</div>
+                    <div class="product-price">
+                        <span class="current-price">$179.99</span>
+                        <span class="original-price">$249.99</span>
+                        <span class="discount">28% OFF</span>
+                    </div>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <span class="rating-count">(2,345)</span>
+                    </div>
+                    <ul class="product-features">
+                        <li>2000W Motor Power</li>
+                        <li>HEPA Filtration</li>
+                        <li>5-in-1 Accessories</li>
+                        <li>2L Dust Capacity</li>
+                    </ul>
+                    <div class="product-actions">
+                        <button class="add-to-cart" onclick="window.location.href='buy.html'">Buy</button>
+                        <button class="wishlist"><i class="far fa-heart"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 6 -->
+            <div class="product-card">
+                <div class="product-badge">Trending</div>
+                <img src="https://m.media-amazon.com/images/I/719A+1HWJOL._UF1000,1000_QL80_.jpg" alt="Air Purifier" class="product-image">
+                <div class="product-info">
+                    <div class="product-category">Home Appliances</div>
+                    <div class="product-name">Smart Air Purifier with Air Quality Sensor</div>
+                    <div class="product-price">
+                        <span class="current-price">$299.99</span>
+                        <span class="original-price">$399.99</span>
+                        <span class="discount">25% OFF</span>
+                    </div>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                        <span class="rating-count">(1,234)</span>
+                    </div>
+                    <ul class="product-features">
+                        <li>HEPA + Carbon Filter</li>
+                        <li>Smartphone Control</li>
+                        <li>Auto Mode</li>
+                        <li>Sleep Mode</li>
+                    </ul>
+                    <div class="product-actions">
+                        <button class="add-to-cart" onclick="window.location.href='buy.html'">Buy</button>
+                        <button class="wishlist"><i class="far fa-heart"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 7 -->
+            <div class="product-card">
+                <img src="https://media.homecentre.com/i/homecentre/162443636-162443636-HC190220_01-2100.jpg?fmt=auto&$quality-standard$&sm=c&$prodimg-m-sqr-pdp-2x$" alt="Dinner Set" class="product-image">
+                <div class="product-info">
+                    <div class="product-category">Dinnerware</div>
+                    <div class="product-name">Ceramic Dinner Set 32-Piece</div>
+                    <div class="product-price">
+                        <span class="current-price">$79.99</span>
+                        <span class="original-price">$119.99</span>
+                        <span class="discount">33% OFF</span>
+                    </div>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <span class="rating-count">(3,456)</span>
+                    </div>
+                    <ul class="product-features">
+                        <li>Microwave Safe</li>
+                        <li>Dishwasher Safe</li>
+                        <li>Chip Resistant</li>
+                        <li>Elegant Design</li>
+                    </ul>
+                    <div class="product-actions">
+                        <button class="add-to-cart" onclick="window.location.href='buy.html'">Buy</button>
+                        <button class="wishlist"><i class="far fa-heart"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 8 -->
+            <div class="product-card">
+                <div class="product-badge">Limited</div>
+                <img src="https://www.appliancesdirect.co.uk/Images/EIQFPSSEF_1_Supersize.jpg?v=101" alt="Food Processor" class="product-image">
+                <div class="product-info">
+                    <div class="product-category">Kitchen Appliances</div>
+                    <div class="product-name">Multi-functional Food Processor</div>
+                    <div class="product-price">
+                        <span class="current-price">$159.99</span>
+                        <span class="original-price">$229.99</span>
+                        <span class="discount">30% OFF</span>
+                    </div>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                        <span class="rating-count">(987)</span>
+                    </div>
+                    <ul class="product-features">
+                        <li>1000W Motor</li>
+                        <li>8 Accessories Included</li>
+                        <li>Pulse Function</li>
+                        <li>Safety Lock System</li>
+                    </ul>
+                    <div class="product-actions">
+                        <button class="add-to-cart" onclick="window.location.href='buy.html'">Buy</button>
+                        <button class="wishlist"><i class="far fa-heart"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 9 -->
+            <div class="product-card">
+                <img src="https://img.drz.lazcdn.com/static/np/p/77a7b0e0a69ab32ee70bfc39defe83bd.jpg_720x720q80.jpg" alt="Water Purifier" class="product-image">
+                <div class="product-info">
+                    <div class="product-category">Home Appliances</div>
+                    <div class="product-name">RO Water Purifier with UV</div>
+                    <div class="product-price">
+                        <span class="current-price">$349.99</span>
+                        <span class="original-price">$499.99</span>
+                        <span class="discount">30% OFF</span>
+                    </div>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <span class="rating-count">(567)</span>
+                    </div>
+                    <ul class="product-features">
+                        <li>7-stage Purification</li>
+                        <li>UV Protection</li>
+                        <li>8L Storage Capacity</li>
+                        <li>Smart Indicators</li>
+                    </ul>
+                    <div class="product-actions">
+                        <button class="add-to-cart" onclick="window.location.href='buy.html'">Buy</button>
+                        <button class="wishlist"><i class="far fa-heart"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 10 -->
+            <div class="product-card">
+                <div class="product-badge">Popular</div>
+                <img src="https://m.media-amazon.com/images/I/81itPggvY3S._AC_SL1500_.jpg" alt="Kitchen Knives" class="product-image">
+                <div class="product-info">
+                    <div class="product-category">Kitchen Tools</div>
+                    <div class="product-name">Professional Chef Knife Set</div>
+                    <div class="product-price">
+                        <span class="current-price">$129.99</span>
+                        <span class="original-price">$189.99</span>
+                        <span class="discount">32% OFF</span>
+                    </div>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <span class="rating-count">(1,123)</span>
+                    </div>
+                    <ul class="product-features">
+                        <li>High-Carbon Steel</li>
+                        <li>Ergonomic Handles</li>
+                        <li>8-Piece Set</li>
+                        <li>Wooden Block Included</li>
+                    </ul>
+                    <div class="product-actions">
+                        <button class="add-to-cart" onclick="window.location.href='buy.html'">Buy</button>
+                        <button class="wishlist"><i class="far fa-heart"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 11 -->
+            <div class="product-card">
+                <img src="https://www.roomie-design.com/cdn/shop/products/cassandra-silver-1000-tc-luxury-egyptian-cotton-duvet-cover-set-bedding-roomie-design-559495.jpg?v=1734194566" alt="Bedding Set" class="product-image">
+                <div class="product-info">
+                    <div class="product-category">Bed & Bath</div>
+                    <div class="product-name">Luxury Cotton Bedding Set</div>
+                    <div class="product-price">
+                        <span class="current-price">$89.99</span>
+                        <span class="original-price">$129.99</span>
+                        <span class="discount">31% OFF</span>
+                    </div>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                        <span class="rating-count">(2,345)</span>
+                    </div>
+                    <ul class="product-features">
+                        <li>100% Egyptian Cotton</li>
+                        <li>Queen Size</li>
+                        <li>4-Piece Set</li>
+                        <li>Machine Washable</li>
+                    </ul>
+                    <div class="product-actions">
+                        <button class="add-to-cart" onclick="window.location.href='buy.html'">Buy</button>
+                        <button class="wishlist"><i class="far fa-heart"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 12 -->
+            <div class="product-card">
+                <div class="product-badge">Hot</div>
+                <img src="https://images-cdn.ubuy.co.in/63513eaf5d2b7f5e757802c0-ecolor-led-light-bulbs-smart-music-sync.jpg" alt="Smart Lighting" class="product-image">
+                <div class="product-info">
+                    <div class="product-category">Lighting</div>
+                    <div class="product-name">Smart LED Bulbs with App Control</div>
+                    <div class="product-price">
+                        <span class="current-price">$49.99</span>
+                        <span class="original-price">$79.99</span>
+                        <span class="discount">38% OFF</span>
+                    </div>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <span class="rating-count">(1,876)</span>
+                    </div>
+                    <ul class="product-features">
+                        <li>16 Million Colors</li>
+                        <li>Voice Control Compatible</li>
+                        <li>Energy Efficient</li>
+                        <li>4-Pack</li>
+                    </ul>
+                    <div class="product-actions">
+                        <button class="add-to-cart" onclick="window.location.href='buy.html'">Buy</button>
+                        <button class="wishlist"><i class="far fa-heart"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>Customer Service</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Help Center</a></li>
+                    <li><a href="#">How to Buy</a></li>
+                    <li><a href="#">Returns & Refunds</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">Purchase Protection</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>About Electro Bazzar</h3>
+                <ul class="footer-links">
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Terms & Conditions</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Blog</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Payment Methods</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Credit/Debit Card</a></li>
+                    <li><a href="#">Net Banking</a></li>
+                    <li><a href="#">Cash on Delivery</a></li>
+                    <li><a href="#">EMI Options</a></li>
+                    <li><a href="#">Wallet</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Follow Us</h3>
+                <p>Stay connected with us for the latest updates</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2024 Electro Bazzar. All rights reserved. | Designed with <i class="fas fa-heart" style="color: var(--accent);"></i> for amazing shopping experiences</p>
+        </div>
+    </footer>
+
+    <script>
+        // Add to cart functionality
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+            button.addEventListener('click', function() {
+                const productName = this.closest('.product-card').querySelector('.product-name').textContent;
+                const productPrice = this.closest('.product-card').querySelector('.current-price').textContent;
+                
+                alert(`${productName} added to cart!\nPrice: ${productPrice}`);
+                
+                // Update cart count
+                const cartCount = document.querySelector('.cart-count');
+                cartCount.textContent = parseInt(cartCount.textContent) + 1;
+                
+                // Add animation effect
+                this.style.background = 'var(--success)';
+                setTimeout(() => {
+                    this.style.background = 'var(--primary)';
+                }, 1000);
+            });
+        });
+        
+        // Wishlist functionality
+        document.querySelectorAll('.wishlist').forEach(button => {
+            button.addEventListener('click', function() {
+                const icon = this.querySelector('i');
+                if (icon.classList.contains('far')) {
+                    icon.classList.remove('far');
+                    icon.classList.add('fas');
+                    this.style.color = 'var(--accent)';
+                    this.style.borderColor = 'var(--accent)';
+                    
+                    const productName = this.closest('.product-card').querySelector('.product-name').textContent;
+                    alert(`${productName} added to wishlist!`);
+                } else {
+                    icon.classList.remove('fas');
+                    icon.classList.add('far');
+                    this.style.color = 'var(--text-gray)';
+                    this.style.borderColor = 'var(--border-color)';
+                }
+            });
+        });
+        
+        // Filter functionality
+        document.querySelectorAll('select').forEach(select => {
+            select.addEventListener('change', function() {
+                // In a real application, this would filter the products
+                console.log(`Filter changed: ${this.value}`);
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete Your Purchase | Electro-Bazzar - Premium Electronics Store</title>
+    
+    <!-- Electro-Bazzar Logo Structured Data for Google -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "url": "https://electro-bazzar.com",
+      "logo": "https://i.ibb.co/6RNT2Rm4/electro-bazzar-logo.jpg",
+      "name": "Electro-Bazzar",
+      "description": "Your one-stop shop for premium electronics and gadgets in Nepal.",
+      "sameAs": [
+        "https://facebook.com/electrobazzar",
+        "https://instagram.com/electrobazzar"
+      ]
+    }
+    </script>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6c5ce7;
+            --primary-dark: #5649c0;
+            --secondary: #a29bfe;
+            --accent: #fd79a8;
+            --dark: #2d3436;
+            --light: #ffffff;
+            --gray: #dfe6e9;
+            --success: #00b894;
+            --danger: #d63031;
+            --warning: #fdcb6e;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+            color: var(--dark);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 30px;
+        }
+        
+        /* Header with animated gradient */
+        .checkout-header {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+            padding: 30px;
+            border-radius: 15px;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            color: white;
+            box-shadow: var(--shadow);
+            animation: gradientBG 15s ease infinite;
+            background-size: 400% 400%;
+        }
+        
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .checkout-header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .checkout-header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .checkout-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+        
+        @media (max-width: 992px) {
+            .checkout-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Enhanced checkout form */
+        .checkout-form {
+            background-color: var(--light);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .checkout-form::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--primary), var(--accent));
+        }
+        
+        .checkout-form:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+        }
+        
+        .checkout-form h2 {
+            color: var(--primary);
+            margin-bottom: 25px;
+            font-size: 1.8rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .checkout-form h2::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background-color: var(--accent);
+            border-radius: 3px;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 500;
+            color: var(--dark);
+            font-size: 0.95rem;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid var(--gray);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: var(--transition);
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .form-control:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.2);
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        /* Payment methods with hover effects */
+        .payment-methods {
+            margin-top: 35px;
+        }
+        
+        .payment-methods h3 {
+            margin-bottom: 20px;
+            color: var(--dark);
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .payment-methods h3 i {
+            margin-right: 10px;
+            color: var(--primary);
+        }
+        
+        .payment-option {
+            display: flex;
+            align-items: center;
+            padding: 18px 20px;
+            border: 2px solid var(--gray);
+            border-radius: 10px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: var(--transition);
+            background-color: white;
+        }
+        
+        .payment-option:hover {
+            border-color: var(--primary);
+            transform: translateX(5px);
+        }
+        
+        .payment-option.active {
+            border-color: var(--primary);
+            background-color: rgba(108, 92, 231, 0.05);
+            box-shadow: 0 5px 15px rgba(108, 92, 231, 0.1);
+        }
+        
+        .payment-option input {
+            margin-right: 15px;
+            accent-color: var(--primary);
+            width: 18px;
+            height: 18px;
+        }
+        
+        .payment-logo {
+            width: 45px;
+            height: 45px;
+            margin-right: 15px;
+            object-fit: contain;
+            filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.1));
+            transition: var(--transition);
+        }
+        
+        .payment-option:hover .payment-logo {
+            transform: scale(1.1);
+        }
+        
+        /* QR section with floating animation */
+        .qr-section {
+            text-align: center;
+            margin: 35px 0;
+            padding: 30px;
+            border: 2px dashed var(--secondary);
+            border-radius: 15px;
+            background-color: rgba(162, 155, 254, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .qr-section::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            width: 50px;
+            height: 50px;
+            background-color: var(--accent);
+            opacity: 0.1;
+            border-radius: 50%;
+        }
+        
+        .qr-section::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: -20px;
+            width: 80px;
+            height: 80px;
+            background-color: var(--primary);
+            opacity: 0.1;
+            border-radius: 50%;
+        }
+        
+        .qr-section h3 {
+            margin-bottom: 15px;
+            color: var(--primary-dark);
+            font-size: 1.4rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .qr-section p {
+            color: var(--dark);
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .qr-code {
+            width: 220px;
+            height: 220px;
+            margin: 0 auto 20px;
+            background-color: white;
+            padding: 15px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 1;
+            animation: float 4s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .qr-code img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        
+        /* Order summary with floating cart items */
+        .order-summary {
+            background-color: var(--light);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: sticky;
+            top: 30px;
+        }
+        
+        .order-summary:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+        }
+        
+        .order-summary h2 {
+            color: var(--primary);
+            margin-bottom: 25px;
+            font-size: 1.8rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .order-summary h2::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background-color: var(--accent);
+            border-radius: 3px;
+        }
+        
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 18px;
+            padding-bottom: 18px;
+            border-bottom: 1px dashed var(--gray);
+        }
+        
+        .summary-item:last-child {
+            border-bottom: none;
+        }
+        
+        .summary-total {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        /* Enhanced cart items */
+        .cart-items {
+            margin-bottom: 30px;
+        }
+        
+        .cart-item {
+            display: flex;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--gray);
+            transition: var(--transition);
+            border-radius: 10px;
+            padding: 15px;
+        }
+        
+        .cart-item:hover {
+            background-color: rgba(108, 92, 231, 0.03);
+            transform: translateX(5px);
+        }
+        
+        .cart-item-img {
+            width: 90px;
+            height: 90px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-right: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+        }
+        
+        .cart-item:hover .cart-item-img {
+            transform: rotate(-5deg);
+        }
+        
+        .cart-item-details {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .cart-item-title {
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--dark);
+        }
+        
+        .cart-item-price {
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+        
+        .cart-item-quantity {
+            color: #777;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .cart-item-quantity i {
+            margin-right: 5px;
+            color: var(--accent);
+        }
+        
+        /* Delivery options with custom radio buttons */
+        .delivery-options {
+            margin: 25px 0;
+        }
+        
+        .delivery-options h3 {
+            margin-bottom: 20px;
+            color: var(--dark);
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .delivery-options h3 i {
+            margin-right: 10px;
+            color: var(--primary);
+        }
+        
+        .delivery-option {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 15px;
+            border-radius: 10px;
+            background-color: white;
+            border: 2px solid var(--gray);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+        
+        .delivery-option:hover {
+            border-color: var(--primary);
+        }
+        
+        .delivery-option input {
+            margin-right: 15px;
+            accent-color: var(--primary);
+            width: 18px;
+            height: 18px;
+        }
+        
+        /* Buttons with gradient and hover effects */
+        .btn {
+            display: inline-block;
+            padding: 16px 30px;
+            background: linear-gradient(45deg, var(--primary), var(--primary-dark));
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.05rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: center;
+            text-decoration: none;
+            box-shadow: 0 5px 15px rgba(108, 92, 231, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .btn:hover::before {
+            left: 100%;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(108, 92, 231, 0.4);
+        }
+        
+        .btn:active {
+            transform: translateY(1px);
+        }
+        
+        .btn-block {
+            display: block;
+            width: 100%;
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            box-shadow: none;
+        }
+        
+        .btn-outline:hover {
+            background: linear-gradient(45deg, var(--primary), var(--primary-dark));
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(108, 92, 231, 0.4);
+        }
+        
+        /* Continue shopping link with animation */
+        .continue-shopping {
+            text-align: center;
+            margin-top: 30px;
+        }
+        
+        .continue-shopping a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            transition: var(--transition);
+            padding: 10px 15px;
+            border-radius: 8px;
+        }
+        
+        .continue-shopping a:hover {
+            background-color: rgba(108, 92, 231, 0.1);
+            transform: translateX(-5px);
+        }
+        
+        .continue-shopping a i {
+            margin-right: 8px;
+            transition: var(--transition);
+        }
+        
+        .continue-shopping a:hover i {
+            transform: translateX(-3px);
+        }
+        
+        /* Delivery info with icon */
+        .delivery-info {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: rgba(0, 184, 148, 0.05);
+            border-radius: 10px;
+            border-left: 4px solid var(--success);
+        }
+        
+        .delivery-info h3 {
+            margin-bottom: 10px;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+        }
+        
+        .delivery-info h3 i {
+            margin-right: 10px;
+            color: var(--success);
+        }
+        
+        .delivery-info p {
+            margin-bottom: 8px;
+            color: var(--dark);
+            font-size: 0.95rem;
+        }
+        
+        .delivery-info strong {
+            color: var(--primary);
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            
+            .checkout-header {
+                padding: 20px;
+            }
+            
+            .checkout-header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .checkout-form, .order-summary {
+                padding: 25px;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            
+            .cart-item-img {
+                width: 70px;
+                height: 70px;
+            }
+        }
+        
+        /* Floating notification */
+        .notification {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(45deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 20px 25px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(108, 92, 231, 0.3);
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+        }
+        
+        .notification.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        .notification i {
+            margin-right: 15px;
+            font-size: 1.5rem;
+        }
+    
+    </style>
+</head>
+<body>
+     <div class="container">
+        <div class="checkout-header">
+            <h1>Complete Your Purchase</h1>
+            <p>Just a few more steps to get your items delivered</p>
+        </div>
+        
+        <div class="checkout-grid">
+            <div class="checkout-form">
+                <h2>Billing Details</h2>
+                <form id="checkoutForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="firstName">First Name</label>
+                            <input type="text" id="firstName" class="form-control" placeholder="Enter your first name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Last Name</label>
+                            <input type="text" id="lastName" class="form-control" placeholder="Enter your last name" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" class="form-control" placeholder="your.email@example.com" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" class="form-control" placeholder="+977 98XXXXXXXX" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="address">Shipping Address</label>
+                        <textarea id="address" class="form-control" rows="3" placeholder="Enter your complete shipping address" required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="city">City</label>
+                        <input type="text" id="city" class="form-control" placeholder="Enter your city" required>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="zipCode">Zip Code</label>
+                            <input type="text" id="zipCode" class="form-control" placeholder="Enter zip code" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="country">Country</label>
+                            <select id="country" class="form-control" required>
+                                <option value="">Select Country</option>
+                                <option value="nepal" selected>Nepal</option>
+                                <option value="india">India</option>
+                                <option value="china">China</option>
+                                <option value="usa">United States</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="delivery-options">
+                        <h3><i class="fas fa-truck"></i> Delivery Method</h3>
+                        <div class="delivery-option">
+                            <input type="radio" id="standard" name="delivery" checked>
+                            <label for="standard">Standard Delivery (3-5 business days) - Rs. 100</label>
+                        </div>
+                        <div class="delivery-option">
+                            <input type="radio" id="express" name="delivery">
+                            <label for="express">Express Delivery (1-2 business days) - Rs. 200</label>
+                        </div>
+                    </div>
+                    
+                    <div class="payment-methods">
+                        <h3><i class="fas fa-credit-card"></i> Payment Method</h3>
+                        <div class="payment-option" id="codOption">
+                            <input type="radio" id="cod" name="payment" checked>
+                            <img src="https://cdn-icons-png.flaticon.com/512/2553/2553157.png" alt="Cash on Delivery" class="payment-logo">
+                            <label for="cod">Cash on Delivery</label>
+                        </div>
+                        <div class="payment-option" id="esewaOption">
+                            <input type="radio" id="esewa" name="payment">
+                            <img src="https://esewa.com.np/common/images/esewa_logo.png" alt="eSewa" class="payment-logo">
+                            <label for="esewa">Pay with eSewa</label>
+                        </div>
+                        <div class="payment-option" id="mobileBankingOption">
+                            <input type="radio" id="mobileBanking" name="payment">
+                            <img src="https://cdn-icons-png.flaticon.com/512/2965/2965300.png" alt="Mobile Banking" class="payment-logo">
+                            <label for="mobileBanking">Mobile Banking</label>
+                        </div>
+                    </div>
+                    
+                    <div class="qr-section" id="qrSection" style="display: none;">
+                        <h3>Scan to Pay</h3>
+                        <p>Please scan the QR code below to complete your payment</p>
+                        <div class="qr-code">
+                            <!-- Replace with your actual QR code image -->
+                            <img src="/11b21569-ece4-4bb7-b347-5dff83f64f68.jpg" alt="Payment QR Code">
+                        </div>
+                        <p>After payment, your order will be processed immediately</p>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-block">
+                        <i class="fas fa-lock"></i> Secure Checkout
+                    </button>
+                </form>
+                
+                <div class="continue-shopping">
+                    <a href="shop.html"><i class="fas fa-arrow-left"></i> Continue Shopping</a>
+                </div>
+            </div>
+            
+            <div class="order-summary">
+                                <a href="real.html" style="color: blue; text-decoration: none;">🏠 HOME</a> <BR></BR>
+
+                <h2>Order Summary</h2>
+                
+                <div class="cart-items">
+                    <div class="cart-item">
+                        <!-- <img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fHByb2R1Y3R8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60" alt="Product" class="cart-item-img"> -->
+                        <div class="cart-item-details">
+                            <div class="cart-item-title">QUANTITY-I</div>
+<a href="index.html" style="text-decoration: none;">                            <div class="cart-item-price">Continue shopping - I</div>
+</a>
+                            
+                            <div class="cart-item-quantity"><i class="fas fa-cube"></i> Quantity: 1</div>
+                        </div>
+                    </div>
+                    
+                    <div class="cart-item">
+                        <!-- <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cHJvZHVjdHxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60" alt="Product" class="cart-item-img"> -->
+                        <div class="cart-item-details">
+                            <div class="cart-item-title">QUANTITY-II</div>
+<a href="shop.html" style="text-decoration: none;">                            <div class="cart-item-price">Continue shopping - II</div>
+</a>                            
+                            <div class="cart-item-quantity"><i class="fas fa-cube"></i> Quantity: 1</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="summary-item">
+                    <span>ENJOU YOUR DAY</span>
+                    <span>❤️</span>
+                </div>
+                <div class="summary-item">
+                    <span>Shipping</span>
+                    <span>🔐</span>
+                </div>
+                <div class="summary-item">
+                    <span>Tax (13%)</span>
+                    <span>🔃</span>
+                </div>
+                <div class="summary-item summary-total">
+                    <!-- <span>Total</span> -->
+                    <!-- <span>Rs. 15,352.74</span> -->
+                </div>
+                
+                <div class="delivery-info">
+                    <h3><i class="fas fa-info-circle"></i> Delivery Information</h3>
+                    <p>Your order will be delivered to the address you provide. Please ensure all details are correct.</p>
+                    <p>Estimated delivery date: <strong>July 30, 2023</strong></p>
+                </div>
+                
+                <a href="#" class="btn btn-outline btn-block" style="margin-top: 20px;">
+                    <i class="fas fa-pencil-alt"></i> Edit Cart
+                </a>
+                <a href="real.html"></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="notification" id="notification">
+        <i class="fas fa-check-circle"></i>
+        <span>Your order has been placed successfully!</span>
+    </div>
+
+
+    <script>
+ document.addEventListener('DOMContentLoaded', function() {
+        // Show QR code section when eSewa or Mobile Banking is selected
+        const paymentOptions = document.querySelectorAll('input[name="payment"]');
+        const qrSection = document.getElementById('qrSection');
+        const codOption = document.getElementById('codOption');
+        const esewaOption = document.getElementById('esewaOption');
+        const mobileBankingOption = document.getElementById('mobileBankingOption');
+        
+        paymentOptions.forEach(option => {
+            option.addEventListener('change', function() {
+                if (this.id === 'esewa' || this.id === 'mobileBanking') {
+                    qrSection.style.display = 'block';
+                } else {
+                    qrSection.style.display = 'none';
+                }
+                
+                // Add active class to selected option
+                if (this.id === 'cod') {
+                    codOption.classList.add('active');
+                    esewaOption.classList.remove('active');
+                    mobileBankingOption.classList.remove('active');
+                } else if (this.id === 'esewa') {
+                    esewaOption.classList.add('active');
+                    codOption.classList.remove('active');
+                    mobileBankingOption.classList.remove('active');
+                } else if (this.id === 'mobileBanking') {
+                    mobileBankingOption.classList.add('active');
+                    codOption.classList.remove('active');
+                    esewaOption.classList.remove('active');
+                }
+            });
+        });
+        
+        // Form submission with notification
+        const checkoutForm = document.getElementById('checkoutForm');
+        const notification = document.getElementById('notification');
+        
+        checkoutForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Collect form data
+            const formData = {
+                firstName: document.getElementById('firstName').value,
+                lastName: document.getElementById('lastName').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                address: document.getElementById('address').value,
+                city: document.getElementById('city').value,
+                zipCode: document.getElementById('zipCode').value,
+                country: document.getElementById('country').value,
+                delivery: document.querySelector('input[name="delivery"]:checked').id,
+                payment: document.querySelector('input[name="payment"]:checked').id
+            };
+            
+            // Show notification
+            notification.classList.add('show');
+            
+            // Prepare email content (for demonstration)
+            const emailContent = `
+                New Order Received!
+                ==================
+                Name: ${formData.firstName} ${formData.lastName}
+                Email: ${formData.email}
+                Phone: ${formData.phone}
+                Address: ${formData.address}, ${formData.city}, ${formData.zipCode}, ${formData.country}
+                Delivery: ${formData.delivery === 'express' ? 'Express Delivery' : 'Standard Delivery'}
+                Payment: ${getPaymentMethodName(formData.payment)}
+            `;
+            
+            // In a real application, you would send this data to your server here
+            console.log("Order details ready to be sent:");
+            console.log(emailContent);
+            
+            // For testing purposes, we'll just show the success message
+            notification.querySelector('span').textContent = 'Order received! (Check console for details)';
+            
+            // Hide after 5 seconds
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 5000);
+            
+            // In a real application, you would actually send the email here
+            // This requires server-side code or a service like EmailJS
+        });
+        
+        function getPaymentMethodName(paymentMethod) {
+            switch(paymentMethod) {
+                case 'cod': return 'Cash on Delivery';
+                case 'esewa': return 'eSewa';
+                case 'mobileBanking': return 'Mobile Banking';
+                default: return paymentMethod;
+            }
+        }
+        
+        // Add hover effects to cart items
+        const cartItems = document.querySelectorAll('.cart-item');
+        cartItems.forEach(item => {
+            item.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateX(5px)';
+            });
+            
+            item.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateX(0)';
+            });
+        });
+        
+        // Animate payment options on hover
+        const paymentOptionElements = document.querySelectorAll('.payment-option');
+        paymentOptionElements.forEach(option => {
+            option.addEventListener('mouseenter', function() {
+                if (!this.classList.contains('active')) {
+                    this.style.transform = 'translateX(5px)';
+                }
+            });
+            
+            option.addEventListener('mouseleave', function() {
+                if (!this.classList.contains('active')) {
+                    this.style.transform = 'translateX(0)';
+                }
+            });
+        });
+    });
+    </script>
+</body>
+</html>

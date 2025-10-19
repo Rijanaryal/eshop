@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Electro-Bazzar | Mouse</title>
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+  <style>
+    /* ===== Loader ===== */
+    #loader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #1b1c36;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      transition: opacity 0.5s ease;
+    }
+
+    #loader.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .spinner {
+      border: 6px solid #f3f3f3;
+      border-top: 6px solid #00ffb7;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* ===== Page Styles ===== */
+    * { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif; }
+    body { background: #1b1c36; color:white; }
+
+    /* Navbar */
+    header {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 80px;
+      background: linear-gradient(90deg, #07070d, #0a0a12);
+      border-bottom: 2px solid #ff00aa;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    header .logo { font-size:1.8rem; font-weight:600; color:#00ffb7; }
+    header .logo span { color:#00aaff; }
+    nav { flex:1; display:flex; justify-content:center; }
+    nav ul { display:flex; gap:40px; list-style:none; }
+    nav ul li a { text-decoration:none; color:white; font-weight:600; transition:0.3s; }
+    nav ul li a:hover { color:#00ffb7; }
+
+    /* Product Section */
+    .product-container { display:flex; justify-content:center; align-items:center; flex-wrap:wrap; gap:50px; padding:80px 10%; }
+    .product-image { flex:1; min-width:300px; display:flex; justify-content:center; align-items:center; }
+    .product-image img { width:350px; max-width:100%; border-radius:20px; box-shadow:0 0 20px rgba(0,0,0,0.5); transition: transform 0.4s ease, filter 0.3s; }
+    .product-image img:hover { transform: scale(1.05); }
+
+    .product-details { flex:1; min-width:320px; }
+    .product-details h1 { font-size:2rem; margin-bottom:15px; }
+    .product-details p { color:#ccc; line-height:1.6; margin-bottom:20px; }
+    .price { font-size:1.8rem; color:#00ffb7; margin-bottom:20px; }
+    .color-options, .quantity { margin:20px 0; }
+    .color-options button { width:35px; height:35px; border-radius:50%; margin-right:10px; border:2px solid white; cursor:pointer; transition: transform 0.3s; }
+    .color-options button:hover { transform: scale(1.1); }
+    .quantity input { width:70px; padding:5px; border-radius:5px; border:none; text-align:center; }
+
+    .btn-group { margin-top:25px; display:flex; gap:15px; }
+    .btn { padding:12px 25px; border:none; border-radius:8px; font-weight:600; cursor:pointer; transition:0.3s; }
+    .btn-buy { background:#ff6600; color:white; }
+    .btn-cart { background:#00ffb7; color:black; }
+    .btn:hover { transform:translateY(-2px); box-shadow:0 5px 15px rgba(255,255,255,0.2); }
+
+    /* Related Products */
+    .related-section { padding:50px 10%; text-align:center; }
+    .related-section h2 { font-size:2rem; color:#00ffb7; margin-bottom:40px; }
+    .related-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:30px; }
+    .product-card { background:#23234a; padding:20px; border-radius:15px; text-align:center; transition:0.3s; }
+    .product-card:hover { transform:translateY(-5px); box-shadow:0 0 20px rgba(0,255,183,0.3); }
+    .product-card img { width:100%; height:200px; object-fit:cover; border-radius:10px; }
+    .product-card h3 { margin:10px 0; color:#fff; }
+    .product-card p { color:#ccc; font-size:14px; }
+    .product-card button { margin-top:10px; background:#00ffb7; border:none; padding:10px 20px; border-radius:6px; font-weight:600; cursor:pointer; color:black; transition:0.3s; }
+    .product-card button:hover { background:#00ffaa; transform:scale(1.05); }
+
+    /* Mobile Menu */
+    .mobile-menu-toggle { display:none; background:none; border:none; color:white; font-size:24px; cursor:pointer; padding:10px; }
+
+    /* Responsive Design (skip for brevity, same as your original code) */
+
+  </style>
+</head>
+<body>
+
+  <!-- ===== Loader ===== -->
+  <div id="loader">
+    <div class="spinner"></div>
+  </div>
+
+  <!-- ===== Navbar ===== -->
+  <header>
+    <div class="logo">Electro-<span>Bazzar</span></div>
+    <button class="mobile-menu-toggle" id="mobileToggle">
+      <i class="ri-menu-line"></i>
+    </button>
+    <nav id="navbar">
+      <ul>
+        <li><a href="real.html"><i class="ri-home-4-fill"></i> HOME</a></li>
+        <li><a href="shop.html"><i class="ri-shopping-cart-2-fill"></i> SHOP</a></li>
+        <li><a href="contact.html"><i class="ri-mail-fill"></i> CONTACT</a></li>
+        <li><a href="about.html"><i class="ri-information-fill"></i> ABOUT-US</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- ===== Product Section ===== -->
+  <section class="product-container">
+    <div class="product-image">
+      <img id="mainMouse" src="https://img.pikbest.com/ai/illus_our/20230427/628933f6adc24df9c93af596041e83fd.jpg!w700wp" alt="Mouse">
+    </div>
+    <div class="product-details">
+      <h1>Wired RGB Gaming Mouse</h1>
+      <p>Enhance your gaming experience with our precision-engineered wireless mouse featuring RGB lighting, adjustable DPI, and ergonomic comfort for long hours of use.</p>
+      <div class="price">$49.99</div>
+
+      <div class="color-options">
+        <strong>Available Colors:</strong><br>
+        <button style="background:black;" onclick="changeColor('black')"></button>
+        <button style="background:#2a61ff;" onclick="changeColor('blue')"></button>
+        <button style="background:#ff3366;" onclick="changeColor('pink')"></button>
+        <button style="background:#888;" onclick="changeColor('gray')"></button>
+      </div>
+
+      <div class="quantity">
+        <strong>Quantity:</strong><br>
+        <input type="number" id="quantity" value="1" min="1" max="10">
+      </div>
+
+      <div class="btn-group">
+        <button class="btn btn-cart" onclick="addToCart()">Add to Cart</button>
+        <!-- <button class="btn btn-buy" onclick="window.location.href='buy.html'">Buy Now</button> -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Related Products ===== -->
+  <section class="related-section">
+    <h2>More Mice You May Like</h2>
+    <div class="related-grid">
+      <div class="product-card">
+        <img src="https://media.wired.com/photos/6825007abc274113e60afa27/4:3/w_640%2Cc_limit/Best-Ergonomic-Mouse_Razer-Basilisk-V3-Pro_Photo-SOURCE-Henri-Robbins.jpg" alt="Mouse 1">
+        <h3>Logitech G305 Lightspeed</h3>
+        <p>$59.99</p>
+        <button onclick="addToCart()">Add to Cart</button>
+      </div>
+
+      <div class="product-card">
+        <img src="https://platform.theverge.com/wp-content/uploads/sites/2/chorus/uploads/chorus_asset/file/23957460/Basilisk_V3_Pro_083___fullchroma_R2.png?quality=90&strip=all&crop=16.673395236173%2C0%2C66.653209527654%2C100&w=2400" alt="Mouse 2">
+        <h3>Razer Viper Mini</h3>
+        <p>$49.99</p>
+        <button  onclick="addToCart()" >Add to Cart</button>
+      </div>
+
+      <div class="product-card">
+        <img src="https://miro.medium.com/v2/resize:fit:1400/0*YZqg-fu1miG0kd10.jpg" alt="Mouse 3">
+        <h3>Redragon M908 Impact</h3>
+        <p>$69.99</p>
+        <button onclick="addToCart()">Add to Cart</button>
+      </div>
+
+      <div class="product-card">
+        <img src="https://5.imimg.com/data5/SELLER/Default/2025/8/539358891/TR/IY/MP/145782583/asus-rog-chakram-x-origin-rgb-gaming-mouse-500x500.webp" alt="Mouse 4">
+        <h3>Corsair Nightsword RGB</h3>
+        <p>$79.99</p>
+        <button onclick="addToCart()">Add to Cart</button>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // ===== Loader Control =====
+    window.addEventListener('load', function() {
+      const loader = document.getElementById('loader');
+      // Keep loader for 5 seconds
+      setTimeout(() => {
+        loader.classList.add('hidden');
+      }, 700);
+    });
+
+    // ===== Mobile menu toggle =====
+    document.addEventListener('DOMContentLoaded', function() {
+      const mobileToggle = document.getElementById('mobileToggle');
+      const navbar = document.getElementById('navbar');
+      
+      if (mobileToggle && navbar) {
+        mobileToggle.addEventListener('click', function() {
+          navbar.classList.toggle('active');
+          const icon = mobileToggle.querySelector('i');
+          icon.className = navbar.classList.contains('active') ? 'ri-close-line' : 'ri-menu-line';
+        });
+
+        const navLinks = navbar.querySelectorAll('a');
+        navLinks.forEach(link => {
+          link.addEventListener('click', function() {
+            navbar.classList.remove('active');
+            mobileToggle.querySelector('i').className = 'ri-menu-line';
+          });
+        });
+      }
+    });
+
+    // ===== Cart & Color Functions =====
+    if (!localStorage.getItem('cart')) localStorage.setItem('cart', JSON.stringify([]));
+
+    function addToCart() {
+      let qty = document.getElementById("quantity").value;
+      let productName = document.querySelector('.product-details h1').textContent;
+      let productPrice = document.querySelector('.price').textContent;
+      let productImage = document.getElementById("mainMouse").src;
+
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      cart.push({ name: productName, price: productPrice, image: productImage, quantity: qty, id:'mouse-'+Date.now() });
+      localStorage.setItem('cart', JSON.stringify(cart));
+      alert(qty + " Mouse(s) added to cart!");
+    }
+
+    function changeColor(color) {
+      const img = document.getElementById("mainMouse");
+      if (color === "black") img.src = "https://img.pikbest.com/ai/illus_our/20230427/0c81a11d0da70f0af14c9950a4eb95b0.jpg!w700wp";
+      if (color === "blue") img.src = "https://img.pikbest.com/ai/illus_our/20230426/e26f56f58046aefcd5d4496684fe567e.jpg!w700wp";
+      if (color === "pink") img.src = "https://i.fbcd.co/products/resized/resized-750-500/8bfeb3bfe985ed37283bb210bd39a68f5f51ed6d5b986f8a0d2165fccf7854a2.jpg";
+      if (color === "gray") img.src = "https://www.geekspot.ge/files/products/Ll78Cjyr8Lct0fKBBnyqGeIK50FQZU.jpg";
+    }
+  </script>
+
+</body>
+</html>

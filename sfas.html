@@ -1,0 +1,1289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Electro-Bazzar</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --main-color: #ff0055;
+      --accent-color: #00ffe7;
+      --bg-glass: rgba(255, 255, 255, 0.1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: radial-gradient(circle, #0f0c29, #302b63, #24243e);    
+      color: white;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    /* Add this new style for the scroll-to-top button */
+    .scroll-to-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 50px;
+      height: 50px;
+      background: var(--accent-color);
+      color: black;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      z-index: 999;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    }
+
+    .scroll-to-top.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .scroll-to-top:hover {
+      transform: translateY(-5px);
+      background: var(--main-color);
+      color: white;
+    }
+
+    .scroll-to-top svg {
+      width: 24px;
+      height: 24px;
+      transition: transform 0.3s ease;
+    }
+
+    .scroll-to-top:hover svg {
+      transform: translateY(-3px);
+    }
+
+    /* Rest of your existing styles... */
+    header {
+      position: sticky;
+      top: 0;
+      background: #000000dd;
+      padding: 1rem 2rem;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--main-color);
+    }
+
+    .logo {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.3rem;
+      /* color: var(--main-color); */
+       /* font-size: 28px; */
+  /* font-weight: bold; */
+  /* font-family: 'Segoe UI', sans-serif; */
+  display: inline-block;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 3rem;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      position: relative;
+    }
+
+    nav a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -3px;
+      width: 0%;
+      height: 2px;
+      background: var(--accent-color);
+      transition: width 0.3s ease-in-out;
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .buttons a {
+      text-decoration: none;
+      color: black;
+      background: linear-gradient(135deg, var(--accent-color), yellow);
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-weight: bold;
+      transition: transform 0.3s ease;
+    }
+
+    .buttons a:hover {
+      transform: scale(1.1);
+    }
+
+    .footer {
+  background-color: #e1e3f3; 
+  padding: 40px 20px;
+  color: #ffffff;
+  font-family: 'Segoe UI', sans-serif;
+  /* box-shadow: 0 0 15px #00f2ff; */
+  border-top: 2px solid #dfdfdf; 
+}
+
+
+    .cart {
+      position: relative;
+      cursor: pointer;
+      margin-left: 15px;
+      width: 32px;
+      height: 32px;
+      fill: var(--accent-color);
+      transition: transform 0.2s ease;
+    }
+    .cart:hover {
+      transform: scale(1.1);
+    }
+    .cart-count {
+      position: absolute;
+      top: -6px;
+      right: -6px;
+      background: var(--main-color);
+      color: white;
+      font-size: 12px;
+      font-weight: bold;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    main {
+      flex: 1;
+      padding: 2rem 1rem;
+      text-align: center;
+      animation: fadeIn 1s ease-in;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .intro {
+      max-width: 700px;
+      margin: auto;
+      background: var(--bg-glass);
+      padding: 2rem;
+      border-radius: 20px;
+      box-shadow: 0 0 20px var(--accent-color);
+      backdrop-filter: blur(15px);
+      margin-bottom: 2rem;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    /* Typewriter effect styles */
+    .typewriter h2 {
+      overflow: hidden; 
+      border-right: .15em solid var(--accent-color); 
+      white-space: nowrap; 
+      margin: 0 auto;
+      letter-spacing: .15em; 
+      animation: 
+        typing 5.0s steps(40, end),
+        blink-caret .80s step-end infinite;
+    }
+
+    .typewriter p {
+      overflow: hidden; 
+      border-right: .15em solid var(--accent-color); 
+      white-space: nowrap; 
+      margin: 0 auto; 
+      letter-spacing: .15em; 
+      animation: 
+        typing-p 2.5s steps(30, end) 5.5s,
+        blink-caret .75s step-end ;
+      opacity: 0;
+      animation-fill-mode: forwards;
+    }
+
+    /* The typing effect */
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
+    }
+
+    @keyframes typing-p {
+      from { 
+        width: 0;
+        opacity: 0;
+      }
+      to { 
+        width: 100%;
+        opacity: 1;
+      }
+    }
+
+    /* The cursor blink effect */
+    @keyframes blink-caret {
+      from, to { border-color: transparent }
+      50% { border-color: var(--accent-color); }
+    }
+
+    .projects {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+      max-width: 1000px;
+      margin: auto;
+      padding-bottom: 2rem;
+    }
+
+    .project-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 0 15px #00000050;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .project-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 25px var(--accent-color);
+    }
+
+    .project-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: contain;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .project-card p {
+      padding: 1rem;
+      font-size: 1rem;
+      color: #e0e0e0;
+      flex-grow: 1;
+    }
+
+    .add-to-cart-btn {
+      background: var(--main-color);
+      border: none;
+      color: white;
+      padding: 10px 0;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 0 0 15px 15px;
+      transition: background 0.3s ease;
+      font-family: 'Montserrat', sans-serif;
+    }
+    .add-to-cart-btn:hover {
+      background: var(--accent-color);
+      color: black;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.9rem;
+      color: var(--main-color);
+  background: radial-gradient(circle, #2c275e, #4d487d, #494985);    
+
+    }
+
+    @media (max-width: 768px) {
+      nav ul {
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 1rem;
+      }
+
+      .buttons {
+        flex-direction: column;
+        gap: 6px;
+      }
+    }
+    .project-card a {
+      position: relative;
+      display: block;
+    }
+
+    .price {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: #ff0055;
+      color: white;
+      font-weight: bold;
+      padding: 6px 12px;
+      border-radius: 12px;
+      opacity: 0;
+      transform: translateY(-10px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      pointer-events: none;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1rem;
+      user-select: none;
+      z-index: 10;
+    }
+
+    .project-card a:hover .price {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    .cart-notification {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: var(--main-color);
+      color: white;
+      padding: 10px 20px;
+      border-radius: 5px;
+      z-index: 1000;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+      animation: slideIn 0.3s ease-out;
+    }
+
+     @keyframes slideIn {
+      from { transform: translateX(100%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+ 
+.logo {
+  font-size: 19px;
+  /* font-weight: bold; */
+  /* font-family: 'Segoe UI', sans-serif; */
+  display: flex;
+}
+
+.logo-green {
+  color: #34ef82; 
+}
+
+.logo-dark {
+  color: #3039e4; 
+}
+ .footer-container {
+        /* border-top: 1px solid #e7b9b9 ; */
+
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: auto;
+  gap: 30px;
+}
+
+.footer-section {
+  flex: 1 1 300px;
+    /* border-top: 1px solid #e7b9b9; */
+
+}
+
+.footer-section h2 {
+    /* border-top: 1px solid #e7b9b9; */
+
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+.footer-section h2 .logo {
+  color: #06e106;
+}
+
+.footer-section h4 {
+  margin-bottom: 10px;
+  color: #1cda68;
+}
+
+.footer-section p {
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-section ul li {
+  margin-bottom: 8px;
+}
+
+.footer-section ul li a {
+  text-decoration: none;
+  color: #f8e8e8;
+  transition: color 0.3s;
+}
+
+.footer-section ul li a:hover {
+  color: #5d7ddf;
+}
+
+.footer-bottom {
+  text-align: center;
+  margin-top: 30px;
+  /* border-top: 1px solid #e7b9b9; */
+  padding-top: 15px;
+  font-size: 14px;
+  color: hsl(0, 12%, 78%);
+}
+
+.footer-bottom .footer-links {
+  margin-bottom: 10px;
+}
+
+.footer-bottom .footer-links a {
+  margin: 0 10px;
+  text-decoration: none;
+  color: #66d766;
+  font-weight: 500;
+}
+
+.footer-bottom .footer-links a:hover {
+  text-decoration: underline;
+}
+
+    .carousel-container {
+      position: relative;
+      width: 100%;
+      max-width: 1200px;
+      margin: auto;
+      overflow: hidden;
+      border-radius: 20px;
+    }
+
+    .carousel-slide {
+      display: flex;
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .carousel-item {
+      min-width: 100%;
+  background: radial-gradient(circle, #8880d0, #827ad8, #7d7da6);    
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 7px;
+    }
+
+    .carousel-item img {
+      max-width: 400px;
+      height: auto;
+    }
+
+    .carousel-text {
+      max-width: 50%;
+    }
+
+    .carousel-text h1 {
+      font-size: 36px;
+      color: #1f2937;
+      margin-bottom: 20px;
+    }
+
+    .carousel-text p {
+      color: #201192;
+      margin-bottom: 20px;
+      font-family: cursive;
+      text-align: center;
+    }
+
+    .buttons {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .btn {
+      padding: 12px 24px;
+      border-radius: 25px;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .btn-primary {
+      background-color: #ef5b0c;
+      color: white;
+    }
+
+    .btn-secondary {
+      background: none;
+      color: #1f2937;
+      font-weight: bold;
+    }
+
+    .dots {
+      text-align: center;
+      margin-top: 15px;
+    }
+
+    .dot {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      margin: 5px;
+      background-color: #ccc;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    .dot.active {
+      background-color: #ef5b0c;
+    }
+      .rijan {
+      font-size: 2.5em;
+      margin-top: 50px;
+      background: linear-gradient(90deg, #c44ad9, #6874f8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    p {
+      font-size: 1.2em;
+      margin: 20px auto;
+      max-width: 600px;
+    }
+    .try-btn {
+      background: linear-gradient(to right, #c44ad9, #f060c6);
+      border: none;
+      padding: 15px 30px;
+      border-radius: 30px;
+      color: white;
+      font-weight: bold;
+      font-size: 1em;
+      cursor: pointer;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    .try-btn:hover {
+      opacity: 0.9;
+    }
+    .feedback {
+      margin-top: 80px;
+    }
+    .feedback h2 {
+      font-size: 1.8em;
+    }
+    input, textarea {
+      padding: 15px;
+      margin: 10px;
+      width: 300px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      text-align: center;
+    }
+    .send-btn {
+      background-color: #f96300;
+      color: white;
+      padding: 15px 30px;
+      border: none;
+      border-radius: 10px;
+      font-size: 1em;
+      cursor: pointer;
+    }
+    .send-btn:hover {
+      background-color: #d85400;
+    }
+       h1 {
+      font-size: 2em;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    p {
+      color: #555;
+      margin-bottom: 30px;
+      text-align: center;
+      max-width: 500px; 
+    }
+
+    form {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+text-align: center;      
+width: 100%;
+padding: 20px;
+width: 400px;
+
+    }
+
+    textarea {
+      /* resize: vertical; */
+      min-height: 60px;
+      padding: 9px;
+      text-align: center;
+    }
+
+    button {
+      padding: 15px 30px;
+      background-color: #f15a0a;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #d94f07;
+    }
+
+    .box{
+      margin: 1px 580px;
+      display: inline;
+    }
+        .social-section {
+      font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+    }
+    .social-section h2 {
+      font-size: 24px;
+      font-weight: bold;
+    }
+    .social-link {
+      display: flex;
+      align-items: center;
+      margin: 10px 0;
+      color: #ebe1e1;
+      font-size: 18px;
+      text-decoration: none;
+    }
+    .social-link img {
+      width: 24px;
+      height: 24px;
+      margin-right: 10px;
+    }
+  </style>    
+</head>
+<body>
+  <!-- Add this scroll-to-top button at the end of body (before scripts) -->
+  <div class="scroll-to-top" id="scrollToTop">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 4l-8 8h5v8h6v-8h5z"/>
+    </svg>
+  </div>
+
+  <header>
+<div class="logo" style="cursor: pointer;">
+<a href='/' style='text-decoration: none;'>  <span class="logo-green">Electro-</span> <span class="logo-dark">Bazzar</span>
+</a>
+</div>
+    <nav>
+      <ul>
+        <li><a href='index.html'>HOME</a></li>
+        <li><a href="shop.html">SHOP</a></li>
+        <li><a href='contact.html'>CONTACT</a></li>
+        <li><a href='about.html'>ABOUT-US</a></li>
+      </ul>
+    </nav>
+    <div class="buttons">
+      <input type="text" id="search-input" aria-label="Search" style="padding: 6px; border-radius: 7px; width: 205px; margin: 1px -10px;">
+      <button id="search-button" style="padding: 3px; font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; width: 65px;">Search</button>
+      <a href='login.html'>LOGIN</a>
+      <a href='signin.html'>SIGN-UP</a>
+      <a class='link' href='cart.html'>
+        <div class="cart" id="cart-icon" title="View Cart">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="32" height="32" fill="currentColor">
+            <path d="M7 4h-2l-3 7v1h1l3 7h11v-2h-9l-1.5-3h11l1-4h-15zm-1 14a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm11 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4z"/>
+          </svg>
+          <div class="cart-count" id="cart-count">0</div>
+        </div>
+      </a>
+    </div>
+  </header>
+  <main>
+    
+<div class="carousel-container">
+    <div class="carousel-slide" id="carouselSlide">
+
+      <div class="carousel-item">
+        <div class="carousel-text">
+          <p>Limited Time Offer 6% Off</p>
+          <h1>Experience Pure Sound –<br>Your Perfect Headphones Awaits!</h1>
+          <div class="buttons">
+            <button style="margin: 1px 20px;" class="btn btn-primary">Buy now</button>
+            <button class="btn btn-secondary">Find more →</button>
+          </div>
+        </div>
+        <img src="/download.png" alt="Headphones" />
+      </div>
+
+      <div class="carousel-item">
+        <div class="carousel-text">
+          <p >Best Gaming Gear</p>
+          <h1 style="margin: 10px 80px;">Upgrade Your Game –<br>Top Tech Deals Available</h1>
+          <div class="buttons">
+            <button class="btn btn-primary" style="margin: 1px 20px;">Shop now</button>
+            <button class="btn btn-secondary">View details →</button>
+          </div>
+        </div>
+        <img src="/remoenf.png" alt="Gaming Mouse" width="250px" style="margin: -10px 100px;">
+      </div>
+
+      <div class="carousel-item">
+        <div class="carousel-text">
+          <p style="text-align: center;">Exclusive Launch</p>
+          <h1 style="margin: 1px 40px;">Meet Our New Product –<br>Unmatched Audio & Style</h1>
+          <div class="buttons">
+            <button class="btn btn-primary" style="margin: 25px 70px;">Explore</button>
+            <button class="btn btn-secondary">Learn more →</button>
+          </div>
+        </div>
+        <img src="/01tpR6t6T61CNDCRV81m378-38-removebg-preview.png" alt="New Product">
+      </div>
+    </div>
+  </div>
+
+  <div class="dots">
+    <span class="dot active" onclick="goToSlide(0)"></span>
+    <span class="dot" onclick="goToSlide(1)"></span>
+    <span class="dot" onclick="goToSlide(2)"></span>
+  </div>
+     <h1><strong>Popular Products</strong></h1>
+     <p style="color: white;">Discover our best-selling items loved by thousands of customers</p> <br>
+     <br>
+    
+<div class="intro typewriter">
+     <h2>Hi,I am Mr. Rijan Aryal (REEJAN) 🚀</h2>
+<p style="color: white;">Welcome to my <strong><span style="color: #34ef82; ">Electro</span><span style="  color: #0a7fe6; 
+">-Bazzar</span></strong> Below <br> are some of my featured products.</p>
+    </div> <br>
+    <div class="projects">
+      <!-- Product 1 -->
+      <div class="project-card">
+        <a href="https://www.daraz.com.np/products/ultra-pods-bluetooth-53-earbuds-stereo-touch-control-with-flash-light-i172989829-s1193619596.html" target="_blank">
+          <img src="https://www.jiomart.com/images/product/original/rvtwz4zeb6/cihlex-black-cx-18-earpod-earbuds-airbuds-with-backup-headset-product-images-orvtwz4zeb6-p598507845-0-202302181111.jpg" alt="Earbuds" />
+          <div class="price">₹4999</div>
+        </a>
+        <p>Stylish Bluetooth 5.3 Earbuds with touch control and LED light</p>
+        <button class="add-to-cart-btn" data-product="Bluetooth 5.3 Earbuds">Add to Cart</button>
+      </div>
+
+      <!-- Product 2 -->
+      <div class="project-card">
+        <a href="https://www.daraz.com.np/products/dell-latitude-14-5420-2021-11th-gen-i5-1135g7-8gb-256gb-14-fhd-i168190613-s1183608116.html" target="_blank">
+          <img src="https://www.eurokidsindia.com/blog/wp-content/uploads/2023/12/names-of-electronic-devices-in-english.jpg" alt="Laptop" />
+          <div class="price">₹112999</div>
+        </a>
+        <p>Brand new i13 laptop with best performance</p>
+        <button class="add-to-cart-btn" data-product="i13 Laptop">Add to Cart</button>
+      </div>
+
+      <!-- Product 3 -->
+      <div class="project-card">
+        <a href="https://www.daraz.com.np/products/true-wireless-bluetooth-airpods-charging-case-super-sound-premium-airpods-pro-black-and-white-i306382161-s1403314939.html" target="_blank">
+          <img src="https://www.leafstudios.in/cdn/shop/files/1_6b54ff34-acdd-40e6-a08a-f2bfa33a1c7a_800x.png" alt="AirPods" />
+          <div class="price">₹3999</div>
+        </a>
+        <p>Premium AirPods Pro with charging case</p>
+        <button class="add-to-cart-btn" data-product="AirPods Pro">Add to Cart</button>
+      </div>
+
+      <!-- Product 4 -->
+      <div class="project-card">
+        <a href="https://www.daraz.com.np/products/philips-crd150b-corded-phone-26-lcd-display-telephones-i19027-s57986.html" target="_blank">
+          <img src="https://cdn.britannica.com/96/80596-050-FE68106A/Business-telephone-2000.jpg" alt="Telephone" />
+          <div class="price">₹3470</div>
+        </a>
+        <p>Vintage telephone with LCD display</p>
+        <button class="add-to-cart-btn" data-product="Vintage Telephone">Add to Cart</button>
+      </div>
+
+      <!-- Product 5 -->
+      <div class="project-card">
+        <a href="https://www.daraz.com.np/products/usb-i299421841-s1383576035.html" target="_blank">
+          <img src="https://openboxstore.in/wp-content/uploads/2023/09/61hhNjGEsDL._SL1500_.jpg" alt="Headset" />
+          <div class="price">₹3799</div>
+        </a>
+        <p>Logitech H111 stereo headset</p>
+        <button class="add-to-cart-btn" data-product="Logitech Headset">Add to Cart</button>
+      </div>
+
+      <!-- Product 6 -->
+      <div class="project-card">
+        <a href="https://www.daraz.com.np/products/anker-zolo-charger-20w-iq-i174997220-s1352985982.html" target="_blank">
+          <img src="https://m.media-amazon.com/images/I/61kjBD8dDPL.jpg" alt="Charger" />
+          <div class="price">₹399</div>
+        </a>
+        <p>Anker fast wall charger 20W</p>
+        <button class="add-to-cart-btn" data-product="Anker Charger">Add to Cart</button>
+      </div>
+      <div class="project-card">
+        <a href="https://www.daraz.com.np/products/osaka-power-8-inch-rechargeable-portable-bluetooth-party-speaker-with-wired-mic-remote-i135483133-s1060376403.html?c=&channelLpJumpArgs=&clickTrackInfo=query%253Awaterproof%252Bspeaker%253Bnid%253A135483133%253Bsrc%253ALazadaMainSrp%253Brn%253A56cb7ea283469c3eb026d28dfacfc7d8%253Bregion%253Anp%253Bsku%253A135483133_NP%253Bprice%253A3390%253Bclient%253Adesktop%253Bsupplier_id%253A900170144251%253Bbiz_source%253Ah5_external%253Bslot%253A7%253Butlog_bucket_id%253A470687%253Basc_category_id%253A9720%253Bitem_id%253A135483133%253Bsku_id%253A1060376403%253Bshop_id%253A107191%253BtemplateInfo%253A-1_A3_C%25231103_L%2523&freeshipping=0&fs_ab=1&fuse_fs=&lang=en&location=Lumbini%20Province&price=3.39E%203&priceCompare=skuId%3A1060376403%3Bsource%3Alazada-search-voucher%3Bsn%3A56cb7ea283469c3eb026d28dfacfc7d8%3BoriginPrice%3A339000%3BdisplayPrice%3A339000%3BsinglePromotionId%3A-1%3BsingleToolCode%3AmockedSalePrice%3BvoucherPricePlugin%3A0%3Btimestamp%3A1751359017503&ratingscore=4.85&request_id=56cb7ea283469c3eb026d28dfacfc7d8&review=20&sale=103&search=1&source=search&spm=a2a0e.searchlist.list.7&stock=1" target="_blank">
+          <img src="https://audioshopnepal.com/wp-content/uploads/2023/05/GO3-RD-1f.jpg" alt="JBL Go 3" />
+           <div class="price">₹3100</div>
+        </a>
+        <p>JBL GO 3 waterproof portable speaker with bold sound and style.</p>
+        <button class="add-to-cart-btn" data-product="JBL GO 3 waterproof portable speaker">Add to Cart</button>
+      </div>
+      
+      <div class="project-card">
+        <a href="https://www.daraz.com.np/products/rongxin-europe-plug-portable-mini-clip-fan-or-table-fan-3-blades-i100520615-s1020878720.html?c=&channelLpJumpArgs=&clickTrackInfo=query%253Amini%252Bfan%253Bnid%253A100520615%253Bsrc%253ALazadaMainSrp%253Brn%253A39c5fc1cfb2a75be9989fce9e475db4a%253Bregion%253Anp%253Bsku%253A100520615_NP%253Bprice%253A789%253Bclient%253Adesktop%253Bsupplier_id%253A131%253Bbiz_source%253Ah5_external%253Bslot%253A0%253Butlog_bucket_id%253A470687%253Basc_category_id%253A363%253Bitem_id%253A100520615%253Bsku_id%253A1020878720%253Bshop_id%253A8795%253BtemplateInfo%253A1103_L%2523-1_A3_C%2523&freeshipping=0&fs_ab=1&fuse_fs=&lang=en&location=Bagmati%20Province&price=789&priceCompare=skuId%3A1020878720%3Bsource%3Alazada-search-voucher%3Bsn%3A39c5fc1cfb2a75be9989fce9e475db4a%3BoriginPrice%3A78900%3BdisplayPrice%3A78900%3BsinglePromotionId%3A-1%3BsingleToolCode%3AmockedSalePrice%3BvoucherPricePlugin%3A0%3Btimestamp%3A1751359190268&ratingscore=4.4404145077720205&request_id=39c5fc1cfb2a75be9989fce9e475db4a&review=579&sale=2161&search=1&source=search&spm=a2a0e.searchlist.list.0&stock=1" target="_blank">
+          <img src="https://eveen.pk/cdn/shop/files/F6_0a3e6853-de13-427a-9538-82444d0ccaba.jpg?v=1716792689" alt="JBL Go 3" />
+           <div class="price">₹1000</div>
+        </a>
+        <p>Poratble mini fan for relax in summer time.</p>
+        <button class="add-to-cart-btn" data-product="Portable Mini Fan">Add to Cart</button>
+      </div>
+      <div class="project-card">
+        <a href="https://www.daraz.com.np/products/cg-brand-21-ch-multimedia-speaker-model-cga2071-1-year-comprehensive-warranty-i104438486-s1025476654.html?c=&channelLpJumpArgs=&clickTrackInfo=query%253Aspeaker%253Bnid%253A104438486%253Bsrc%253ALazadaMainSrp%253Brn%253Ad561d47e78f2c5fdcf45da2602bc2652%253Bregion%253Anp%253Bsku%253A104438486_NP%253Bprice%253A5120%253Bclient%253Adesktop%253Bsupplier_id%253A1007771%253Bbiz_source%253Ah5_external%253Bslot%253A19%253Butlog_bucket_id%253A470687%253Basc_category_id%253A9720%253Bitem_id%253A104438486%253Bsku_id%253A1025476654%253Bshop_id%253A17658%253BtemplateInfo%253A-1_A3_C%25231103_L%2523&freeshipping=0&fs_ab=1&fuse_fs=&lang=en&location=Bagmati%20Province&price=5.12E%203&priceCompare=skuId%3A1025476654%3Bsource%3Alazada-search-voucher%3Bsn%3Ad561d47e78f2c5fdcf45da2602bc2652%3BoriginPrice%3A512000%3BdisplayPrice%3A512000%3BsinglePromotionId%3A-1%3BsingleToolCode%3AmockedSalePrice%3BvoucherPricePlugin%3A0%3Btimestamp%3A1751359213599&ratingscore=4.714285714285714&request_id=d561d47e78f2c5fdcf45da2602bc2652&review=7&sale=40&search=1&source=search&spm=a2a0e.searchlist.list.19&stock=1" target="_blank">
+           <div class="price">₹2300</div>
+          <img src="https://m.media-amazon.com/images/I/81oRzXfs2zL.jpg" alt="JBL Go 3" />
+        </a>
+        <p>JWire less best speaker with best bass.</p>
+        <button class="add-to-cart-btn" data-product="J-wire speaker">Add to Cart</button>
+      </div>
+      <div class="project-card">
+        <a href="https://www.daraz.com.np/products/apple-iphone-16-small-16-plus-large-liquid-silicone-soft-cover-case-microfiber-inside-i174174881-s1296728402.html?c=&channelLpJumpArgs=&clickTrackInfo=query%253Aiphone%252B16%252Bcover%253Bnid%253A174174881%253Bsrc%253ALazadaMainSrp%253Brn%253A50a22757ac41bc473c6de3ca8fba93d7%253Bregion%253Anp%253Bsku%253A174174881_NP%253Bprice%253A335%253Bclient%253Adesktop%253Bsupplier_id%253A900153360062%253Bbiz_source%253Ah5_external%253Bslot%253A4%253Butlog_bucket_id%253A470687%253Basc_category_id%253A9543%253Bitem_id%253A174174881%253Bsku_id%253A1296728402%253Bshop_id%253A60971%253BtemplateInfo%253A-1_A3_C%25231103_L%2523&freeshipping=0&fs_ab=1&fuse_fs=&lang=en&location=Bagmati%20Province&price=335&priceCompare=skuId%3A1296728402%3Bsource%3Alazada-search-voucher%3Bsn%3A50a22757ac41bc473c6de3ca8fba93d7%3BoriginPrice%3A33500%3BdisplayPrice%3A33500%3BsinglePromotionId%3A-1%3BsingleToolCode%3AmockedSalePrice%3BvoucherPricePlugin%3A0%3Btimestamp%3A1751359268455&ratingscore=4.857142857142857&request_id=50a22757ac41bc473c6de3ca8fba93d7&review=7&sale=45&search=1&source=search&spm=a2a0e.searchlist.list.4&stock=1" target="_blank">
+          <img src="https://www.vopmart.com/media/catalog/product/cache/ee14c5ab36c97d39d331f867fa3bee63/p/a/pa1022339.jpg" alt="JBL Go 3" />
+           <div class="price">₹1500</div>
+        </a>
+        <p>J-New Iphone 16 cover with differ colors.</p>
+        <button class="add-to-cart-btn" data-product="Iphone 16 Cover">Add to Cart</button>
+         <div class="price">₹34999</div>
+      </div>
+    <div class="project-card">
+  <a href="https://www.daraz.com.np/products/electric-shock-pen-gag-joke-toy-for-kids-i105537781-s1027350259.html?c=&channelLpJumpArgs=&clickTrackInfo=query%253Apen%253Bnid%253A105537781%253Bsrc%253ALazadaMainSrp%253Brn%253Afe29282dfe338bd3f4ecb016b3246fb1%253Bregion%253Anp%253Bsku%253A105537781_NP%253Bprice%253A196%253Bclient%253Adesktop%253Bsupplier_id%253A1004638%253Bbiz_source%253Ah5_external%253Bslot%253A2%253Butlog_bucket_id%253A470687%253Basc_category_id%253A10000719%253Bitem_id%253A105537781%253Bsku_id%253A1027350259%253Bshop_id%253A14541%253BtemplateInfo%253A-1_A3_C%25231103_L%2523&freeshipping=0&fs_ab=1&fuse_fs=&lang=en&location=Bagmati%20Province&price=196&priceCompare=skuId%3A1027350259%3Bsource%3Alazada-search-voucher%3Bsn%3Afe29282dfe338bd3f4ecb016b3246fb1%3BoriginPrice%3A19600%3BdisplayPrice%3A19600%3BsinglePromotionId%3A50000016508002%3BsingleToolCode%3AflashSale%3BvoucherPricePlugin%3A0%3Btimestamp%3A1751359413735&ratingscore=4.0&request_id=fe29282dfe338bd3f4ecb016b3246fb1&review=8&sale=96&search=1&source=search&spm=a2a0e.searchlist.list.2&stock=1" target="_blank" style="position: relative; display: block;">
+    <img src="https://i.ebayimg.com/images/g/kBsAAOSwGMZmJ0tC/s-l1200.jpg" alt="JBL Go 3" />
+    <div class="price">₹999</div>
+  </a>
+  <p>The best electric pen in cheap price.</p>
+  <button class="add-to-cart-btn" data-product="Electric pen">Add to Cart</button>
+</div>
+
+<div class="project-card">
+  <a href="https://www.daraz.com.np/products/electric-shock-pen-gag-joke-toy-for-kids-i105537781-s1027350259.html?c=&channelLpJumpArgs=&clickTrackInfo=query%253Apen%253Bnid%253A105537781%253Bsrc%253ALazadaMainSrp%253Brn%253Afe29282dfe338bd3f4ecb016b3246fb1%253Bregion%253Anp%253Bsku%253A105537781_NP%253Bprice%253A196%253Bclient%253Adesktop%253Bsupplier_id%253A1004638%253Bbiz_source%253Ah5_external%253Bslot%253A2%253Butlog_bucket_id%253A470687%253Basc_category_id%253A10000719%253Bitem_id%253A105537781%253Bsku_id%253A1027350259%253Bshop_id%253A14541%253BtemplateInfo%253A-1_A3_C%25231103_L%2523&freeshipping=0&fs_ab=1&fuse_fs=&lang=en&location=Bagmati%20Province&price=196&priceCompare=skuId%3A1027350259%3Bsource%3Alazada-search-voucher%3Bsn%3Afe29282dfe338bd3f4ecb016b3246fb1%3BoriginPrice%3A19600%3BdisplayPrice%3A19600%3BsinglePromotionId%3A50000016508002%3BsingleToolCode%3AflashSale%3BvoucherPricePlugin%3A0%3Btimestamp%3A1751359413735&ratingscore=4.0&request_id=fe29282dfe338bd3f4ecb016b3246fb1&review=8&sale=96&search=1&source=search&spm=a2a0e.searchlist.list.2&stock=1" target="_blank" style="position: relative; display: block;">
+    <img src="https://www.newark.com/wcsstore/ExtendedSitesCatalogAssetStore/cms/asset/images/common/campaign/raspberrypi/3358465/3358465-rasp-pi-5-hero.png?mktver2" alt="JBL Go 3" />
+    <div class="price">₹999</div>
+  </a>
+  <p>Raspberry Pi</p>
+  <button class="add-to-cart-btn" data-product="Electric pen">Add to Cart</button>
+</div>
+
+<div class="project-card">
+  <a href="https://www.daraz.com.np/products/electric-shock-pen-gag-joke-toy-for-kids-i105537781-s1027350259.html?c=&channelLpJumpArgs=&clickTrackInfo=query%253Apen%253Bnid%253A105537781%253Bsrc%253ALazadaMainSrp%253Brn%253Afe29282dfe338bd3f4ecb016b3246fb1%253Bregion%253Anp%253Bsku%253A105537781_NP%253Bprice%253A196%253Bclient%253Adesktop%253Bsupplier_id%253A1004638%253Bbiz_source%253Ah5_external%253Bslot%253A2%253Butlog_bucket_id%253A470687%253Basc_category_id%253A10000719%253Bitem_id%253A105537781%253Bsku_id%253A1027350259%253Bshop_id%253A14541%253BtemplateInfo%253A-1_A3_C%25231103_L%2523&freeshipping=0&fs_ab=1&fuse_fs=&lang=en&location=Bagmati%20Province&price=196&priceCompare=skuId%3A1027350259%3Bsource%3Alazada-search-voucher%3Bsn%3Afe29282dfe338bd3f4ecb016b3246fb1%3BoriginPrice%3A19600%3BdisplayPrice%3A19600%3BsinglePromotionId%3A50000016508002%3BsingleToolCode%3AflashSale%3BvoucherPricePlugin%3A0%3Btimestamp%3A1751359413735&ratingscore=4.0&request_id=fe29282dfe338bd3f4ecb016b3246fb1&review=8&sale=96&search=1&source=search&spm=a2a0e.searchlist.list.2&stock=1" target="_blank" style="position: relative; display: block;">
+    <img src="https://hardwarepasal.com/src/img/product/2024-04-26-15-29-37_vS85Jhtt5bproduct.jpg" alt="JBL Go 3" />
+    <div class="price">₹999</div>
+  </a>
+  <p>Smart plug.</p>
+  <button class="add-to-cart-btn" data-product="Electric pen">Add to Cart</button>
+</div>
+
+<div class="project-card">
+  <a href="https://www.daraz.com.np/products/electric-shock-pen-gag-joke-toy-for-kids-i105537781-s1027350259.html?c=&channelLpJumpArgs=&clickTrackInfo=query%253Apen%253Bnid%253A105537781%253Bsrc%253ALazadaMainSrp%253Brn%253Afe29282dfe338bd3f4ecb016b3246fb1%253Bregion%253Anp%253Bsku%253A105537781_NP%253Bprice%253A196%253Bclient%253Adesktop%253Bsupplier_id%253A1004638%253Bbiz_source%253Ah5_external%253Bslot%253A2%253Butlog_bucket_id%253A470687%253Basc_category_id%253A10000719%253Bitem_id%253A105537781%253Bsku_id%253A1027350259%253Bshop_id%253A14541%253BtemplateInfo%253A-1_A3_C%25231103_L%2523&freeshipping=0&fs_ab=1&fuse_fs=&lang=en&location=Bagmati%20Province&price=196&priceCompare=skuId%3A1027350259%3Bsource%3Alazada-search-voucher%3Bsn%3Afe29282dfe338bd3f4ecb016b3246fb1%3BoriginPrice%3A19600%3BdisplayPrice%3A19600%3BsinglePromotionId%3A50000016508002%3BsingleToolCode%3AflashSale%3BvoucherPricePlugin%3A0%3Btimestamp%3A1751359413735&ratingscore=4.0&request_id=fe29282dfe338bd3f4ecb016b3246fb1&review=8&sale=96&search=1&source=search&spm=a2a0e.searchlist.list.2&stock=1" target="_blank" style="position: relative; display: block;">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRHjoDY4u3rGCUv3sJQdm1bLotSImxrCWMibw&s" alt="JBL Go 3" />
+    <div class="price">₹999</div>
+  </a>
+  <p>USB range charger.</p>
+  <button class="add-to-cart-btn" data-product="Electric pen">Add to Cart</button>
+</div>
+
+<div class="project-card">
+  <a href="https://www.daraz.com.np/products/electric-shock-pen-gag-joke-toy-for-kids-i105537781-s1027350259.html?c=&channelLpJumpArgs=&clickTrackInfo=query%253Apen%253Bnid%253A105537781%253Bsrc%253ALazadaMainSrp%253Brn%253Afe29282dfe338bd3f4ecb016b3246fb1%253Bregion%253Anp%253Bsku%253A105537781_NP%253Bprice%253A196%253Bclient%253Adesktop%253Bsupplier_id%253A1004638%253Bbiz_source%253Ah5_external%253Bslot%253A2%253Butlog_bucket_id%253A470687%253Basc_category_id%253A10000719%253Bitem_id%253A105537781%253Bsku_id%253A1027350259%253Bshop_id%253A14541%253BtemplateInfo%253A-1_A3_C%25231103_L%2523&freeshipping=0&fs_ab=1&fuse_fs=&lang=en&location=Bagmati%20Province&price=196&priceCompare=skuId%3A1027350259%3Bsource%3Alazada-search-voucher%3Bsn%3Afe29282dfe338bd3f4ecb016b3246fb1%3BoriginPrice%3A19600%3BdisplayPrice%3A19600%3BsinglePromotionId%3A50000016508002%3BsingleToolCode%3AflashSale%3BvoucherPricePlugin%3A0%3Btimestamp%3A1751359413735&ratingscore=4.0&request_id=fe29282dfe338bd3f4ecb016b3246fb1&review=8&sale=96&search=1&source=search&spm=a2a0e.searchlist.list.2&stock=1" target="_blank" style="position: relative; display: block;">
+    <img src="https://i5.walmartimages.com/seo/HILTEX-40508-Digital-Multimeter-Diode-Transistor-Tester-AC-DC-Volt-Test-Voltmeter-Automotive-Meter-Tester-Measure-Voltage-Test-Car-Battery-Analog-Kit_f11bbc3b-c439-43a7-8988-b40160b4a7f5.d63572ecca53e07f6cd75afee9abd401.jpeg" alt="JBL Go 3" />
+    <div class="price">₹999</div>
+  </a>
+  <p>Multi metre</p>
+  <button class="add-to-cart-btn" data-product="Electric pen">Add to Cart</button>
+</div>
+
+<div class="project-card">
+  <a href="https://www.daraz.com.np/products/electric-shock-pen-gag-joke-toy-for-kids-i105537781-s1027350259.html?c=&channelLpJumpArgs=&clickTrackInfo=query%253Apen%253Bnid%253A105537781%253Bsrc%253ALazadaMainSrp%253Brn%253Afe29282dfe338bd3f4ecb016b3246fb1%253Bregion%253Anp%253Bsku%253A105537781_NP%253Bprice%253A196%253Bclient%253Adesktop%253Bsupplier_id%253A1004638%253Bbiz_source%253Ah5_external%253Bslot%253A2%253Butlog_bucket_id%253A470687%253Basc_category_id%253A10000719%253Bitem_id%253A105537781%253Bsku_id%253A1027350259%253Bshop_id%253A14541%253BtemplateInfo%253A-1_A3_C%25231103_L%2523&freeshipping=0&fs_ab=1&fuse_fs=&lang=en&location=Bagmati%20Province&price=196&priceCompare=skuId%3A1027350259%3Bsource%3Alazada-search-voucher%3Bsn%3Afe29282dfe338bd3f4ecb016b3246fb1%3BoriginPrice%3A19600%3BdisplayPrice%3A19600%3BsinglePromotionId%3A50000016508002%3BsingleToolCode%3AflashSale%3BvoucherPricePlugin%3A0%3Btimestamp%3A1751359413735&ratingscore=4.0&request_id=fe29282dfe338bd3f4ecb016b3246fb1&review=8&sale=96&search=1&source=search&spm=a2a0e.searchlist.list.2&stock=1" target="_blank" style="position: relative; display: block;">
+    <img src="https://static-01.daraz.com.np/p/15174d5874c52115e75e80a9e6b8a8a6.jpg" alt="JBL Go 3" />
+    <div class="price">₹999</div>
+  </a>
+  <p>Wi-Fi Range Extender.</p>
+  <button class="add-to-cart-btn" data-product="Electric pen">Add to Cart</button>
+</div>
+
+<div class="project-card">
+  <a href="https://www.daraz.com.np/products/electric-shock-pen-gag-joke-toy-for-kids-i105537781-s1027350259.html?c=&channelLpJumpArgs=&clickTrackInfo=query%253Apen%253Bnid%253A105537781%253Bsrc%253ALazadaMainSrp%253Brn%253Afe29282dfe338bd3f4ecb016b3246fb1%253Bregion%253Anp%253Bsku%253A105537781_NP%253Bprice%253A196%253Bclient%253Adesktop%253Bsupplier_id%253A1004638%253Bbiz_source%253Ah5_external%253Bslot%253A2%253Butlog_bucket_id%253A470687%253Basc_category_id%253A10000719%253Bitem_id%253A105537781%253Bsku_id%253A1027350259%253Bshop_id%253A14541%253BtemplateInfo%253A-1_A3_C%25231103_L%2523&freeshipping=0&fs_ab=1&fuse_fs=&lang=en&location=Bagmati%20Province&price=196&priceCompare=skuId%3A1027350259%3Bsource%3Alazada-search-voucher%3Bsn%3Afe29282dfe338bd3f4ecb016b3246fb1%3BoriginPrice%3A19600%3BdisplayPrice%3A19600%3BsinglePromotionId%3A50000016508002%3BsingleToolCode%3AflashSale%3BvoucherPricePlugin%3A0%3Btimestamp%3A1751359413735&ratingscore=4.0&request_id=fe29282dfe338bd3f4ecb016b3246fb1&review=8&sale=96&search=1&source=search&spm=a2a0e.searchlist.list.2&stock=1" target="_blank" style="position: relative; display: block;">
+    <img src="https://verk.store/hpeciai/d465fbe41d98d076906b67e945e1523d/eng_pl_Smart-tv-box-android-4k-multimedia-player-4083_2.jpg" alt="JBL Go 3" />
+    <div class="price">₹999</div>
+  </a>
+  <p>TV Box.</p>
+  <button class="add-to-cart-btn" data-product="Electric pen">Add to Cart</button>
+</div>
+
+<div class="project-card">
+  <a href="https://www.daraz.com.np/products/electric-shock-pen-gag-joke-toy-for-kids-i105537781-s1027350259.html?c=&channelLpJumpArgs=&clickTrackInfo=query%253Apen%253Bnid%253A105537781%253Bsrc%253ALazadaMainSrp%253Brn%253Afe29282dfe338bd3f4ecb016b3246fb1%253Bregion%253Anp%253Bsku%253A105537781_NP%253Bprice%253A196%253Bclient%253Adesktop%253Bsupplier_id%253A1004638%253Bbiz_source%253Ah5_external%253Bslot%253A2%253Butlog_bucket_id%253A470687%253Basc_category_id%253A10000719%253Bitem_id%253A105537781%253Bsku_id%253A1027350259%253Bshop_id%253A14541%253BtemplateInfo%253A-1_A3_C%25231103_L%2523&freeshipping=0&fs_ab=1&fuse_fs=&lang=en&location=Bagmati%20Province&price=196&priceCompare=skuId%3A1027350259%3Bsource%3Alazada-search-voucher%3Bsn%3Afe29282dfe338bd3f4ecb016b3246fb1%3BoriginPrice%3A19600%3BdisplayPrice%3A19600%3BsinglePromotionId%3A50000016508002%3BsingleToolCode%3AflashSale%3BvoucherPricePlugin%3A0%3Btimestamp%3A1751359413735&ratingscore=4.0&request_id=fe29282dfe338bd3f4ecb016b3246fb1&review=8&sale=96&search=1&source=search&spm=a2a0e.searchlist.list.2&stock=1" target="_blank" style="position: relative; display: block;">
+    <img src="https://cdn.mos.cms.futurecdn.net/Doy8jVXzSrwD7tWPScUwnb.jpg" alt="JBL Go 3" />
+    <div class="price">₹999</div>
+  </a>
+  <p>Mechanical Keyboard (Budget Models).</p>
+  <button class="add-to-cart-btn" data-product="Electric pen">Add to Cart</button>
+</div>
+
+<div class="project-card">
+  <a href="https://www.daraz.com.np/products/electric-shock-pen-gag-joke-toy-for-kids-i105537781-s1027350259.html?c=&channelLpJumpArgs=&clickTrackInfo=query%253Apen%253Bnid%253A105537781%253Bsrc%253ALazadaMainSrp%253Brn%253Afe29282dfe338bd3f4ecb016b3246fb1%253Bregion%253Anp%253Bsku%253A105537781_NP%253Bprice%253A196%253Bclient%253Adesktop%253Bsupplier_id%253A1004638%253Bbiz_source%253Ah5_external%253Bslot%253A2%253Butlog_bucket_id%253A470687%253Basc_category_id%253A10000719%253Bitem_id%253A105537781%253Bsku_id%253A1027350259%253Bshop_id%253A14541%253BtemplateInfo%253A-1_A3_C%25231103_L%2523&freeshipping=0&fs_ab=1&fuse_fs=&lang=en&location=Bagmati%20Province&price=196&priceCompare=skuId%3A1027350259%3Bsource%3Alazada-search-voucher%3Bsn%3Afe29282dfe338bd3f4ecb016b3246fb1%3BoriginPrice%3A19600%3BdisplayPrice%3A19600%3BsinglePromotionId%3A50000016508002%3BsingleToolCode%3AflashSale%3BvoucherPricePlugin%3A0%3Btimestamp%3A1751359413735&ratingscore=4.0&request_id=fe29282dfe338bd3f4ecb016b3246fb1&review=8&sale=96&search=1&source=search&spm=a2a0e.searchlist.list.2&stock=1" target="_blank" style="position: relative; display: block;">
+    <img src="https://cdn.mos.cms.futurecdn.net/WggHFsbNKwmd7BFEwohHaF.jpg" alt="JBL Go 3" />
+    <div class="price">₹999</div>
+  </a>
+  <p>e-Ink Tablets (like reMarkable, Kindle Scribe).</p>
+  <button class="add-to-cart-btn" data-product="Electric pen">Add to Cart</button>
+</div>
+
+<div class="project-card">
+  <a href="https://www.daraz.com.np/products/electric-shock-pen-gag-joke-toy-for-kids-i105537781-s1027350259.html?c=&channelLpJumpArgs=&clickTrackInfo=query%253Apen%253Bnid%253A105537781%253Bsrc%253ALazadaMainSrp%253Brn%253Afe29282dfe338bd3f4ecb016b3246fb1%253Bregion%253Anp%253Bsku%253A105537781_NP%253Bprice%253A196%253Bclient%253Adesktop%253Bsupplier_id%253A1004638%253Bbiz_source%253Ah5_external%253Bslot%253A2%253Butlog_bucket_id%253A470687%253Basc_category_id%253A10000719%253Bitem_id%253A105537781%253Bsku_id%253A1027350259%253Bshop_id%253A14541%253BtemplateInfo%253A-1_A3_C%25231103_L%2523&freeshipping=0&fs_ab=1&fuse_fs=&lang=en&location=Bagmati%20Province&price=196&priceCompare=skuId%3A1027350259%3Bsource%3Alazada-search-voucher%3Bsn%3Afe29282dfe338bd3f4ecb016b3246fb1%3BoriginPrice%3A19600%3BdisplayPrice%3A19600%3BsinglePromotionId%3A50000016508002%3BsingleToolCode%3AflashSale%3BvoucherPricePlugin%3A0%3Btimestamp%3A1751359413735&ratingscore=4.0&request_id=fe29282dfe338bd3f4ecb016b3246fb1&review=8&sale=96&search=1&source=search&spm=a2a0e.searchlist.list.2&stock=1" target="_blank" style="position: relative; display: block;">
+    <img src="https://m.media-amazon.com/images/I/61rns8Cs0nL._AC_SL1500_.jpg" alt="JBL Go 3" />
+    <div class="price">₹999</div>
+  </a>
+  <p>USB Hub with Power Delivery (PD).</p>
+  <button class="add-to-cart-btn" data-product="Electric pen">Add to Cart</button>
+</div>
+
+<div class="project-card">
+  <a href="https://www.daraz.com.np/products/electric-shock-pen-gag-joke-toy-for-kids-i105537781-s1027350259.html?c=&channelLpJumpArgs=&clickTrackInfo=query%253Apen%253Bnid%253A105537781%253Bsrc%253ALazadaMainSrp%253Brn%253Afe29282dfe338bd3f4ecb016b3246fb1%253Bregion%253Anp%253Bsku%253A105537781_NP%253Bprice%253A196%253Bclient%253Adesktop%253Bsupplier_id%253A1004638%253Bbiz_source%253Ah5_external%253Bslot%253A2%253Butlog_bucket_id%253A470687%253Basc_category_id%253A10000719%253Bitem_id%253A105537781%253Bsku_id%253A1027350259%253Bshop_id%253A14541%253BtemplateInfo%253A-1_A3_C%25231103_L%2523&freeshipping=0&fs_ab=1&fuse_fs=&lang=en&location=Bagmati%20Province&price=196&priceCompare=skuId%3A1027350259%3Bsource%3Alazada-search-voucher%3Bsn%3Afe29282dfe338bd3f4ecb016b3246fb1%3BoriginPrice%3A19600%3BdisplayPrice%3A19600%3BsinglePromotionId%3A50000016508002%3BsingleToolCode%3AflashSale%3BvoucherPricePlugin%3A0%3Btimestamp%3A1751359413735&ratingscore=4.0&request_id=fe29282dfe338bd3f4ecb016b3246fb1&review=8&sale=96&search=1&source=search&spm=a2a0e.searchlist.list.2&stock=1" target="_blank" style="position: relative; display: block;">
+    <img src="https://static-01.daraz.com.np/p/b47e3a45c1bf9099532e76d2295c2870.png" alt="JBL Go 3" />
+    <div class="price">₹999</div>
+  </a>
+  <p>Portable SSD.</p>
+  <button class="add-to-cart-btn" data-product="Electric pen">Add to Cart</button>
+</div>
+
+<div class="project-card">
+  <a href="https://www.daraz.com.np/products/electric-shock-pen-gag-joke-toy-for-kids-i105537781-s1027350259.html?c=&channelLpJumpArgs=&clickTrackInfo=query%253Apen%253Bnid%253A105537781%253Bsrc%253ALazadaMainSrp%253Brn%253Afe29282dfe338bd3f4ecb016b3246fb1%253Bregion%253Anp%253Bsku%253A105537781_NP%253Bprice%253A196%253Bclient%253Adesktop%253Bsupplier_id%253A1004638%253Bbiz_source%253Ah5_external%253Bslot%253A2%253Butlog_bucket_id%253A470687%253Basc_category_id%253A10000719%253Bitem_id%253A105537781%253Bsku_id%253A1027350259%253Bshop_id%253A14541%253BtemplateInfo%253A-1_A3_C%25231103_L%2523&freeshipping=0&fs_ab=1&fuse_fs=&lang=en&location=Bagmati%20Province&price=196&priceCompare=skuId%3A1027350259%3Bsource%3Alazada-search-voucher%3Bsn%3Afe29282dfe338bd3f4ecb016b3246fb1%3BoriginPrice%3A19600%3BdisplayPrice%3A19600%3BsinglePromotionId%3A50000016508002%3BsingleToolCode%3AflashSale%3BvoucherPricePlugin%3A0%3Btimestamp%3A1751359413735&ratingscore=4.0&request_id=fe29282dfe338bd3f4ecb016b3246fb1&review=8&sale=96&search=1&source=search&spm=a2a0e.searchlist.list.2&stock=1" target="_blank" style="position: relative; display: block;">
+    <img src="https://sm.pcmag.com/pcmag_uk/news/a/airtag-vs-/airtag-vs-tile-which-bluetooth-tracker-should-you-choose_f2yu.jpg" alt="JBL Go 3" />
+    <div class="price">₹999</div>
+  </a>
+  <p>Bluetooth Tracker (e.g., Tile, AirTag).</p>
+  <button class="add-to-cart-btn" data-product="Electric pen">Add to Cart</button>
+</div>
+
+<div class="project-card">
+  <a href="https://www.daraz.com.np/products/electric-shock-pen-gag-joke-toy-for-kids-i105537781-s1027350259.html?c=&channelLpJumpArgs=&clickTrackInfo=query%253Apen%253Bnid%253A105537781%253Bsrc%253ALazadaMainSrp%253Brn%253Afe29282dfe338bd3f4ecb016b3246fb1%253Bregion%253Anp%253Bsku%253A105537781_NP%253Bprice%253A196%253Bclient%253Adesktop%253Bsupplier_id%253A1004638%253Bbiz_source%253Ah5_external%253Bslot%253A2%253Butlog_bucket_id%253A470687%253Basc_category_id%253A10000719%253Bitem_id%253A105537781%253Bsku_id%253A1027350259%253Bshop_id%253A14541%253BtemplateInfo%253A-1_A3_C%25231103_L%2523&freeshipping=0&fs_ab=1&fuse_fs=&lang=en&location=Bagmati%20Province&price=196&priceCompare=skuId%3A1027350259%3Bsource%3Alazada-search-voucher%3Bsn%3Afe29282dfe338bd3f4ecb016b3246fb1%3BoriginPrice%3A19600%3BdisplayPrice%3A19600%3BsinglePromotionId%3A50000016508002%3BsingleToolCode%3AflashSale%3BvoucherPricePlugin%3A0%3Btimestamp%3A1751359413735&ratingscore=4.0&request_id=fe29282dfe338bd3f4ecb016b3246fb1&review=8&sale=96&search=1&source=search&spm=a2a0e.searchlist.list.2&stock=1" target="_blank" style="position: relative; display: block;">
+    <img src="https://m.media-amazon.com/images/I/61mNKLuqrqL._UF894,1000_QL80_.jpg" alt="JBL Go 3" />
+    <div class="price">₹999</div>
+  </a>
+  <p>IR Blaster Remote Devices.</p>
+  <button class="add-to-cart-btn" data-product="Electric pen">Add to Cart</button>
+</div>
+
+<div class="project-card">
+  <a href="https://www.daraz.com.np/products/electric-shock-pen-gag-joke-toy-for-kids-i105537781-s1027350259.html?c=&channelLpJumpArgs=&clickTrackInfo=query%253Apen%253Bnid%253A105537781%253Bsrc%253ALazadaMainSrp%253Brn%253Afe29282dfe338bd3f4ecb016b3246fb1%253Bregion%253Anp%253Bsku%253A105537781_NP%253Bprice%253A196%253Bclient%253Adesktop%253Bsupplier_id%253A1004638%253Bbiz_source%253Ah5_external%253Bslot%253A2%253Butlog_bucket_id%253A470687%253Basc_category_id%253A10000719%253Bitem_id%253A105537781%253Bsku_id%253A1027350259%253Bshop_id%253A14541%253BtemplateInfo%253A-1_A3_C%25231103_L%2523&freeshipping=0&fs_ab=1&fuse_fs=&lang=en&location=Bagmati%20Province&price=196&priceCompare=skuId%3A1027350259%3Bsource%3Alazada-search-voucher%3Bsn%3Afe29282dfe338bd3f4ecb016b3246fb1%3BoriginPrice%3A19600%3BdisplayPrice%3A19600%3BsinglePromotionId%3A50000016508002%3BsingleToolCode%3AflashSale%3BvoucherPricePlugin%3A0%3Btimestamp%3A1751359413735&ratingscore=4.0&request_id=fe29282dfe338bd3f4ecb016b3246fb1&review=8&sale=96&search=1&source=search&spm=a2a0e.searchlist.list.2&stock=1" target="_blank" style="position: relative; display: block;">
+    <img src="https://m.media-amazon.com/images/I/71obJ+L7DnL.jpg" alt="JBL Go 3" />
+    <div class="price">₹999</div>
+  </a>
+  <p>Smart Thermometer (Infrared or App-Connected).</p>
+  <button class="add-to-cart-btn" data-product="Electric pen">Add to Cart</button>
+</div>
+
+<div class="project-card">
+  <a href="https://www.daraz.com.np/products/electric-shock-pen-gag-joke-toy-for-kids-i105537781-s1027350259.html?c=&channelLpJumpArgs=&clickTrackInfo=query%253Apen%253Bnid%253A105537781%253Bsrc%253ALazadaMainSrp%253Brn%253Afe29282dfe338bd3f4ecb016b3246fb1%253Bregion%253Anp%253Bsku%253A105537781_NP%253Bprice%253A196%253Bclient%253Adesktop%253Bsupplier_id%253A1004638%253Bbiz_source%253Ah5_external%253Bslot%253A2%253Butlog_bucket_id%253A470687%253Basc_category_id%253A10000719%253Bitem_id%253A105537781%253Bsku_id%253A1027350259%253Bshop_id%253A14541%253BtemplateInfo%253A-1_A3_C%25231103_L%2523&freeshipping=0&fs_ab=1&fuse_fs=&lang=en&location=Bagmati%20Province&price=196&priceCompare=skuId%3A1027350259%3Bsource%3Alazada-search-voucher%3Bsn%3Afe29282dfe338bd3f4ecb016b3246fb1%3BoriginPrice%3A19600%3BdisplayPrice%3A19600%3BsinglePromotionId%3A50000016508002%3BsingleToolCode%3AflashSale%3BvoucherPricePlugin%3A0%3Btimestamp%3A1751359413735&ratingscore=4.0&request_id=fe29282dfe338bd3f4ecb016b3246fb1&review=8&sale=96&search=1&source=search&spm=a2a0e.searchlist.list.2&stock=1" target="_blank" style="position: relative; display: block;">
+    <img src="https://m.media-amazon.com/images/I/71i+Nv6PLfL.jpg" alt="JBL Go 3" />
+    <div class="price">₹999</div>
+  </a>
+  <p>Smart Scale (with Body Composition).</p>
+  <button class="add-to-cart-btn" data-product="Electric pen">Add to Cart</button>
+</div>
+
+<div class="project-card">
+  <a href="https://www.daraz.com.np/products/electric-shock-pen-gag-joke-toy-for-kids-i105537781-s1027350259.html?c=&channelLpJumpArgs=&clickTrackInfo=query%253Apen%253Bnid%253A105537781%253Bsrc%253ALazadaMainSrp%253Brn%253Afe29282dfe338bd3f4ecb016b3246fb1%253Bregion%253Anp%253Bsku%253A105537781_NP%253Bprice%253A196%253Bclient%253Adesktop%253Bsupplier_id%253A1004638%253Bbiz_source%253Ah5_external%253Bslot%253A2%253Butlog_bucket_id%253A470687%253Basc_category_id%253A10000719%253Bitem_id%253A105537781%253Bsku_id%253A1027350259%253Bshop_id%253A14541%253BtemplateInfo%253A-1_A3_C%25231103_L%2523&freeshipping=0&fs_ab=1&fuse_fs=&lang=en&location=Bagmati%20Province&price=196&priceCompare=skuId%3A1027350259%3Bsource%3Alazada-search-voucher%3Bsn%3Afe29282dfe338bd3f4ecb016b3246fb1%3BoriginPrice%3A19600%3BdisplayPrice%3A19600%3BsinglePromotionId%3A50000016508002%3BsingleToolCode%3AflashSale%3BvoucherPricePlugin%3A0%3Btimestamp%3A1751359413735&ratingscore=4.0&request_id=fe29282dfe338bd3f4ecb016b3246fb1&review=8&sale=96&search=1&source=search&spm=a2a0e.searchlist.list.2&stock=1" target="_blank" style="position: relative; display: block;">
+    <img src="https://discountoffice.co.nz/cdn/shop/files/brother-pte300vp-handheld-electrical-label-printer-dsbpte300-13525036499007.png?v=1710528179" alt="JBL Go 3" />
+    <div class="price">₹999</div>
+  </a>
+  <p>Handheld Label Printer.</p>
+  <button class="add-to-cart-btn" data-product="Electric pen">Add to Cart</button>
+</div>
+
+<div class="project-card">
+  <a href="https://www.daraz.com.np/products/electric-shock-pen-gag-joke-toy-for-kids-i105537781-s1027350259.html?c=&channelLpJumpArgs=&clickTrackInfo=query%253Apen%253Bnid%253A105537781%253Bsrc%253ALazadaMainSrp%253Brn%253Afe29282dfe338bd3f4ecb016b3246fb1%253Bregion%253Anp%253Bsku%253A105537781_NP%253Bprice%253A196%253Bclient%253Adesktop%253Bsupplier_id%253A1004638%253Bbiz_source%253Ah5_external%253Bslot%253A2%253Butlog_bucket_id%253A470687%253Basc_category_id%253A10000719%253Bitem_id%253A105537781%253Bsku_id%253A1027350259%253Bshop_id%253A14541%253BtemplateInfo%253A-1_A3_C%25231103_L%2523&freeshipping=0&fs_ab=1&fuse_fs=&lang=en&location=Bagmati%20Province&price=196&priceCompare=skuId%3A1027350259%3Bsource%3Alazada-search-voucher%3Bsn%3Afe29282dfe338bd3f4ecb016b3246fb1%3BoriginPrice%3A19600%3BdisplayPrice%3A19600%3BsinglePromotionId%3A50000016508002%3BsingleToolCode%3AflashSale%3BvoucherPricePlugin%3A0%3Btimestamp%3A1751359413735&ratingscore=4.0&request_id=fe29282dfe338bd3f4ecb016b3246fb1&review=8&sale=96&search=1&source=search&spm=a2a0e.searchlist.list.2&stock=1" target="_blank" style="position: relative; display: block;">
+    <img src="https://m.media-amazon.com/images/I/71nbQKXeSbL._SL1500_.jpg" alt="JBL Go 3" />
+    <div class="price">₹999</div>
+  </a>
+  <p>Digital Caliper.</p>
+  <button class="add-to-cart-btn" data-product="Electric pen">Add to Cart</button>
+</div>
+
+<div class="project-card">
+  <a href="https://www.daraz.com.np/products/electric-shock-pen-gag-joke-toy-for-kids-i105537781-s1027350259.html?c=&channelLpJumpArgs=&clickTrackInfo=query%253Apen%253Bnid%253A105537781%253Bsrc%253ALazadaMainSrp%253Brn%253Afe29282dfe338bd3f4ecb016b3246fb1%253Bregion%253Anp%253Bsku%253A105537781_NP%253Bprice%253A196%253Bclient%253Adesktop%253Bsupplier_id%253A1004638%253Bbiz_source%253Ah5_external%253Bslot%253A2%253Butlog_bucket_id%253A470687%253Basc_category_id%253A10000719%253Bitem_id%253A105537781%253Bsku_id%253A1027350259%253Bshop_id%253A14541%253BtemplateInfo%253A-1_A3_C%25231103_L%2523&freeshipping=0&fs_ab=1&fuse_fs=&lang=en&location=Bagmati%20Province&price=196&priceCompare=skuId%3A1027350259%3Bsource%3Alazada-search-voucher%3Bsn%3Afe29282dfe338bd3f4ecb016b3246fb1%3BoriginPrice%3A19600%3BdisplayPrice%3A19600%3BsinglePromotionId%3A50000016508002%3BsingleToolCode%3AflashSale%3BvoucherPricePlugin%3A0%3Btimestamp%3A1751359413735&ratingscore=4.0&request_id=fe29282dfe338bd3f4ecb016b3246fb1&review=8&sale=96&search=1&source=search&spm=a2a0e.searchlist.list.2&stock=1" target="_blank" style="position: relative; display: block;">
+    <img src="https://m.media-amazon.com/images/I/618klqnYCGL._AC_SL1500_.jpg" alt="JBL Go 3" />
+    <div class="price">₹999</div>
+  </a>
+  <p>Mini Projectors.</p>
+  <button class="add-to-cart-btn" data-product="Electric pen">Add to Cart</button>
+</div>
+
+<div class="project-card">
+  <a href="https://www.daraz.com.np/products/electric-shock-pen-gag-joke-toy-for-kids-i105537781-s1027350259.html?c=&channelLpJumpArgs=&clickTrackInfo=query%253Apen%253Bnid%253A105537781%253Bsrc%253ALazadaMainSrp%253Brn%253Afe29282dfe338bd3f4ecb016b3246fb1%253Bregion%253Anp%253Bsku%253A105537781_NP%253Bprice%253A196%253Bclient%253Adesktop%253Bsupplier_id%253A1004638%253Bbiz_source%253Ah5_external%253Bslot%253A2%253Butlog_bucket_id%253A470687%253Basc_category_id%253A10000719%253Bitem_id%253A105537781%253Bsku_id%253A1027350259%253Bshop_id%253A14541%253BtemplateInfo%253A-1_A3_C%25231103_L%2523&freeshipping=0&fs_ab=1&fuse_fs=&lang=en&location=Bagmati%20Province&price=196&priceCompare=skuId%3A1027350259%3Bsource%3Alazada-search-voucher%3Bsn%3Afe29282dfe338bd3f4ecb016b3246fb1%3BoriginPrice%3A19600%3BdisplayPrice%3A19600%3BsinglePromotionId%3A50000016508002%3BsingleToolCode%3AflashSale%3BvoucherPricePlugin%3A0%3Btimestamp%3A1751359413735&ratingscore=4.0&request_id=fe29282dfe338bd3f4ecb016b3246fb1&review=8&sale=96&search=1&source=search&spm=a2a0e.searchlist.list.2&stock=1" target="_blank" style="position: relative; display: block;">
+    <img src="https://m.media-amazon.com/images/I/51-YettIcSL._AC_.jpg" alt="JBL Go 3" />
+    <div class="price">₹999</div>
+  </a>
+  <p> Programmable LED Strip (e.g., WS2812B, RGB Smart LEDs).</p>
+  <button class="add-to-cart-btn" data-product="Electric pen">Add to Cart</button>
+</div>
+
+    </div>
+    </div>
+    
+  </main>
+<h1 style="text-align: center;" class="rijan">✨ Unlock Your Special Promo Code Today ✨</h1> <br>
+  <a href='/guess' style='text-align: center;'><button class="try-btn">🎲 Try Your Luck</button></a>
+<br>
+<br>
+  <h1><strong>Feedback / Suggestion / Help</strong></h1>
+  <p style="color: rgb(180, 169, 149);">Have feedback, suggestions, or need help? Send us your message below and our team will get back to you as soon as possible.</p>
+
+ <div class="box">
+   <form id="feedbackForm">
+    <input type="email" id="email" placeholder="Your Email address" required>
+    <textarea id="message" placeholder="Your feedback, suggestion, or help" required></textarea>
+    <button type="submit" style="margin: 1px 100px; padding: 10px; width: 110px;">Send</button>
+  </form>
+ </div>
+
+  <footer class="footer">
+  <div class="footer-container">
+    <div class="footer-section about">
+      <h2><strong style="  color: #34ef82; font-family: 'Montserrat', sans-serif;
+
+">Electro</strong> <strong style="  color: #ffffff;       font-family: 'Montserrat', sans-serif;
+
+"> <strong style="color: rgb(32, 50, 249);">- Bazzar</strong></strong></h2>
+      <h4>🛒 About <strong>Electro <strong style="color: rgb(64, 79, 242);">-Bazzar</strong></strong></h4>
+      <p style="color: rgb(204, 197, 197);"><strong>Electro-Bazaar</strong> is your reliable online shopping destination, offering a wide range of quality products at great prices. We ensure secure payments 🔒, fast delivery 🚛, and excellent customer support 💬 to make your shopping experience easy and enjoyable.</p>
+    </div>
+
+    <div class="footer-section links">
+      <h4>Company</h4> <br>  
+      <ul>
+        <li><a href='index.html'>Home</a></li>
+        <li><a href='about.html'>About us</a></li>
+        <li><a href='contact.html'>Contact us</a></li>
+        <li><a href='privacy.html'>Privacy policy</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-section contact" style="color: white;">
+      <h4>Get in touch</h4>
+      <p style="color: rgb(228, 223, 223);">+9779867741488</p>
+      <p style="color: rgb(204, 197, 197);">+9779764514855</p>
+      <p style="color: rgb(204, 197, 197);">aryalreezon87@gmail.com</p>
+    </div>
+  </div>
+<div class="social-section">
+    <!-- <h2>Stay connected</h2> -->
+
+    <a href="https://www.facebook.com/reezon.aryal" class="social-link" target="_blank">
+      <img src="https://cdn-icons-png.flaticon.com/512/124/124010.png" alt="Facebook Icon">
+      Facebook
+    </a>
+
+    <a href="https://www.instagram.com/rijan_111/" class="social-link" target="_blank">
+      <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram Icon">
+      Instagram
+    </a>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-links">
+      <a href="privacy.html">Return Policy</a>
+      <a href="#">Terms & Conditions</a>
+      <a href="#">Terms of Service</a>
+    </div>
+    
+    <p style="color: rgb(204, 197, 197);">© 2025 Electro-Bazzar. All Rights Reserved.</p>
+  </div>
+</footer>
+
+
+  <script>
+    // Initialize cart if not exists
+
+    // Function to update cart count display
+    function updateCartCount() {
+      const cart = JSON.parse(localStorage.getItem('cart'));
+      document.getElementById('cart-count').textContent = cart.length;
+    }
+
+    // Function to show notification
+    function showNotification(message) {
+      const notification = document.createElement('div');
+      notification.className = 'cart-notification';
+      notification.textContent = message;
+      document.body.appendChild(notification);
+      setTimeout(() => notification.remove(), 2000);
+    }
+
+    // Initialize cart count on page load (RIJAN ARYAL DON)
+    updateCartCount();
+
+    // Add to cart button functionality
+    document.querySelectorAll('.add-to-cart-btn').forEach(button => {
+      button.addEventListener('click', () => {
+        const productCard = button.closest('.project-card');
+        const product = {
+          name: button.dataset.product,
+          price: productCard.querySelector('.price').textContent,
+          image: productCard.querySelector('img').src
+        };
+
+        const cart = JSON.parse(localStorage.getItem('cart'));
+        cart.push(product);
+        localStorage.setItem('cart', JSON.stringify(cart));
+
+        updateCartCount();
+        showNotification(`Added ${product.name} to cart!`);
+      });
+    });
+
+    // Cart icon click handler to reset count
+    document.getElementById('cart-icon').addEventListener('click', (e) => {
+      if (e.target.closest('.cart-count')) return;
+      
+      // Reset cart
+      localStorage.setItem('cart', JSON.stringify([]));
+      updateCartCount();
+      showNotification('Cart has been cleared!');
+    });
+    const slide = document.getElementById("carouselSlide");
+    const dots = document.querySelectorAll(".dot");
+    let index = 0;
+
+    function updateCarousel() {
+      slide.style.transform = `translateX(-${index * 100}%)`;
+      dots.forEach(dot => dot.classList.remove("active"));
+      dots[index].classList.add("active");
+    }
+
+    function goToSlide(i) {
+      index = i;
+      updateCarousel();
+    }
+
+    // Auto slide every 6 seconds
+    setInterval(() => {
+      index = (index + 1) % 3;
+      updateCarousel();
+    }, 6000);
+    document.getElementById("feedbackForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const email = document.getElementById("email").value.trim();
+      const message = document.getElementById("message").value.trim();
+
+      if (!email || !message) {
+        alert("Please fill out all fields.");
+        return;
+      }
+
+      // Simulate sending (replace with real backend logic)
+      alert("Thank you! Your message has been sent.");
+      this.reset();
+    });
+    document.querySelectorAll('.add-to-cart-btn').forEach(button => {
+  button.addEventListener('click', () => {
+    // Check if user has signed up
+    if (localStorage.getItem('isSignedUp') !== 'true') {
+      showNotification('Please sign up before adding items to your cart.');
+      setTimeout(() => {
+        window.location.href = 'signin.html'; // Redirect to sign-up page
+      }, 1200);
+      return;
+    }
+    // Check if user is logged in
+    if (localStorage.getItem('isLoggedIn') !== 'true') {
+      showNotification('Please log in to add items to your cart.');
+      setTimeout(() => {
+        window.location.href = 'login.html'; // Redirect to login page
+      }, 1200);
+      return;
+    }
+
+    // If both signed up and logged in, proceed to add to cart
+    const productCard = button.closest('.project-card');
+    const product = {
+      name: button.dataset.product,
+      price: productCard.querySelector('.price').textContent,
+      image: productCard.querySelector('img').src
+    };
+
+    const cart = JSON.parse(localStorage.getItem('cart'));
+    cart.push(product);
+    localStorage.setItem('cart', JSON.stringify(cart));
+
+    updateCartCount();
+    showNotification(`Added ${product.name} to cart!`);
+  });
+});
+// After successful sign up
+localStorage.setItem('isSignedUp', 'true');
+// After successful login
+localStorage.setItem('isLoggedIn', 'true');
+localStorage.removeItem('isLoggedIn');
+
+    // Scroll-to-top functionality
+    const scrollToTopBtn = document.getElementById('scrollToTop');
+    
+    // Show/hide button based on scroll position
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        scrollToTopBtn.classList.add('visible');
+      } else {
+        scrollToTopBtn.classList.remove('visible');
+      }
+    });
+    
+    // Scroll to top when clicked
+    scrollToTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+    // SCENE SETUP (keep this part)
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    camera.position.set(0, 0, 25);
+    
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setClearColor(0x000000);
+    document.getElementById('threejs-container').appendChild(renderer.domElement);
+
+    // [KEEP ALL THE 3D SPECIFIC CODE...]
+    // FUTURISTIC BACKGROUND, FLOATING TITLE, ETC.
+
+    // ANIMATION LOOP (keep this)
+    function animate() {
+      requestAnimationFrame(animate);
+      renderer.render(scene, camera);
+    }
+    animate();
+  </script>
+</body>
+</html>

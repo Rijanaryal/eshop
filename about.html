@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Electro-Bazzar</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #00ff91;
+      --secondary-color: #00aaff;
+      --accent-color: #eb0d76;
+      --dark-bg: #19173a;
+      --darker-bg: #1e1a42;
+      --light-text: #fff;
+      --gray-text: #ddd;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: linear-gradient(135deg, var(--dark-bg), var(--darker-bg));
+      color: var(--light-text);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 40px;
+      background-color: rgba(0, 0, 0, 0.9);
+      border-bottom: 2px solid var(--accent-color);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      transition: all 0.3s ease;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+      color: var(--primary-color);
+      z-index: 2;
+      font-family: 'Orbitron', sans-serif;
+    }
+    .logo span {
+      color: var(--secondary-color);
+    }
+
+    /* Centered Navigation */
+    nav {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 30px;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: white;
+      font-weight: 600;
+      position: relative;
+      transition: color 0.3s;
+      padding: 5px 0;
+    }
+    nav a::after {
+      content: '';
+      position: absolute;
+      width: 0%;
+      height: 3px;
+      bottom: 0;
+      left: 0;
+      background-color: var(--secondary-color);
+      transition: width 0.4s ease;
+    }
+    nav a:hover {
+      color: var(--secondary-color);
+    }
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    /* Enhanced scroll animation */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 1.2s ease, transform 1s ease;
+    }
+    
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .scroll-to-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 50px;
+      height: 50px;
+      background-color: var(--secondary-color);
+      color: black;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.4s ease;
+      z-index: 999;
+      box-shadow: 0 0 15px rgba(0, 170, 255, 0.5);
+    }
+
+    .scroll-to-top.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .scroll-to-top:hover {
+      transform: translateY(-5px) scale(1.05);
+      background: var(--primary-color);
+      color: rgb(255, 18, 18);
+    }
+
+    .scroll-to-top svg {
+      width: 24px;
+      height: 24px;
+      transition: transform 0.3s ease;
+    }
+
+    .scroll-to-top:hover svg {
+      transform: translateY(-3px);
+    }
+
+    .hero-section {
+      height: 80vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 0 20px;
+      background: linear-gradient(rgba(25, 23, 58, 0.8), rgba(30, 26, 66, 0.9)), 
+                  url('https://images.unsplash.com/photo-1498049794561-7780e7231661?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+      background-size: cover;
+      background-position: center;
+    }
+
+    .hero-section h1 {
+      font-size: 3.5rem;
+      margin-bottom: 20px;
+      color: var(--primary-color);
+      font-family: 'Orbitron', sans-serif;
+      text-shadow: 0 0 10px rgba(0, 255, 145, 0.5);
+    }
+
+    .hero-section p {
+      font-size: 1.2rem;
+      max-width: 700px;
+      margin-bottom: 30px;
+      color: var(--gray-text);
+    }
+
+    .cta-button {
+      display: inline-block;
+      padding: 12px 30px;
+      background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+      color: #000;
+      text-decoration: none;
+      border-radius: 30px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 15px rgba(0, 255, 145, 0.3);
+    }
+
+    .cta-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0, 255, 145, 0.5);
+    }
+
+    .about-section {
+      max-width: 1000px;
+      margin: 80px auto;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 50px;
+      border-radius: 20px;
+      box-shadow: 0 0 20px var(--primary-color);
+      transition: 0.4s ease-in-out;
+    }
+    .about-section:hover {
+      box-shadow: 0 0 35px var(--primary-color), 0 0 15px var(--secondary-color);
+    }
+
+    h1 {
+      font-size: 36px;
+      color: var(--primary-color);
+      text-align: center;
+      margin-bottom: 30px;
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    h2 {
+      font-size: 28px;
+      color: var(--secondary-color);
+      margin-bottom: 20px;
+    }
+
+    p {
+      font-size: 18px;
+      line-height: 1.8;
+      color: var(--gray-text);
+      margin-bottom: 20px;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+      margin-top: 50px;
+    }
+
+    .feature-card {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 30px;
+      border-radius: 15px;
+      text-align: center;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .feature-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 10px 25px rgba(0, 255, 145, 0.2);
+      border-color: var(--primary-color);
+    }
+
+    .feature-icon {
+      font-size: 40px;
+      margin-bottom: 20px;
+    }
+
+    /* Team Section Styles */
+    .team-section {
+      max-width: 1200px;
+      margin: 80px auto;
+      padding: 0 20px;
+    }
+
+    .team-container {
+      display: flex;
+      gap: 30px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .team-box {
+      flex: 1;
+      min-width: 300px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: 0 0 20px rgba(0, 255, 145, 0.2);
+      transition: all 0.4s ease;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .team-box:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 10px 30px rgba(0, 255, 145, 0.4);
+    }
+
+    .team-box h2 {
+      color: var(--primary-color);
+      text-align: center;
+      margin-bottom: 25px;
+      font-size: 28px;
+      border-bottom: 2px solid var(--secondary-color);
+      padding-bottom: 10px;
+    }
+
+    .team-member {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+      padding: 15px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.03);
+      transition: all 0.3s ease;
+    }
+
+    .team-member:hover {
+      background: rgba(255, 255, 255, 0.08);
+      transform: translateX(5px);
+    }
+
+    .member-avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 15px;
+      font-weight: bold;
+      color: #000;
+      font-size: 18px;
+    }
+
+    .member-info h3 {
+      margin: 0;
+      font-size: 18px;
+      color: var(--light-text);
+    }
+
+    .member-info p {
+      margin: 5px 0 0;
+      font-size: 14px;
+      color: var(--gray-text);
+    }
+
+    .member-role {
+      display: inline-block;
+      background: rgba(0, 170, 255, 0.2);
+      color: var(--secondary-color);
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      margin-top: 5px;
+    }
+
+    .support-icon {
+      font-size: 18px;
+      margin-right: 8px;
+    }
+
+    /* Products Section */
+    .products-section {
+      max-width: 1200px;
+      margin: 80px auto;
+      padding: 0 20px;
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
+    }
+
+    .product-card {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 15px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .product-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 10px 25px rgba(0, 255, 145, 0.2);
+    }
+
+    .product-image {
+      height: 180px;
+      background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 40px;
+    }
+
+    .product-info {
+      padding: 20px;
+    }
+
+    .product-info h3 {
+      color: var(--primary-color);
+      margin-bottom: 10px;
+    }
+
+    .product-info p {
+      font-size: 14px;
+      margin-bottom: 15px;
+    }
+
+    .product-price {
+      color: var(--secondary-color);
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    /* Footer Styles */
+    .footer-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      max-width: 1200px;
+      margin: auto;
+      gap: 30px;
+      padding: 50px 20px;
+    }
+    .footer {
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.9rem;
+      color: var(--main-color);
+      background: radial-gradient(circle, #2c275e, #4d487d, #494985);    
+    }
+    .footer-section {
+      flex: 1 1 300px;
+    }
+
+    .footer-section h2 {
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+
+    .footer-section h4 {
+      margin-bottom: 15px;
+      color: var(--primary-color);
+    }
+
+    .footer-section p {
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .footer-section ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .footer-section ul li {
+      margin-bottom: 8px;
+    }
+
+    .footer-section ul li a {
+      text-decoration: none;
+      color: #f8e8e8;
+      transition: color 0.3s;
+    }
+
+    .footer-section ul li a:hover {
+      color: var(--secondary-color);
+    }
+
+    .footer-bottom {
+      text-align: center;
+      padding: 20px;
+      font-size: 14px;
+      color: hsl(0, 12%, 78%);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .footer-bottom .footer-links {
+      margin-bottom: 10px;
+    }
+
+    .footer-bottom .footer-links a {
+      margin: 0 10px;
+      text-decoration: none;
+      color: var(--primary-color);
+      font-weight: 500;
+    }
+
+    .footer-bottom .footer-links a:hover {
+      text-decoration: underline;
+    }
+
+    .social-section {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      margin: 30px 0;
+    }
+
+    .social-link {
+      display: flex;
+      align-items: center;
+      margin: 10px 0;
+      color: #ebe1e1;
+      font-size: 18px;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .social-link:hover {
+      color: var(--secondary-color);
+    }
+
+    .social-link img {
+      width: 24px;
+      height: 24px;
+      margin-right: 10px;
+    }
+
+    /* Mobile menu styles */
+    .menu-toggle {
+      display: none;
+      cursor: pointer;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 30px;
+      height: 21px;
+    }
+    
+    .menu-toggle span {
+      display: block;
+      height: 3px;
+      width: 100%;
+      background-color: white;
+      border-radius: 3px;
+      transition: all 0.3s ease;
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 1024px) {
+      .hero-section h1 {
+        font-size: 2.8rem;
+      }
+      
+      nav {
+        gap: 20px;
+      }
+    }
+    
+    @media (max-width: 900px) {
+      .box {
+        width: 45%;
+        margin-bottom: 20px;
+      }
+      .team-container {
+        flex-direction: column;
+        align-items: center;
+      }
+      .team-box {
+        width: 100%;
+        max-width: 500px;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      header {
+        padding: 15px 20px;
+      }
+      
+      .hero-section h1 {
+        font-size: 2.2rem;
+      }
+      
+      nav {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 70%;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.95);
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        transition: right 0.4s ease;
+        z-index: 999;
+      }
+      
+      nav.active {
+        right: 0;
+      }
+      
+      nav a {
+        margin: 15px 0;
+        font-size: 20px;
+      }
+      
+      .menu-toggle {
+        display: flex;
+        z-index: 1000;
+      }
+      
+      .menu-toggle.active span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+      }
+      
+      .menu-toggle.active span:nth-child(2) {
+        opacity: 0;
+      }
+      
+      .menu-toggle.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(7px, -6px);
+      }
+      
+      .about-section {
+        padding: 30px;
+        margin: 50px 20px;
+      }
+    }
+    
+    @media (max-width: 500px) {
+      .box {
+        flex-direction: column;
+        width: 100%;
+      }
+      .hero-section h1 {
+        font-size: 1.8rem;
+      }
+      .hero-section p {
+        font-size: 1rem;
+      }
+      .about-section {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="scroll-to-top" id="scrollToTop">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 4l-8 8h5v8h6v-8h5z"/>
+    </svg>
+  </div>
+
+  <header>
+    <div class="logo">Electro-<span>Bazzar</span></div>
+    
+    <div class="menu-toggle" id="mobileMenu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    
+    <nav id="mainNav">
+      <a href="real.html">HOME</a>
+      <a href="shop.html">SHOP</a>
+      <a href="contact.html">CONTACT</a>
+            <a href="visit.html">STORE</a>
+    
+    </nav>  
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-section fade-in">
+    <h1>Welcome to Electro-Bazzar</h1>
+    <p>Your premier destination for cutting-edge electronics and tech gadgets in Nepal. Experience the future of technology today.</p>
+    <a href="shop.html" class="cta-button">Shop Now</a>
+  </section>
+
+  <!-- About Section -->
+  <section class="about-section fade-in">
+    <h1>About Electro-Bazzar</h1>
+    <p>
+      Welcome to <strong>Electro-Bazzar</strong> — your one-stop destination for the latest and greatest in tech gadgets, electronics, and accessories. Our mission is to bring you high-quality products that elevate your digital lifestyle. Whether you're a gamer, a tech enthusiast, or simply someone who loves modern electronics, we have something just for you.
+    </p>
+    <p>
+      From RGB gaming mice to smart home devices, we specialize in curating a collection of the best gear at unbeatable prices. Our user-friendly interface, top-notch service, and fast delivery make shopping with us a breeze. We don't just sell products. We offer the future of technology in your hands.
+    </p>
+
+    <div class="features-grid">
+      <div class="feature-card fade-in">
+        <div class="feature-icon">🚀</div>
+        <h3>Fast Delivery</h3>
+        <p>Get your products delivered quickly and securely to your doorstep.</p>
+      </div>
+      <div class="feature-card fade-in">
+        <div class="feature-icon">💎</div>
+        <h3>Premium Quality</h3>
+        <p>All our products are tested for performance and durability.</p>
+      </div>
+      <div class="feature-card fade-in">
+        <div class="feature-icon">🛡️</div>
+        <h3>Secure Payment</h3>
+        <p>Multiple safe payment options for your convenience.</p>
+      </div>
+      <div class="feature-card fade-in">
+        <div class="feature-icon">📞</div>
+        <h3>24/7 Support</h3>
+        <p>Our support team is always ready to assist you.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Team Section -->
+  <section class="team-section fade-in">
+    <h1>Our Amazing Team</h1>
+    <div class="team-container">
+      <div class="team-box">
+        <h2>Team Members</h2>
+        <div class="team-member">
+          <div class="member-avatar">RA</div>
+          <div class="member-info">
+            <h3>Rijan Aryal</h3>
+            <p>Tech Specialist</p>
+            <span class="member-role">Leader</span>
+          </div>
+        </div>
+        <div class="team-member">
+          <div class="member-avatar">RD</div>
+          <div class="member-info">
+            <h3>Rachit Dangol</h3>
+            <p>Product Manager</p>
+            <span class="member-role">Co-Leader</span>
+          </div>
+        </div>
+        <div class="team-member">
+          <!-- <div class="member-avatar">MJ</div> -->
+          <div class="member-info">
+            <!-- <h3>Mike Johnson</h3> -->
+            <!-- <p>Sales Expert</p> -->
+          </div>
+        </div>
+        <div class="team-member">
+          <!-- <div class="member-avatar">SB</div> -->
+          <div class="member-info">
+            <!-- <h3>Sarah Brown</h3> -->
+            <!-- <p>Customer Support</p> -->
+          </div>
+        </div>
+        <div class="team-member">
+          <!-- <div class="member-avatar">AW</div> -->
+          <div class="member-info">
+            <!-- <h3>Alex Wilson</h3> -->
+            <!-- <p>Marketing Specialist</p> -->
+          </div>
+        </div>
+      </div>
+      
+      <div class="team-box">
+        <h2>Support Team 🤍</h2>
+        <div class="team-member">
+          <div class="member-avatar">SA</div>
+          <div class="member-info">
+            <h3>Sampada Adhikari</h3>
+            <p>Technical Support</p>
+            <!-- <span class="support-icon">🤍</span> -->
+          </div>
+        </div>
+        <div class="team-member">
+          <div class="member-avatar">JSK</div>
+          <div class="member-info">
+            <h3>jay shree krishna</h3>
+            <p>Customer Service</p>
+            <!-- <span class="support-icon">🤍</span> -->
+          </div>
+        </div>
+        <div class="team-member">
+          <!-- <div class="member-avatar">CL</div> -->
+          <div class="member-info">
+            <!-- <h3>Chris Lee</h3> -->
+            <!-- <p>IT Specialist</p> -->
+            <!-- <span class="support-icon">🤍</span> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Products Section -->
+  <section class="products-section fade-in">
+    <h1>Featured Products</h1>
+    <div class="products-grid">
+      <div class="product-card fade-in">
+        <div class="product-image">📱</div>
+        <div class="product-info">
+          <h3>Smartphone X1</h3>
+          <p>Latest smartphone with advanced features and premium design.</p>
+          <div class="product-price">$699</div>
+        </div>
+      </div>
+      <div class="product-card fade-in">
+        <div class="product-image">🎧</div>
+        <div class="product-info">
+          <h3>Wireless Earbuds</h3>
+          <p>High-quality sound with noise cancellation technology.</p>
+          <div class="product-price">$149</div>
+        </div>
+      </div>
+      <div class="product-card fade-in">
+        <div class="product-image">⌚</div>
+        <div class="product-info">
+          <h3>Smart Watch</h3>
+          <p>Track your fitness and stay connected with this smartwatch.</p>
+          <div class="product-price">$249</div>
+        </div>
+      </div>
+      <div class="product-card fade-in">
+        <div class="product-image">🎮</div>
+        <div class="product-info">
+          <h3>Gaming Console</h3>
+          <p>Next-gen gaming experience with immersive graphics.</p>
+          <div class="product-price">$499</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-section about fade-in">
+        <h2><strong style="color: #34ef82;">Electro</strong> <strong style="color: #f4f4f4;">- Bazzar</strong></h2>
+        <h4>🛒 About Electro-Bazaar</h4>
+        <p>Electro-Bazaar is your reliable online shopping destination, offering a wide range of quality products at great prices. We ensure secure payments 🔒, fast delivery 🚛, and excellent customer support 💬 to make your shopping experience easy and enjoyable.</p>
+      </div>
+
+      <div class="footer-section links fade-in">
+        <h4>Company</h4>
+        <ul>
+          <li><a href='real.html'>Home</a></li>
+          <li><a href='about.html'>About us</a></li>
+          <li><a href='contact.html'>Contact us</a></li>
+          <li><a href='privacy.html'>Privacy policy</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section contact fade-in">
+        <h4>Get in touch</h4>
+        <p>+9779867741488</p>
+        <p>+9779764514855</p>
+        <p>info@electro-bazzar.com</p>
+      </div>
+    </div>
+    <div class="social-section fade-in">
+      <a href="https://www.facebook.com/electrobazzar" class="social-link" target="_blank">
+        <img src="https://cdn-icons-png.flaticon.com/512/124/124010.png" alt="Facebook Icon">
+        Facebook
+      </a>
+
+      <a href="https://www.instagram.com/electrobazzar" class="social-link" target="_blank">
+        <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram Icon">
+        Instagram
+      </a>
+
+      <a href="https://github.com/Rijanaryal" class="social-link" target="_blank">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Octicons-mark-github.svg/1200px-Octicons-mark-github.svg.png" alt="github">Github
+      </a>  
+    </div>
+    <div class="footer-bottom fade-in">
+      <div class="footer-links">
+        <a href="privacy.html">Return Policy</a>
+        <a href="location.html">Location</a>
+        <a href="#">Terms of Service</a>
+      </div>
+      <p>© 2025 Electro-Bazzar. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Enhanced scroll animation functionality
+    function checkScroll() {
+      const elements = document.querySelectorAll('.fade-in');
+      const windowHeight = window.innerHeight;
+      
+      elements.forEach(element => {
+        const positionFromTop = element.getBoundingClientRect().top;
+        
+        if (positionFromTop - windowHeight <= -100) {
+          element.classList.add('visible');
+        }
+      });
+    }
+    
+    // Initial check on page load
+    window.addEventListener('load', checkScroll);
+    // Check on scroll with throttling for performance
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          checkScroll();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    });
+    
+    // Scroll-to-top functionality
+    const scrollToTopBtn = document.getElementById('scrollToTop');
+
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        scrollToTopBtn.classList.add('visible');
+      } else {
+        scrollToTopBtn.classList.remove('visible');
+      }
+    });
+
+    scrollToTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+
+    // Mobile menu toggle
+    const mobileMenu = document.getElementById('mobileMenu');
+    const mainNav = document.getElementById('mainNav');
+
+    mobileMenu.addEventListener('click', () => {
+      mainNav.classList.toggle('active');
+      mobileMenu.classList.toggle('active');
+    });
+
+    // Close mobile menu when clicking on a link
+    const navLinks = document.querySelectorAll('nav a');
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        mainNav.classList.remove('active');
+        mobileMenu.classList.remove('active');
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "url": "https://electro-bazzar.com",
+    "logo": "https://i.ibb.co/6RNT2Rm4/electro-bazzar-logo.jpg",
+    "name": "Electro-Bazzar",
+    "description": "Your one-stop shop for premium electronics and gadgets in Nepal.",
+    "sameAs": [
+      "https://facebook.com/electrobazzar",
+      "https://instagram.com/electrobazzar"
+    ]
+  }
+  </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Electro-Bazzar</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="" href="379907369_731692655641513_7342960460164979974_n.jpg" />
+
+  <title>About Us | Electro-Bazzar</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Montserrat', sans-serif;
+      background: linear-gradient(135deg, #19173a, #1e1a42);
+      color: #fff;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      padding: 20px 40px;
+      background-color: #000;
+      border-bottom: 2px solid #eb0d76;
+      position: relative;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+      color: #00ff91;
+      z-index: 2;
+    }
+    .logo span {
+      color: #00aaff;
+    }
+
+    /* Centered Navigation */
+    nav {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 20px;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: white;
+      font-weight: bold;
+      position: relative;
+    }
+    nav a::after {
+      content: '';
+      position: absolute;
+      width: 0%;
+      height: 3px;
+      bottom: -5px;
+      left: 0;
+      background-color: cyan;
+      transition: width 0.3s;
+    }
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    /* Scroll animation classes */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(50px);
+      transition: opacity 3.6s ease, transform 0.8s ease;
+    }
+    
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Rest of your existing CSS remains exactly the same */
+    .scroll-to-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 50px;
+      height: 50px;
+      background-color: cyan;
+      color: black;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      z-index: 999;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    }
+
+    .scroll-to-top.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .scroll-to-top:hover {
+      transform: translateY(-5px);
+      background: var(--main-color);
+      color: rgb(255, 18, 18);
+    }
+
+    .scroll-to-top svg {
+      width: 24px;
+      height: 24px;
+      transition: transform 0.3s ease;
+    }
+
+    .scroll-to-top:hover svg {
+      transform: translateY(-3px);
+    }
+
+    .about-section {
+      max-width: 1000px;
+      margin: 60px auto;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 0 20px #00ff91;
+      transition: 0.3s ease-in-out;
+    }
+    .about-section:hover {
+      box-shadow: 0 0 35px #00ff91, 0 0 15px #00aaff;
+    }
+
+    h1 {
+      font-size: 36px;
+      color: #00ff91;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    p {
+      font-size: 18px;
+      line-height: 1.8;
+      color: #ddd;
+    }
+
+    .founder-container {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      margin-top: 40px;
+    }
+
+    .founder-photo {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 5px solid #00ff91;
+      box-shadow: 0 0 20px rgba(0, 255, 145, 0.5);
+      transition: all 0.3s ease;
+    }
+    .founder-photo:hover {
+      transform: scale(1.05);
+      border-color: #00aaff;
+      box-shadow: 0 0 30px rgba(0, 170, 255, 0.7);
+    }
+
+    .contact-box {
+      flex: 1;
+      background: #121020;
+      padding: 20px;
+      border-left: 5px solid #00ff91;
+      border-radius: 10px;
+      transition: 0.3s;
+    }
+    .contact-box:hover {
+      transform: scale(1.02);
+      border-left-color: #00aaff;
+    }
+    .contact-box strong {
+      color: #00ff91;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 60px;
+      padding: 20px;
+      border-top: 1px solid #333;
+      font-size: 14px;
+      color: #888;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 2.5rem;
+      color: #0a74da;
+    }
+    .container {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .box {
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 255, 204, 0.329);
+      width: 22%;
+      min-width: 250px;
+      padding: 15px;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      display: flex;
+      flex-direction: row;
+    }
+    .box:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 8px 24px rgba(2, 127, 243, 0.3);
+    }
+    .column {
+      flex: 1;
+      padding: 0 8px;
+    }
+    .column:first-child {
+      border-left: none;
+    }
+    .column p {
+      font-size: 0.9rem;
+      line-height: 1.3;
+    }
+    /* Responsive */
+    @media (max-width: 900px) {
+      .box {
+        width: 45%;
+        margin-bottom: 20px;
+      }
+      .founder-container {
+        flex-direction: column;
+      }
+      .founder-photo {
+        width: 150px;
+        height: 150px;
+      }
+    }
+    @media (max-width: 500px) {
+      .box {
+        flex-direction: column;
+        width: 100%;
+      }
+      .column {
+        border-left: none;
+        border-top: 1px solid #e10d0d;
+        padding: 8px 0 0 0;
+      }
+      .column:first-child {
+        border-top: none;
+      }
+    }
+
+    .container p strong{
+      color: #00ff91;
+      font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    }
+    .footer-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      max-width: 1200px;
+      margin: auto;
+      gap: 30px;
+    }
+    .footer {
+      padding: 40px 20px;
+      color: #ffffff;
+      font-family: 'Segoe UI', sans-serif;
+      border-top: 2px solid #dfdfdf; 
+    }
+    .footer-section {
+      flex: 1 1 300px;
+    }
+
+    .footer-section h2 {
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+
+    .footer-section h2 .logo {
+      color: #06e106;
+    }
+
+    .footer-section h4 {
+      margin-bottom: 10px;
+      color: #1cda68;
+    }
+
+    .footer-section p {
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .footer-section ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .footer-section ul li {
+      margin-bottom: 8px;
+    }
+
+    .footer-section ul li a {
+      text-decoration: none;
+      color: #f8e8e8;
+      transition: color 0.3s;
+    }
+
+    .footer-section ul li a:hover {
+      color: #568ae2;
+    }
+
+    .footer-bottom {
+      text-align: center;
+      margin-top: 30px;
+      padding-top: 15px;
+      font-size: 14px;
+      color: hsl(0, 12%, 78%);
+    }
+
+    .footer-bottom .footer-links {
+      margin-bottom: 10px;
+    }
+
+    .footer-bottom .footer-links a {
+      margin: 0 10px;
+      text-decoration: none;
+      color: #66d766;
+      font-weight: 500;
+    }
+
+    .footer-bottom .footer-links a:hover {
+      text-decoration: underline;
+    }
+    .logo {
+      font-size: 23px;
+      font-weight: bold;
+      display: flex;
+    }
+    .social-section {
+      font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+    }
+    .social-section h2 {
+      font-size: 24px;
+      font-weight: bold;
+    }
+    .social-link {
+      display: flex;
+      align-items: center;
+      margin: 10px 0;
+      color: #ebe1e1;
+      font-size: 18px;
+      text-decoration: none;
+    }
+    .social-link img {
+      width: 24px;
+      height: 24px;
+      margin-right: 10px;
+    }
+
+    /* Mobile menu styles */
+    .menu-toggle {
+      display: none;
+      cursor: pointer;
+    }
+    
+    @media (max-width: 768px) {
+      .menu-toggle {
+        display: block;
+      }
+      nav {
+        position: static;
+        transform: none;
+        display: none;
+        width: 100%;
+        margin-top: 15px;
+      }
+      nav.active {
+        display: flex;
+      }
+      nav ul {
+        flex-direction: column;
+        width: 100%;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="scroll-to-top" id="scrollToTop">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 4l-8 8h5v8h6v-8h5z"/>
+    </svg>
+  </div>
+
+  <header>
+    <div class="logo">Electro-<span>Bazzar</span></div>
+    
+    <div class="menu-toggle" id="mobileMenu">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="3" y1="12" x2="21" y2="12"></line>
+        <line x1="3" y1="6" x2="21" y2="6"></line>
+        <line x1="3" y1="18" x2="21" y2="18"></line>
+      </svg>
+    </div>
+    
+    <nav id="mainNav">
+      <a href="3js.html">HOME</a>
+      <a href="login.html">SHOP</a>
+      <a href="login.html">CONTACT</a>
+      <a href="about1.html">ABOUT-US</a>
+    </nav>  
+  </header>
+
+  <!-- Rest of your HTML content remains exactly the same -->
+  <section class="about-section fade-in">
+    <h1>About Electro-Bazzar</h1>
+    <p>
+      Welcome to <strong>Electro-Bazzar</strong> — your one-stop destination for the latest and greatest in tech gadgets, electronics, and accessories. Our mission is to bring you high-quality products that elevate your digital lifestyle. Whether you're a gamer, a tech enthusiast, or simply someone who loves modern electronics, we have something just for you.
+    </p>
+    <p>
+      From RGB gaming mice to smart home devices, we specialize in curating a collection of the best gear at unbeatable prices. Our user-friendly interface, top-notch service, and fast delivery make shopping with us a breeze. We don't just sell products.  we offer the future of technology in your hands.
+    </p>
+
+    <div class="founder-container">
+      <img src="/505234142_1434891694177193_8142745824625971687_n.jpg" alt="Rijan Aryal - Founder of Electro-Bazzar" class="founder-photo">
+      <div class="contact-box">
+        <p><strong>Founder:</strong> Rijan Aryal</p>
+        <p><strong>Contact:</strong> +977-9764514855</p>
+        <p><strong>Email:</strong> aryalreezon87@gmail.com</p>
+        <p><strong>Vision:</strong> Bringing cutting-edge technology to everyone at affordable prices</p>
+      </div>
+    </div>
+  </section>
+
+
+  <footer>
+    <h1 class="fade-in">Why Choose Us?</h1>
+
+    <div class="container">
+
+      <div class="box fade-in" onclick="alert('Learn more about our product quality!')">
+        <div class="column">
+          <p><strong>Quality Products <br></strong><br>We offer top notch electronic devices tested for performance.</p>
+        </div>
+        <div class="column">
+          <p><strong>Affordable Prices <br></strong><br>Great deals and competitive prices on all our products.</p>
+        </div>
+        <div class="column">
+          <p><strong>Trusted Brand <br></strong><br>Electro Bazzar is a reliable name in electronic shopping.</p>
+        </div>
+      </div>
+
+      <div class="box fade-in" onclick="alert('Check out our fast shipping options!')">
+        <div class="column">
+          <p><strong>Fast Shipping <br></strong><br>Quick delivery to your doorstep across the country.</p>
+        </div>
+        <div class="column">
+          <p><strong>Customer Support <br></strong><br>24/7 support to help you with any queries or issues.</p>
+        </div>
+        <div class="column">
+          <p><strong>Easy Returns <br></strong><br>Hassle-free returns and replacements guaranteed.</p>
+        </div>
+      </div>
+
+      <div class="box fade-in" onclick="alert('Explore our wide product range!')">
+        <div class="column">
+          <p><strong>Wide Selection <br></strong><br>From smartphones to accessories, find all electronics here.</p>
+        </div>
+        <div class="column">
+          <p><strong>Latest Technology <br></strong><br>Stay ahead with the newest gadgets and devices.</p>
+        </div>
+        <div class="column">
+          <p><strong>Secure Payment <br></strong><br>Safe and multiple payment options for your convenience.</p>
+        </div>
+      </div>
+
+      <div class="box fade-in" onclick="alert('Join our loyalty program and save more!')">
+        <div class="column">
+          <p><strong>Loyalty Rewards <br></strong><br>Earn points and enjoy exclusive discounts every time you shop.</p>
+        </div>
+        <div class="column">
+          <p><strong>Expert Advice <br></strong><br>Get guidance from tech experts to choose the right products.</p>
+        </div>
+        <div class="column">
+          <p><strong>Community Focus <br></strong><br>We value our customers and constantly improve based on your feedback.</p>
+        </div>
+      </div>
+
+    </div>
+    <br>
+  </footer>
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-section about fade-in">
+        <h2><strong style="color: #34ef82;">Electro</strong> <strong style="color: #f4f4f4;">- Bazzar</strong></h2>
+        <h4>🛒 About <strong>Electro-Bazaar</strong></h4>
+        <p><strong>Electro-Bazaar</strong> is your reliable online shopping destination, offering a wide range of quality products at great prices. We ensure secure payments 🔒, fast delivery 🚛, and excellent customer support 💬 to make your shopping experience easy and enjoyable.</p>
+      </div>
+
+      <div class="footer-section links fade-in">
+        <h4>Company</h4>
+        <ul>
+          <li><a href='real.html'>Home</a></li>
+          <li><a href='about.html'>About us</a></li>
+          <li><a href='contact.html'>Contact us</a></li>
+          <li><a href='privacy.html'>Privacy policy</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section contact fade-in">
+        <h4>Get in touch</h4>
+        <p>+9779867741488</p>
+        <p>+9779764514855</p>
+        <p>aryalreezon87@gmail.com</p>
+      </div>
+    </div>
+    <div class="social-section fade-in">
+      <a href="https://www.facebook.com/reezon.aryal" class="social-link" target="_blank">
+        <img src="https://cdn-icons-png.flaticon.com/512/124/124010.png" alt="Facebook Icon">
+        Facebook
+      </a>
+
+      <a href="https://www.instagram.com/rijan_111/" class="social-link" target="_blank">
+        <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram Icon">
+        Instagram
+      </a>
+
+      <a href="https://github.com/juniorrijan" class="social-link" target="_blank">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Octicons-mark-github.svg/1200px-Octicons-mark-github.svg.png" alt="github">Github
+    </a>  
+    </div>
+    <div class="footer-bottom fade-in">
+      <div class="footer-links">
+        <a href="privacy.html">Return Policy</a>
+      <a href="location.html">Location</a>
+        <a href="#">Terms of Service</a>
+      </div>
+      <p>© 2025 Electro-Bazzar. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Scroll animation functionality
+    function checkScroll() {
+      const elements = document.querySelectorAll('.fade-in');
+      const windowHeight = window.innerHeight;
+      
+      elements.forEach(element => {
+        const positionFromTop = element.getBoundingClientRect().top;
+        
+        if (positionFromTop - windowHeight <= -100) {
+          element.classList.add('visible');
+        } else {
+          // Remove this line if you don't want elements to fade out when scrolling up
+          // element.classList.remove('visible');
+        }
+      });
+    }
+    
+    // Initial check on page load
+    window.addEventListener('load', checkScroll);
+    // Check on scroll
+    window.addEventListener('scroll', checkScroll);
+    
+    // Scroll-to-top functionality
+    const scrollToTopBtn = document.getElementById('scrollToTop');
+
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        scrollToTopBtn.classList.add('visible');
+      } else {
+        scrollToTopBtn.classList.remove('visible');
+      }
+    });
+
+    scrollToTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+
+    // Mobile menu toggle
+    const mobileMenu = document.getElementById('mobileMenu');
+    const mainNav = document.getElementById('mainNav');
+
+    mobileMenu.addEventListener('click', () => {
+      mainNav.classList.toggle('active');
+    });
+  </script>
+</body>
+</html>

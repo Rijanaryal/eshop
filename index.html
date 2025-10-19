@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "url": "https://electro-bazzar.com",
+      "logo": "https://i.ibb.co/6RNT2Rm4/electro-bazzar-logo.jpg",
+      "name": "Electro-Bazzar",
+      "description": "Your one-stop shop for premium electronics and gadgets in Nepal.",
+      "sameAs": [
+        "https://facebook.com/electrobazzar",
+        "https://instagram.com/electrobazzar"
+      ]
+    }
+    </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Electro-Bazzar</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="" href="379907369_731692655641513_7342960460164979974_n.jpg" />
+
+  <title>E-Bazzar Loading</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap');
+    
+    :root {
+      --e-color: #00a8ff;
+      --bazzar-color: #00e676;
+      --bg-color: #0a0a1a;
+    }
+    
+    body {
+      margin: 0;
+      background: var(--bg-color);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+      font-family: 'Orbitron', sans-serif;
+    }
+    
+    /* Minimal Particle Background */
+    .particle-bg {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      overflow: hidden;
+    }
+    
+    .particle {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 50%;
+      animation: float 12s infinite linear;
+      opacity: 0;
+    }
+    
+    @keyframes float {
+      0% {
+        transform: translateY(100vh) translateX(0);
+        opacity: 0;
+      }
+      20% {
+        opacity: 0.7;
+      }
+      80% {
+        opacity: 0.7;
+      }
+      100% {
+        transform: translateY(-100px) translateX(50px);
+        opacity: 0;
+      }
+    }
+    
+    /* Main Container */
+    .loading-container {
+      position: relative;
+      width: 90%;
+      max-width: 400px;
+      text-align: center;
+      padding: 40px 30px;
+      border-radius: 8px;
+      z-index: 10;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    /* Clean Logo */
+    .logo {
+      font-size: 3.5rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      margin: 0 0 40px;
+      position: relative;
+      display: inline-block;
+    }
+    
+    .logo span:nth-child(1) {
+      color: var(--e-color);
+    }
+    
+    .logo span:nth-child(2) {
+      color: var(--bazzar-color);
+    }
+    
+    /* Modern Spinner */
+    .spinner {
+      width: 60px;
+      height: 60px;
+      margin: 0 auto 40px;
+      position: relative;
+    }
+    
+    .spinner-ring {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border: 3px solid transparent;
+      border-radius: 50%;
+      border-top-color: var(--e-color);
+      animation: spin 1.5s linear infinite;
+    }
+    
+    .spinner-ring:nth-child(2) {
+      width: 80%;
+      height: 80%;
+      top: 10%;
+      left: 10%;
+      border-top-color: var(--bazzar-color);
+      animation-direction: reverse;
+      animation-duration: 2s;
+    }
+    
+    @keyframes spin {
+      100% { transform: rotate(360deg); }
+    }
+    
+    /* Progress Bar */
+    .progress-container {
+      width: 80%;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 3px;
+      margin: 30px auto;
+      overflow: hidden;
+    }
+    
+    .progress-bar {
+      height: 100%;
+      width: 0;
+      background: linear-gradient(90deg, var(--e-color), var(--bazzar-color));
+      transition: width 0.4s ease-out;
+    }
+    
+    /* Loading Text */
+    .loading-text {
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 0.9rem;
+      margin-top: 20px;
+      letter-spacing: 1px;
+    }
+    
+    /* Fade Out */
+    .fade-out {
+      animation: fadeOut 0.8s forwards;
+    }
+    
+    @keyframes fadeOut {
+      0% { opacity: 1; transform: scale(1); }
+      100% { opacity: 0; transform: scale(0.95); }
+    }
+  </style>
+</head>
+<body>
+  <div class="particle-bg" id="particleBg"></div>
+  
+  <div class="loading-container" id="loader">
+    <div class="logo">
+      <span>E-</span><span>Bazzar</span>
+    </div>
+    
+    <div class="spinner">
+      <div class="spinner-ring"></div>
+      <div class="spinner-ring"></div>
+    </div>
+    
+    <div class="progress-container">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+    
+    <div class="loading-text">
+      Loading your experience...
+    </div>
+  </div>
+
+  <script>
+    // Create particles
+    const particleBg = document.getElementById('particleBg');
+    for (let i = 0; i < 30; i++) {
+      const particle = document.createElement('div');
+      particle.classList.add('particle');
+      particle.style.left = `${Math.random() * 100}%`;
+      particle.style.top = `${Math.random() * 100 + 100}%`;
+      particle.style.animationDelay = `${Math.random() * 12}s`;
+      particle.style.animationDuration = `${8 + Math.random() * 8}s`;
+      particleBg.appendChild(particle);
+    }
+    
+    // Progress animation
+    const progressBar = document.getElementById('progressBar');
+    const loader = document.getElementById('loader');
+      
+    let progress = 0;
+    const interval = setInterval(() => {
+      progress += Math.random() * 3 + 1;
+      if (progress > 100) progress = 100;
+      
+      progressBar.style.width = progress + '%';
+      
+      if (progress >= 100) {
+        clearInterval(interval);
+        setTimeout(() => {
+          loader.classList.add('fade-out');
+        }, 800);
+        setTimeout(() => {
+          window.location.href = "3js.html";
+        }, 1500);
+      }
+    }, 100);
+  </script>
+  <style>
+    .loading-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.25); display: none; align-items: center; justify-content: center; z-index: 9999; backdrop-filter: blur(2px); }
+    .loading-overlay.visible { display: flex; }
+    .loading-spinner { width: 48px; height: 48px; border: 4px solid rgba(255,255,255,0.4); border-top-color: #fff; border-radius: 50%; animation: spin 0.9s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
+  <div id="globalLoadingOverlay" class="loading-overlay" aria-hidden="true"><div class="loading-spinner" role="status" aria-label="Loading"></div></div>
+  <script>
+    (function(){
+      var overlay = document.getElementById('globalLoadingOverlay');
+      function show(){ if(overlay) overlay.classList.add('visible'); }
+      function isLocalHash(h){ return !h || h.charAt(0)==='#'; }
+      document.addEventListener('click', function(e){
+        var a = e.target.closest && e.target.closest('a');
+        if(!a) return;
+        if(a.hasAttribute('data-no-delay') || a.getAttribute('target')==='_blank' || a.hasAttribute('download')) return;
+        var href = a.getAttribute('href');
+        if(isLocalHash(href) || /^javascript:/i.test(String(href))) return;
+        e.preventDefault();
+        show();
+        setTimeout(function(){ window.location.href = a.href; }, 1500);
+      });
+      document.addEventListener('submit', function(e){
+        var form = e.target;
+        if(form.hasAttribute('data-no-delay')) return;
+        e.preventDefault();
+        show();
+        setTimeout(function(){ form.submit(); }, 1500);
+      });
+    })();
+  </script>
+</body>
+</html>

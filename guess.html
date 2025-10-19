@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "url": "https://electro-bazzar.com",
+      "logo": "https://i.ibb.co/6RNT2Rm4/electro-bazzar-logo.jpg",
+      "name": "Electro-Bazzar",
+      "description": "Your one-stop shop for premium electronics and gadgets in Nepal.",
+      "sameAs": [
+        "https://facebook.com/electrobazzar",
+        "https://instagram.com/electrobazzar"
+      ]
+    }
+    </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lucky Number Game</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+  background: radial-gradient(circle, #0f0c29, #302b63, #24243e);    
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem;
+    }
+    .container {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 2rem;
+      border-radius: 20px;
+      text-align: center;
+      max-width: 500px;
+      width: 100%;
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+    }
+    h1 {
+      margin-bottom: 0.5rem;
+    }
+    input[type="number"] {
+      padding: 0.7rem;
+      font-size: 1rem;
+      width: 80%;
+      border-radius: 10px;
+      border: none;
+      margin: 1rem 0;
+      text-align: center;
+    }
+    button {
+      background: #00b894;
+      border: none;
+      padding: 0.8rem 1.5rem;
+      border-radius: 10px;
+      color: white;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    button:hover {
+      background: #019875;
+    }
+    .result {
+      margin-top: 1rem;
+      font-weight: bold;
+    }
+    .rules {
+      margin-top: 2rem;
+      font-size: 0.9rem;
+      text-align: left;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 1rem;
+      border-radius: 10px;
+    }
+    
+    .home:hover{
+  background: radial-gradient(circle, #0f0c29, #302b63, #24243e);    
+transition: 0.5s ease all;
+cursor: pointer;
+
+    }
+    .home{
+        align-self: flex-start; 
+        margin-bottom: 1rem; 
+        color: white; 
+        text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+<div class="home">
+  <a href="real.html" class="home">🏠 Home</a>
+
+</div>
+  <div class="container">
+    <h1><strong style="  color: #34ef82; 
+">Electro</strong><strong style="  color: #0a7fe6; 
+">-Bazzar </strong><br>
+        🎲 Lucky Number Game</h1>
+    <p>Guess a number between 1 and 100!</p>
+    <input type="number" id="userGuess" min ="1" max="100" placeholder="Enter your lucky number" />
+    <br />
+    <button onclick="checkGuess()">Submit Guess</button>
+    <div class="result" id="result"></div>
+
+    <div class="rules">
+      <strong>Game Rules:</strong>
+      <ul>
+        <li>You have 10 attempts to guess a winning number</li>
+        <li>There are 10 winning numbers between 1–100</li>
+        <li>Each winning number can be claimed once</li>
+        <li>You win only once</li>
+      </ul>
+    </div>
+  </div>
+
+  <script>
+    const winningNumbers = new Set();
+    while (winningNumbers.size < 10) {
+      winningNumbers.add(Math.floor(Math.random() * 100) + 1);
+    }
+
+    let attempts = 0;
+    let won = false;
+
+    function checkGuess() {
+      if (won || attempts >= 13) {
+        document.getElementById("result").textContent = "Game over!";
+        return;
+      }
+
+      const guess = parseInt(document.getElementById("userGuess").value);
+      if (isNaN(guess) || guess < 1 || guess > 100) {
+        document.getElementById("result").textContent = "Please enter a number between 1 and 100.";
+        return;
+      }
+
+      attempts++;
+      if (winningNumbers.has(guess)) {
+        won = true;
+        document.getElementById("result").textContent = `🎉 Congratulations! ${guess} is a winning number!`;
+      } else {
+        document.getElementById("result").textContent =
+          `❌ ${guess} is not a winning number. Attempts left: ${10- attempts}`;
+      }
+
+      if (attempts >= 10 && !won) {
+        document.getElementById("result").textContent = "😢 You lost! Better luck next time!";
+      }
+    }
+  </script>
+</body>
+</html>

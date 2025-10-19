@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>The Portal – A Tribute to Inspiration by my brother</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e, #000000);
+      background-size: 600% 600%;
+      animation: spaceAnimation 20s ease infinite;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Segoe UI', sans-serif;
+      overflow: hidden;
+      color: white;
+    }
+
+    .portal-box {
+      padding: 40px;
+      border-radius: 30px;
+      background: rgba(255, 255, 255, 0.06);
+      box-shadow: 
+        0 0 25px rgba(0, 255, 255, 0.4), 
+        0 0 50px rgba(0, 255, 255, 0.3), 
+        0 0 80px rgba(0, 255, 255, 0.2);
+      backdrop-filter: blur(12px);
+      border: 2px solid rgba(255, 255, 255, 0.1);
+      text-align: center;
+      transform: perspective(1000px) rotateX(10deg) rotateY(10deg);
+      transition: transform 1s ease;
+    }
+
+    .portal-box:hover {
+      transform: scale(1.05) rotateX(0deg) rotateY(0deg);
+    }
+
+    h1 {
+      font-size: 48px;
+      margin-bottom: 20px;
+      text-shadow: 0 0 15px #00ffff, 0 0 40px #0072ff;
+    }
+
+    p {
+      font-size: 20px;
+      color: #e0ffff;
+      text-shadow: 0 0 8px #00ffff;
+      margin-bottom: 30px;
+      line-height: 1.6;
+    }
+
+    a.enter-btn {
+      padding: 15px 35px;
+      font-size: 18px;
+      border-radius: 30px;
+      background: linear-gradient(45deg, #00c6ff, #0072ff);
+      color: white;
+      text-decoration: none;
+      box-shadow: 
+        0 0 15px #00c6ff, 
+        0 0 30px #0072ff;
+      transition: all 0.4s ease-in-out;
+      display: inline-block;
+    }
+
+    a.enter-btn:hover {
+      background: linear-gradient(45deg, #ff00cc, #6600ff);
+      box-shadow: 
+        0 0 20px #ff00cc, 
+        0 0 40px #6600ff;
+    }
+
+    @keyframes spaceAnimation {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    @media screen and (max-width: 600px) {
+      h1 {
+        font-size: 36px;
+      }
+
+      p {
+        font-size: 18px;
+      }
+
+      a.enter-btn {
+        font-size: 16px;
+        padding: 12px 25px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="portal-box">
+    <h1>🌌 Welcome to The Portal 🌌</h1>
+    <p>
+      You've just stepped into a universe powered by<br>
+      <strong>pure HTML and design energy</strong>.<br>
+      No JavaScript. Just imagination.
+    </p>
+    <a href="#" class="enter-btn">🔮 Enter the Future</a>
+  </div>
+</body>
+</html>

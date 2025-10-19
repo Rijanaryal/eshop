@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "url": "https://electro-bazzar.com",
+      "logo": "https://i.ibb.co/6RNT2Rm4/electro-bazzar-logo.jpg",
+      "name": "Electro-Bazzar",
+      "description": "Your one-stop shop for premium electronics and gadgets in Nepal.",
+      "sameAs": [
+        "https://facebook.com/electrobazzar",
+        "https://instagram.com/electrobazzar"
+      ]
+    }
+    </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Electro-Bazzar</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="" href="379907369_731692655641513_7342960460164979974_n.jpg" />
+
+  <style>
+    :root {
+      --main-color: #ff0055;
+      --accent-color: #00ffe7;
+      --bg-glass: rgba(255, 255, 255, 0.1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: radial-gradient(circle, #0f0c29, #302b63, #24243e);    
+      color: white;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    /* Add this new style for the scroll-to-top button */
+    .scroll-to-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 50px;
+      height: 50px;
+      background: var(--accent-color);
+      color: black;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      z-index: 999;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    }
+
+    .scroll-to-top.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .scroll-to-top:hover {
+      transform: translateY(-5px);
+      background: var(--main-color);
+      color: white;
+    }
+
+    .scroll-to-top svg {
+      width: 24px;
+      height: 24px;
+      transition: transform 0.3s ease;
+    }
+
+    .scroll-to-top:hover svg {
+      transform: translateY(-3px);
+    }
+
+    /* Rest of your existing styles... */
+    header {
+      position: sticky;
+      top: 0;
+      background: #000000dd;
+      padding: 1rem 2rem;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--main-color);
+      padding: 26px;
+    }
+
+    .logo {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.3rem;
+      display: inline-block;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+      margin: 0 auto;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      position: relative;
+      padding: 0.5rem 0;
+      font-size: 18px;
+    }
+
+    nav a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -3px;
+      width: 0%;
+      height: 2px;
+      background: var(--accent-color);
+      transition: width 0.3s ease-in-out;
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+        
+        /* Main Content */
+        .container {
+            text-align: center;
+            margin-top: 100px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .btn-get-started {
+            position: relative;
+            padding: 15px 40px;
+            font-size: 18px;
+            background: linear-gradient(to right, #ff7e5f, #feb47b);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transform: translateX(-100vw);
+            opacity: 0;
+            transition: all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .btn-get-started:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+        
+        .btn-get-started:active {
+            transform: scale(0.98);
+        }
+        
+        .btn-get-started::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, #feb47b, #ff7e5f);
+            z-index: -1;
+            transition: opacity 0.3s ease;
+            opacity: 0;
+        }
+        
+        .btn-get-started:hover::before {
+            opacity: 1;
+        }
+        
+        .animate-in {
+            transform: translateX(0) !important;
+            opacity: 1 !important;
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(254, 180, 123, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(254, 180, 123, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(254, 180, 123, 0);
+            }
+        }
+         .logo {
+      font-size: 21px;
+      display: flex;
+    }
+
+    .logo-green {
+      color: #34ef82; 
+    }
+
+    .logo-dark {
+      color: #3039e4; 
+    }
+
+    #nav-menu li a{
+        font-weight: 100px;
+    }
+    
+    </style>
+</head>
+<body>
+    <!-- Navigation Header -->
+  
+  <header>
+    <div class="logo" style="cursor: pointer;">
+      <a href='real.html' style='text-decoration: none;'>  
+        <span class="logo-green">Electro-</span> 
+        <span class="logo-dark">CV</span>
+      </a>
+    </div>
+    
+    <div class="menu-toggle" id="mobile-menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    
+    <nav>
+      <ul id="nav-menu">
+        <li><a href='real.html'>HOME</a></li>
+        <li><a href="shop.html">SHOP</a></li>
+        <li><a href='contact.html'>CONTACT</a></li>
+        <li><a href='about.html'>ABOUT-US</a></li>
+      </ul>
+    </nav>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <h1 style="color: white;">Create Your Professional CV</h1>
+<a href="cvfill.html">        <button class="btn-get-started" id="getStartedBtn">Get Started</button>
+</a>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Delay the animation slightly for better effect
+            setTimeout(function() {
+                const btn = document.getElementById('getStartedBtn');
+                btn.classList.add('animate-in');
+                
+                // Add pulse effect after fly-in completes
+                setTimeout(function() {
+                    btn.classList.add('pulse');
+                }, 800);
+            }, 300);
+            
+            // Button click handler (you can replace this with your actual functionality)
+            document.getElementById('getStartedBtn').addEventListener('click', function() {
+                alert('Welcome to CV Maker! We\'ll help you create an amazing CV.');
+                // Here you would typically redirect to your CV creation page
+                // window.location.href = '/cv-creator';
+            });
+        });
+    </script>
+</body>
+</html>

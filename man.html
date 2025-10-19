@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Showcase</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background: #fff;
+      padding: 40px;
+    }
+
+    .container {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
+
+    .card {
+      position: relative;
+      width: 380px;
+      height: 500px;
+      overflow: hidden;
+      border-radius: 10px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+    }
+
+    /* Smaller hover lift */
+    .card:hover {
+      transform: translateY(-15px) scale(1.01);
+      box-shadow: 0 12px 22px rgba(0,0,0,0.25);
+    }
+
+    .card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .text-box {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      color: #fff;
+    }
+
+    .text-box h3 {
+      font-size: 22px;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+
+    .text-box p {
+      font-size: 15px;
+      margin-bottom: 12px;
+    }
+
+    .text-box a {
+      background: #ff6600;
+      color: #fff;
+      padding: 10px 18px;
+      border-radius: 5px;
+      font-size: 15px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: background 0.3s;
+      overflow: hidden;
+    }
+
+    .text-box a:hover {
+      background: #e65500;
+    }
+
+    /* Arrow slide animation */
+    .text-box a span {
+      display: inline-block;
+      transition: transform 0.3s ease;
+    }
+
+    .text-box a:hover span {
+      transform: translateX(5px);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- Card 1 -->
+    <div class="card">
+      <img src="https://i.ibb.co/2Pp9Y9m/headphone.jpg" alt="Headphones">
+      <div class="text-box">
+        <h3>Unparalleled Sound</h3>
+        <p>Experience crystal-clear audio with premium headphones.</p>
+        <a href="#">Buy now <span>↗</span></a>
+      </div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="card">
+      <img src="https://i.ibb.co/xHyQ6T3/earphones.jpg" alt="Earphones">
+      <div class="text-box">
+        <h3>Stay Connected</h3>
+        <p>Compact and stylish earphones for every occasion.</p>
+        <a href="#">Buy now <span>↗</span></a>
+      </div>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="card">
+      <img src="https://i.ibb.co/wJx2n8f/laptop.jpg" alt="Laptop">
+      <div class="text-box">
+        <h3>Power in Every Pixel</h3>
+        <p>Shop the latest laptops for work, gaming, and more.</p>
+        <a href="#">Buy now <span>↗</span></a>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

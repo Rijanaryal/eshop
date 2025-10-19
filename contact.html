@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Contact Us | Electro-Bazzar</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="" href="379907369_731692655641513_7342960460164979974_n.jpg" />
+  
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "url": "https://electro-bazzar.com",
+    "logo": "https://i.ibb.co/6RNT2Rm4/electro-bazzar-logo.jpg",
+    "name": "Electro-Bazzar",
+    "description": "Your one-stop shop for premium electronics and gadgets in Nepal.",
+    "sameAs": [
+      "https://facebook.com/electrobazzar",
+      "https://instagram.com/electrobazzar"
+    ]
+  }
+  </script>
+  
+  <style>
+    :root {
+      --primary-color: #00ff91;
+      --secondary-color: #00aaff;
+      --accent-color: #eb0d76;
+      --dark-bg: #19173a;
+      --darker-bg: #1e1a42;
+      --light-text: #fff;
+      --gray-text: #ddd;
+      --glass-bg: rgba(255, 255, 255, 0.05);
+      --glass-border: rgba(255, 255, 255, 0.1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: linear-gradient(135deg, var(--dark-bg), var(--darker-bg));
+      color: var(--light-text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 40px;
+      background-color: rgba(0, 0, 0, 0.9);
+      border-bottom: 2px solid var(--accent-color);
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      transition: all 0.3s ease;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+      color: var(--primary-color);
+      z-index: 2;
+      font-family: 'Orbitron', sans-serif;
+    }
+    .logo span {
+      color: var(--secondary-color);
+    }
+
+    /* Centered Navigation - Underline Only */
+    nav {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 30px;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: white;
+      font-weight: 600;
+      position: relative;
+      transition: all 0.3s;
+      padding: 5px 0;
+    }
+    
+    /* Underline effect only - no color change */
+    nav a::after {
+      content: '';
+      position: absolute;
+      width: 0%;
+      height: 3px;
+      bottom: 0;
+      left: 0;
+      background-color: var(--secondary-color);
+      transition: width 0.4s ease;
+    }
+    
+    nav a:hover {
+      color: white; /* Keep text color the same */
+    }
+    
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    /* Enhanced scroll animation */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 1.2s ease, transform 1s ease;
+    }
+    
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .scroll-to-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 50px;
+      height: 50px;
+      background-color: var(--secondary-color);
+      color: black;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.4s ease;
+      z-index: 999;
+      box-shadow: 0 0 15px rgba(0, 170, 255, 0.5);
+    }
+
+    .scroll-to-top.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .scroll-to-top:hover {
+      transform: translateY(-5px) scale(1.05);
+      background: var(--primary-color);
+      color: rgb(255, 18, 18);
+    }
+
+    .scroll-to-top svg {
+      width: 24px;
+      height: 24px;
+      transition: transform 0.3s ease;
+    }
+
+    .scroll-to-top:hover svg {
+      transform: translateY(-3px);
+    }
+
+    .hero-section {
+      margin-top: 120px;
+      text-align: center;
+      padding: 40px 20px;
+      max-width: 800px;
+    }
+
+    .hero-section h1 {
+      font-size: 3.5rem;
+      margin-bottom: 20px;
+      color: var(--primary-color);
+      font-family: 'Orbitron', sans-serif;
+      text-shadow: 0 0 10px rgba(0, 255, 145, 0.5);
+    }
+
+    .hero-section p {
+      font-size: 1.2rem;
+      color: var(--gray-text);
+      margin-bottom: 40px;
+    }
+
+    .form-container {
+      background: var(--glass-bg);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      max-width: 700px;
+      width: 100%;
+      padding: 40px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      transition: all 0.4s ease;
+      border: 1px solid var(--glass-border);
+      margin-bottom: 60px;
+    }
+
+    .form-container:hover {
+      box-shadow: 0 15px 40px rgba(0, 255, 145, 0.2);
+      transform: translateY(-5px);
+    }
+
+    .form-group {
+      margin-bottom: 25px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: 600;
+      color: var(--primary-color);
+      font-size: 1.1rem;
+    }
+
+    .name-inputs {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    textarea {
+      width: 100%;
+      padding: 16px 20px;
+      font-size: 1rem;
+      border: 2px solid var(--glass-border);
+      border-radius: 10px;
+      transition: all 0.3s ease;
+      background-color: rgba(255, 255, 255, 0.05);
+      color: var(--light-text);
+      resize: vertical;
+    }
+
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    textarea:focus {
+      outline: none;
+      border-color: var(--secondary-color);
+      box-shadow: 0 0 10px rgba(0, 170, 255, 0.5);
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    textarea {
+      min-height: 150px;
+    }
+
+    button {
+      width: 100%;
+      padding: 18px;
+      font-weight: 700;
+      font-size: 1.2rem;
+      background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+      color: #000;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      box-shadow: 0 6px 18px rgba(0, 255, 145, 0.3);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    button:hover,
+    button:focus {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(0, 255, 145, 0.5);
+      outline: none;
+    }
+
+    button::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.5s;
+    }
+
+    button:hover::after {
+      left: 100%;
+    }
+
+    .contact-info {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 30px;
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    .contact-card {
+      flex: 1;
+      min-width: 250px;
+      background: var(--glass-bg);
+      padding: 30px;
+      border-radius: 15px;
+      text-align: center;
+      transition: all 0.3s ease;
+      border: 1px solid var(--glass-border);
+    }
+
+    .contact-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0, 255, 145, 0.2);
+    }
+
+    .contact-card h3 {
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-size: 1.5rem;
+    }
+
+    .contact-card p {
+      color: var(--gray-text);
+      margin-bottom: 10px;
+    }
+
+    /* Footer Styles */
+    .footer-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      max-width: 1200px;
+      margin: auto;
+      gap: 30px;
+      padding: 50px 20px;
+    }
+    .footer {
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.9rem;
+      color: var(--main-color);
+      background: radial-gradient(circle, #2c275e, #4d487d, #494985);    
+      width: 100%;
+    }
+    .footer-section {
+      flex: 1 1 300px;
+    }
+
+    .footer-section h2 {
+      font-size: 28px;
+      margin-bottom: 10px;
+      border-bottom: none;
+    }
+
+    .footer-section h4 {
+      margin-bottom: 15px;
+      color: var(--primary-color);
+    }
+
+    .footer-section p {
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .footer-section ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .footer-section ul li {
+      margin-bottom: 8px;
+    }
+
+    .footer-section ul li a {
+      text-decoration: none;
+      color: #f8e8e8;
+      transition: color 0.3s;
+    }
+
+    .footer-section ul li a:hover {
+      color: var(--secondary-color);
+    }
+
+    .footer-bottom {
+      text-align: center;
+      padding: 20px;
+      font-size: 14px;
+      color: hsl(0, 12%, 78%);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .footer-bottom .footer-links {
+      margin-bottom: 10px;
+    }
+
+    .footer-bottom .footer-links a {
+      margin: 0 10px;
+      text-decoration: none;
+      color: var(--primary-color);
+      font-weight: 500;
+    }
+
+    .footer-bottom .footer-links a:hover {
+      text-decoration: underline;
+    }
+
+    .social-section {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      margin: 30px 0;
+    }
+
+    .social-link {
+      display: flex;
+      align-items: center;
+      margin: 10px 0;
+      color: #ebe1e1;
+      font-size: 18px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      padding: 10px 20px;
+      border-radius: 30px;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .social-link:hover {
+      color: var(--secondary-color);
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0, 170, 255, 0.3);
+    }
+
+    .social-link img {
+      width: 24px;
+      height: 24px;
+      margin-right: 10px;
+    }
+
+    /* Mobile menu styles */
+    .menu-toggle {
+      display: none;
+      cursor: pointer;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 30px;
+      height: 21px;
+    }
+    
+    .menu-toggle span {
+      display: block;
+      height: 3px;
+      width: 100%;
+      background-color: white;
+      border-radius: 3px;
+      transition: all 0.3s ease;
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 1024px) {
+      nav {
+        gap: 20px;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      header {
+        padding: 15px 20px;
+      }
+      
+      .hero-section h1 {
+        font-size: 2.5rem;
+      }
+      
+      nav {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 70%;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.95);
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        transition: right 0.4s ease;
+        z-index: 999;
+      }
+      
+      nav.active {
+        right: 0;
+      }
+      
+      nav a {
+        margin: 15px 0;
+        font-size: 20px;
+      }
+      
+      .menu-toggle {
+        display: flex;
+        z-index: 1000;
+      }
+      
+      .menu-toggle.active span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+      }
+      
+      .menu-toggle.active span:nth-child(2) {
+        opacity: 0;
+      }
+      
+      .menu-toggle.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(7px, -6px);
+      }
+      
+      .form-container {
+        padding: 30px;
+        margin: 0 20px 50px;
+      }
+      
+      .name-inputs {
+        flex-direction: column;
+        gap: 15px;
+      }
+    }
+    
+    @media (max-width: 500px) {
+      .hero-section h1 {
+        font-size: 2rem;
+      }
+      
+      .form-container {
+        padding: 20px;
+      }
+      
+      .contact-card {
+        min-width: 100%;
+      }
+    }
+
+    /* Success message */
+    .success-message {
+      display: none;
+      background: rgba(0, 255, 145, 0.1);
+      border: 1px solid var(--primary-color);
+      border-radius: 10px;
+      padding: 20px;
+      margin-top: 20px;
+      text-align: center;
+      color: var(--primary-color);
+      animation: fadeIn 0.5s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="scroll-to-top" id="scrollToTop">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 4l-8 8h5v8h6v-8h5z"/>
+    </svg>
+  </div>
+
+  <header>
+    <div class="logo">Electro-<span>Bazzar</span></div>
+    
+    <div class="menu-toggle" id="mobileMenu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    
+    <nav id="mainNav">
+      <a href="real.html">HOME</a>
+      <a href="shop.html">SHOP</a>
+      <a href="visit.html">STORE</a>
+      <a href="about.html">ABOUT-US</a>
+    </nav>  
+  </header>
+
+  <section class="hero-section fade-in">
+    <h1>Contact Us</h1>
+    <p>We're here to help! Send us a message and we'll respond as soon as possible.</p>
+  </section>
+
+  <div class="form-container fade-in">
+    <div class="form-group">
+      <label for="firstName">Full Name</label>
+      <div class="name-inputs">
+        <input type="text" id="firstName" placeholder="First Name" />
+        <input type="text" id="lastName" placeholder="Last Name" />
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email Address</label>
+      <input type="email" id="email" placeholder="your.email@example.com" />
+    </div>
+
+    <div class="form-group">
+      <label for="phone">Phone Number</label>
+      <input type="text" id="phone" placeholder="+977 98XXXXXXXX" />
+    </div>
+
+    <div class="form-group">
+      <label for="subject">Subject</label>
+      <input type="text" id="subject" placeholder="What is this regarding?" />
+    </div>
+
+    <div class="form-group">
+      <label for="message">Your Message</label>
+      <textarea id="message" placeholder="Please provide details about your inquiry..."></textarea>
+    </div>
+
+    <button onclick="submitForm()">Send Message</button>
+    
+    <div class="success-message" id="successMessage">
+      <h3>Thank You!</h3>
+      <p>Your message has been sent successfully. We'll get back to you soon.</p>
+    </div>
+  </div>
+
+  <div class="contact-info fade-in">
+    <div class="contact-card">
+      <h3>Phone</h3>
+      <p>+977 9867741488</p>
+      <p>+977 9764514855</p>
+    </div>
+    
+    <div class="contact-card">
+      <h3>Email</h3>
+      <p>info@electro-bazzar.com</p>
+      <p>support@electro-bazzar.com</p>
+    </div>
+    
+    <div class="contact-card">
+      <h3>Location</h3>
+      <p>Kathmandu, Nepal</p>
+      <p>Open 9AM - 6PM</p>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-section about fade-in">
+        <h2><strong style="color: #34ef82;">Electro</strong> <strong style="color: #f4f4f4;">- Bazzar</strong></h2>
+        <h4>🛒 About Electro-Bazaar</h4>
+        <p>Electro-Bazaar is your reliable online shopping destination, offering a wide range of quality products at great prices. We ensure secure payments 🔒, fast delivery 🚛, and excellent customer support 💬 to make your shopping experience easy and enjoyable.</p>
+      </div>
+
+      <div class="footer-section links fade-in">
+        <h4>Company</h4>
+        <ul>
+          <li><a href='real.html'>Home</a></li>
+          <li><a href='about.html'>About us</a></li>
+          <li><a href='contact.html'>Contact us</a></li>
+          <li><a href='privacy.html'>Privacy policy</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section contact fade-in">
+        <h4>Get in touch</h4>
+        <p>+9779867741488</p>
+        <p>+9779764514855</p>
+        <p>info@electro-bazzar.com</p>
+      </div>
+    </div>
+    <div class="social-section fade-in">
+      <a href="https://www.facebook.com/electrobazzar" class="social-link" target="_blank">
+        <img src="https://cdn-icons-png.flaticon.com/512/124/124010.png" alt="Facebook Icon">
+        Facebook
+      </a>
+
+      <a href="https://www.instagram.com/electrobazzar" class="social-link" target="_blank">
+        <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram Icon">
+        Instagram
+      </a>
+
+      <a href="https://github.com/Rijanaryal" class="social-link" target="_blank">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Octicons-mark-github.svg/1200px-Octicons-mark-github.svg.png" alt="github">Github
+      </a>  
+    </div>
+    <div class="footer-bottom fade-in">
+      <div class="footer-links">
+        <a href="privacy.html">Return Policy</a>
+        <a href="location.html">Location</a>
+        <a href="#">Terms of Service</a>
+      </div>
+      <p>© 2025 Electro-Bazzar. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Enhanced scroll animation functionality
+    function checkScroll() {
+      const elements = document.querySelectorAll('.fade-in');
+      const windowHeight = window.innerHeight;
+      
+      elements.forEach(element => {
+        const positionFromTop = element.getBoundingClientRect().top;
+        
+        if (positionFromTop - windowHeight <= -100) {
+          element.classList.add('visible');
+        }
+      });
+    }
+    
+    // Initial check on page load
+    window.addEventListener('load', checkScroll);
+    // Check on scroll with throttling for performance
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          checkScroll();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    });
+    
+    // Scroll-to-top functionality
+    const scrollToTopBtn = document.getElementById('scrollToTop');
+
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        scrollToTopBtn.classList.add('visible');
+      } else {
+        scrollToTopBtn.classList.remove('visible');
+      }
+    });
+
+    scrollToTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+
+    // Mobile menu toggle
+    const mobileMenu = document.getElementById('mobileMenu');
+    const mainNav = document.getElementById('mainNav');
+
+    mobileMenu.addEventListener('click', () => {
+      mainNav.classList.toggle('active');
+      mobileMenu.classList.toggle('active');
+    });
+
+    // Close mobile menu when clicking on a link
+    const navLinks = document.querySelectorAll('nav a');
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        mainNav.classList.remove('active');
+        mobileMenu.classList.remove('active');
+      });
+    });
+
+    // Form submission with validation
+    function submitForm() {
+      const fname = document.getElementById("firstName").value.trim();
+      const lname = document.getElementById("lastName").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const phone = document.getElementById("phone").value.trim();
+      const subject = document.getElementById("subject").value.trim();
+      const message = document.getElementById("message").value.trim();
+
+      // Validation
+      if (!fname || !lname || !email || !message) {
+        alert("Please fill all required fields!");
+        return;
+      }
+
+      // Email validation
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        alert("Please enter a valid email address!");
+        return;
+      }
+
+      // Create form data object
+      const formData = {
+        fullName: fname + " " + lname,
+        email: email,
+        phone: phone,
+        subject: subject,
+        message: message,
+        timestamp: new Date().toLocaleString()
+      };
+
+      // Store in localStorage
+      localStorage.setItem("contactData", JSON.stringify(formData));
+      
+      // Redirect to success page
+      window.location.href = "contact-info  .html";
+    }
+  </script>
+</body>
+</html>

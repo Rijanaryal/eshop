@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Electro-Bazzar Offer – 3D & AR Preview</title>
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+  <script src="https://unpkg.com/three@0.161.0/build/three.min.js"></script>
+  <script src="https://unpkg.com/three@0.161.0/examples/js/controls/OrbitControls.js"></script>
+  <script src="https://unpkg.com/three@0.161.0/examples/js/loaders/GLTFLoader.js"></script>
+  <style>
+    :root { --bg:#0b0e13; --card:#121722; --ink:#e8eefc; --muted:#9bb3d1; --accent:#4da3ff; }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Arial;background:radial-gradient(1200px 600px at 10% -10%, #162033 0%, transparent 60%),
+      radial-gradient(1000px 700px at 100% 0%, #0b1220 0%, transparent 60%), var(--bg); color:var(--ink)}
+    header{padding:24px 20px 8px; display:flex; gap:16px; align-items:center; justify-content:space-between;}
+    .title{font-weight:800; letter-spacing:0.5px; font-size:clamp(18px,4vw,28px)}
+    .subtitle{color:var(--muted); font-size:14px}
+    .wrap{max-width:1200px; margin:0 auto; padding:16px;}
+    .grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:18px}
+    .card{background:linear-gradient(180deg,rgba(255,255,255,0.03),rgba(255,255,255,0.01)); border:1px solid rgba(255,255,255,0.08);
+      border-radius:20px; padding:16px; box-shadow:0 10px 30px rgba(0,0,0,0.35)}
+    .card h3{margin:8px 0 6px; font-size:18px}
+    .card p{margin:0 0 12px; font-size:14px; color:var(--muted)}
+    .price{font-size:18px; font-weight:700; color:var(--accent); margin:10px 0;}
+    .row{display:flex; align-items:center; gap:10px; flex-wrap:wrap}
+    .btn{border:none; background:var(--accent); color:#001328; font-weight:700; padding:10px 14px; border-radius:12px; cursor:pointer}
+    .ghost{background:transparent; color:var(--ink); border:1px solid rgba(255,255,255,0.15)}
+    model-viewer{width:100%; height:420px; background: linear-gradient(180deg,#0b0f18, #0f1522); border-radius:14px; border:1px solid rgba(255,255,255,0.08)}
+    .note{font-size:12px; color:var(--muted); margin-top:8px}
+    .pill{display:inline-flex; align-items:center; gap:8px; font-size:12px; border:1px solid rgba(255,255,255,.15); padding:6px 10px; border-radius:999px; color:var(--muted)}
+    .flag{width:8px; height:8px; border-radius:50%; background:#50e3c2; box-shadow:0 0 16px #50e3c2}
+    canvas.viewer{width:100%; height:420px; display:block; border-radius:14px; background:linear-gradient(180deg,#0b0f18, #0f1522); border:1px solid rgba(255,255,255,0.08)}
+    footer{opacity:.7; text-align:center; font-size:12px; padding:16px}
+       .electro { color: #3399ff; }
+    .bazzar { color: #00cc66; }
+    .product {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 20px;
+      margin: 20px;
+      border-radius: 15px;
+      box-shadow: 0 0 25px rgba(255, 204, 0, 0.5);
+      animation: pulseBg 4s infinite;
+    }
+  </style>
+</head>
+<body>
+      <header onclick="window.location.href='real.html'" style="cursor: pointer;">⬅ Back to Home</header>
+
+  <header class="wrap">
+    <div>
+  <h1><span class="electro">Electro</span>-<span class="bazzar">Bazzar</span> </h1>
+      <div class="subtitle">Includes a human ("man") 3D model via <code>&lt;model-viewer&gt;</code> with AR, plus a custom Three.js viewer.</div>
+    </div>
+    <div class="pill"><span class="flag"></span> AR works on Android Chrome & iOS Quick Look</div>
+  </header>
+
+  <main class="wrap grid">
+    <section class="card">
+      <h3>AR Mode – “Place in your room” (Astronaut Man)</h3>
+      <p>Tap the <b>AR</b> button on a supported phone to place this human model (astronaut) in your space. Pinch to scale, drag to move.</p>
+      <model-viewer id="mv" src="https://modelviewer.dev/shared-assets/models/Astronaut.glb"
+        camera-controls auto-rotate
+        ar ar-modes="webxr scene-viewer quick-look"
+        ar-scale="fixed" exposure="1" shadow-intensity="0.8">
+        <button class="btn" slot="ar-button">📱 View in your room (AR)</button>
+        <div class="note" slot="poster">Loading 3D model…</div>
+      </model-viewer>
+      <div class="price">12220.00</div>
+      <button class="btn"><a href="buy.html" style="text-decoration: none; color: rgb(1, 26, 52);">🛒 Add to Cart</a></button>
+      <div class="row" style="margin-top:8px">
+        <button class="btn ghost" onclick="document.getElementById('mv').toggleAttribute('auto-rotate')">Toggle Auto-Rotate</button>
+        <button class="btn ghost" onclick="document.getElementById('mv').resetTurntableRotation()">Reset Angle</button>
+      </div>
+      <div class="note">Tip: On desktop you can orbit with mouse; on mobile, use touch. AR will appear only on supported devices.</div>
+    </section>
+
+    <!-- <section class="card">
+      <h3>Three.js Custom Viewer (Same Model)</h3>
+      <p>Rotatable 3D preview using Three.js + GLTFLoader + OrbitControls. You can reuse this for any product (phones, laptops, TVs).</p>
+      <canvas id="three-canvas" class="viewer"></canvas>
+      <div class="price">12220</div>
+      <button class="btn"><a href="buy.html" style="text-decoration: none; color: rgb(1, 26, 52);">🛒 Add to Cart</a></button>
+      <div class="row" style="margin-top:8px">
+        <button class="btn" id="btn-spin">Spin</button>
+        <button class="btn ghost" id="btn-stop">Stop</button>
+        <button class="btn ghost" id="btn-zoom">Zoom to Fit</button>
+      </div>
+      <div class="note">Replace the GLB URL with your product model (e.g., <code>laptop.glb</code>). Supports PBR materials and lights.</div>
+    </section> -->
+  </main>
+
+  <footer>© 2025 Electro-Bazzar –  Swap models to integrate with your catalog.</footer>
+
+  <script>
+    const canvas = document.getElementById('three-canvas');
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(50, 1, 0.1, 100);
+    camera.position.set(0.8, 1.2, 2.2);
+    function resize() {
+      const w = canvas.clientWidth;
+      const h = 420;
+      renderer.setSize(w, h, false);
+      camera.aspect = w / h;
+      camera.updateProjectionMatrix();
+    }
+    window.addEventListener('resize', resize);
+    const hemi = new THREE.HemisphereLight(0xffffff, 0x222233, 1.0);
+    scene.add(hemi);
+    const dir = new THREE.DirectionalLight(0xffffff, 1.2);
+    dir.position.set(3, 5, 2);
+    dir.castShadow = false;
+    scene.add(dir);
+    const ground = new THREE.Mesh(new THREE.CircleGeometry(3, 64), new THREE.MeshBasicMaterial({ color: 0x0c1220, transparent: true, opacity: 0.5 }));
+    ground.rotation.x = -Math.PI / 2;
+    ground.position.y = -0.001;
+    scene.add(ground);
+    const controls = new THREE.OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.target.set(0, 1.1, 0);
+    const loader = new THREE.GLTFLoader();
+    let root;
+    loader.load('https://modelviewer.dev/shared-assets/models/Astronaut.glb', (gltf) => {
+      root = gltf.scene;
+      root.traverse((o)=>{ if(o.isMesh){ o.castShadow = o.receiveShadow = true; }});
+      scene.add(root);
+      const box = new THREE.Box3().setFromObject(root);
+      const size = box.getSize(new THREE.Vector3());
+      const center = box.getCenter(new THREE.Vector3());
+      root.position.sub(center);
+      const scale = 1.2 / Math.max(size.x, size.y, size.z);
+      root.scale.setScalar(scale);
+      controls.target.set(0, 0.9, 0);
+      controls.update();
+      resize();
+    });
+    let spinning = false;
+    document.getElementById('btn-spin').onclick = () => spinning = true;
+    document.getElementById('btn-stop').onclick = () => spinning = false;
+    document.getElementById('btn-zoom').onclick = () => {
+      if(!root) return;
+      const box = new THREE.Box3().setFromObject(root);
+      const size = box.getSize(new THREE.Vector3());
+      const maxDim = Math.max(size.x, size.y, size.z);
+      const fitDist = maxDim / (2 * Math.tan(THREE.MathUtils.degToRad(camera.fov * 0.5)));
+      camera.position.set(fitDist*0.8, fitDist*1.0, fitDist*1.2);
+      controls.update();
+    }
+    function tick(){
+      requestAnimationFrame(tick);
+      if(spinning && root){ root.rotation.y += 0.01; }
+      controls.update();
+      renderer.render(scene, camera);
+    }
+    resize();
+    tick();
+  </script>
+</body>
+</html>

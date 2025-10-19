@@ -1,0 +1,1342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sports - Electro Bazzar</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #667eea;
+            --primary-dark: #5a6fd8;
+            --secondary: #764ba2;
+            --accent: #ff6b6b;
+            --success: #28a745;
+            --warning: #ffc107;
+            --dark-bg: #1a1a2e;
+            --darker-bg: #16213e;
+            --card-bg: #2d3748;
+            --text-light: #f8f9fa;
+            --text-gray: #a0aec0;
+            --border-color: #4a5568;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--dark-bg), var(--darker-bg));
+            color: var(--text-light);
+            min-height: 100vh;
+        }
+
+        /* Header Styles */
+        .header {
+            background: rgba(26, 26, 46, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .top-bar {
+            background: var(--darker-bg);
+            padding: 0.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .top-links a {
+            color: var(--text-gray);
+            text-decoration: none;
+            margin-right: 1.5rem;
+            transition: color 0.3s;
+        }
+
+        .top-links a:hover {
+            color: var(--primary);
+        }
+
+        .main-header {
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo i {
+            margin-right: 0.5rem;
+            font-size: 2.2rem;
+        }
+
+        .search-bar {
+            flex: 0 1 600px;
+            display: flex;
+            margin: 0 2rem;
+        }
+
+        .search-bar input {
+            flex: 1;
+            padding: 0.8rem 1rem;
+            border: none;
+            border-radius: 25px 0 0 25px;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-light);
+            font-size: 1rem;
+        }
+
+        .search-bar button {
+            padding: 0 1.5rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border: none;
+            border-radius: 0 25px 25px 0;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .search-bar button:hover {
+            background: linear-gradient(135deg, var(--primary-dark), var(--secondary));
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .action-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .action-btn i {
+            font-size: 1.5rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .action-btn:hover {
+            color: var(--primary);
+        }
+
+        .cart-count {
+            background: var(--accent);
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            font-size: 0.7rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            top: -5px;
+            right: -5px;
+        }
+
+        /* Navigation */
+        .main-nav {
+            background: rgba(45, 55, 72, 0.9);
+            padding: 0.8rem 2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-links a i {
+            margin-right: 0.5rem;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        /* Category Header */
+        .category-header {
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+            padding: 3rem 2rem;
+            text-align: center;
+            margin: 1rem 2rem;
+            border-radius: 15px;
+        }
+
+        .category-header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .category-header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        /* Filter Section */
+        .filter-section {
+            background: var(--card-bg);
+            margin: 2rem;
+            padding: 1.5rem;
+            border-radius: 10px;
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .filter-group label {
+            font-weight: 600;
+            color: var(--text-gray);
+        }
+
+        .filter-group select {
+            padding: 0.5rem;
+            border-radius: 5px;
+            background: var(--darker-bg);
+            color: var(--text-light);
+            border: 1px solid var(--border-color);
+        }
+
+        /* Products Grid */
+        .section {
+            margin: 2rem;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .product-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid var(--border-color);
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            border-color: var(--primary);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: var(--accent);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            z-index: 2;
+        }
+
+        .product-image {
+            height: 220px;
+            width: 100%;
+            object-fit: cover;
+        }
+
+        .product-info {
+            padding: 1.5rem;
+        }
+
+        .product-category {
+            color: var(--primary);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-name {
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+            font-size: 1.1rem;
+            line-height: 1.4;
+        }
+
+        .product-price {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .current-price {
+            color: var(--primary);
+            font-weight: bold;
+            font-size: 1.3rem;
+        }
+
+        .original-price {
+            color: var(--text-gray);
+            text-decoration: line-through;
+            font-size: 1rem;
+        }
+
+        .discount {
+            color: var(--accent);
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .product-rating {
+            color: var(--warning);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .rating-count {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+        }
+
+        .product-features {
+            list-style: none;
+            margin-bottom: 1.5rem;
+        }
+
+        .product-features li {
+            color: var(--text-gray);
+            margin-bottom: 0.3rem;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .product-features li:before {
+            content: "✓";
+            color: var(--success);
+            margin-right: 0.5rem;
+            font-weight: bold;
+        }
+
+        .product-actions {
+            display: flex;
+            gap: 0.8rem;
+        }
+
+        .add-to-cart {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            flex: 1;
+            font-weight: 600;
+        }
+
+        .add-to-cart:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .wishlist {
+            background: transparent;
+            color: var(--text-gray);
+            border: 1px solid var(--border-color);
+            padding: 0.8rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .wishlist:hover {
+            color: var(--accent);
+            border-color: var(--accent);
+        }
+
+        /* Sports Categories */
+        .sports-categories {
+            background: var(--card-bg);
+            margin: 2rem;
+            padding: 2rem;
+            border-radius: 15px;
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .category-item {
+            background: var(--darker-bg);
+            padding: 2rem 1rem;
+            border-radius: 10px;
+            text-align: center;
+            transition: all 0.3s;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .category-item:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+        }
+
+        .category-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .category-item h4 {
+            color: var(--text-light);
+            font-weight: 600;
+        }
+
+        /* Fitness Features */
+        .fitness-features {
+            background: var(--card-bg);
+            margin: 2rem;
+            padding: 2rem;
+            border-radius: 15px;
+            border-left: 4px solid var(--accent);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        .feature-card {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.5rem;
+            background: var(--darker-bg);
+            border-radius: 10px;
+            transition: transform 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            color: var(--primary);
+        }
+
+        .feature-content h4 {
+            margin-bottom: 0.5rem;
+            color: var(--text-light);
+        }
+
+        .feature-content p {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--darker-bg);
+            padding: 3rem 2rem 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: var(--text-gray);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            color: var(--text-gray);
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: var(--primary);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid var(--border-color);
+            padding-top: 1.5rem;
+            text-align: center;
+            color: var(--text-gray);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .search-bar {
+                flex: 0 1 400px;
+            }
+            
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+            
+            .categories-grid {
+                grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-header {
+                flex-wrap: wrap;
+            }
+            
+            .search-bar {
+                order: 3;
+                flex: 1 1 100%;
+                margin: 1rem 0 0;
+            }
+            
+            .category-header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            }
+            
+            .filter-section {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .categories-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .top-bar {
+                justify-content: center;
+            }
+            
+            .top-links:last-child {
+                display: none;
+            }
+            
+            .main-nav {
+                overflow-x: auto;
+            }
+            
+            .nav-links {
+                gap: 1rem;
+            }
+            
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .category-header {
+                margin: 1rem;
+                padding: 2rem 1rem;
+            }
+            
+            .section {
+                margin: 1rem;
+            }
+            
+            .categories-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="top-bar">
+            <div class="top-links">
+                <a href="privacy.html"><i class="fas fa-question-circle"></i> Privacy Policy</a>
+                <a href="customercare.html"><i class="fas fa-headset"></i> Customer Support</a>
+                <a href="location.html"><i class="fas fa-truck"></i> Track Order(location)</a>
+            </div>
+            <div class="top-links">
+                <!-- Sign Up and Login removed as requested -->
+            </div>
+        </div>
+        
+        <div class="main-header">
+            <a href="visit.html" class="logo">
+                <i class="fas fa-bolt"></i>
+                Electro Bazzar
+            </a>
+            
+            <div class="search-bar">
+                <input type="text" placeholder="Search for sports equipment, fitness gear, and accessories...">
+                <button><i class="fas fa-search"></i></button>
+            </div>
+            
+            <div class="header-actions">
+                <a href="#" class="action-btn">
+                    <i class="fas fa-user"></i>
+                    <span>Account</span>
+                </a>
+                <a href="#" class="action-btn">
+                    <i class="fas fa-heart"></i>
+                    <span>Wishlist</span>
+                </a>
+               
+            </div>
+        </div>
+        
+        <nav class="main-nav">
+            <ul class="nav-links">
+                <li><a href="visit.html"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="electronics.html"><i class="fas fa-laptop"></i> Electronics</a></li>
+                <li><a href="fashion.html"><i class="fas fa-tshirt"></i> Fashion</a></li>
+                <li><a href="home-kitchen.html"><i class="fas fa-home"></i> Home & Kitchen</a></li>
+                <li><a href="furniture.html"><i class="fas fa-couch"></i> Furniture</a></li>
+                <li><a href="sports.html" style="color: var(--primary);"><i class="fas fa-dumbbell"></i> Sports</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Category Header -->
+    <section class="category-header">
+        <h1><i class="fas fa-dumbbell"></i> Sports & Fitness Store</h1>
+        <p>Elevate your fitness journey with premium sports equipment and gear</p>
+    </section>
+
+    <!-- Sports Categories -->
+    <section class="sports-categories">
+        <h3><i class="fas fa-running"></i> Shop by Sport</h3>
+        <div class="categories-grid">
+            <div class="category-item">
+                <div class="category-icon"><i class="fas fa-dumbbell"></i></div>
+                <h4>Gym & Fitness</h4>
+            </div>
+            <div class="category-item">
+                <div class="category-icon"><i class="fas fa-futbol"></i></div>
+                <h4>Football</h4>
+            </div>
+            <div class="category-item">
+                <div class="category-icon"><i class="fas fa-basketball-ball"></i></div>
+                <h4>Basketball</h4>
+            </div>
+            <div class="category-item">
+                <div class="category-icon"><i class="fas fa-table-tennis"></i></div>
+                <h4>Tennis</h4>
+            </div>
+            <div class="category-item">
+                <div class="category-icon"><i class="fas fa-swimmer"></i></div>
+                <h4>Swimming</h4>
+            </div>
+            <div class="category-item">
+                <div class="category-icon"><i class="fas fa-biking"></i></div>
+                <h4>Cycling</h4>
+            </div>
+            <div class="category-item">
+                <div class="category-icon"><i class="fas fa-running"></i></div>
+                <h4>Running</h4>
+            </div>
+            <div class="category-item">
+                <div class="category-icon"><i class="fas fa-campground"></i></div>
+                <h4>Outdoor</h4>
+            </div>
+        </div>
+    </section>
+
+    <!-- Fitness Features -->
+    <section class="fitness-features">
+        <h3><i class="fas fa-trophy"></i> Why Choose Our Sports Equipment?</h3>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
+                <div class="feature-content">
+                    <h4>Premium Quality</h4>
+                    <p>Professional-grade equipment built to last</p>
+                </div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-truck"></i></div>
+                <div class="feature-content">
+                    <h4>Free Delivery</h4>
+                    <p>Free shipping on orders above $100</p>
+                </div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-undo"></i></div>
+                <div class="feature-content">
+                    <h4>Easy Returns</h4>
+                    <p>30-day return policy on all items</p>
+                </div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-headset"></i></div>
+                <div class="feature-content">
+                    <h4>Expert Support</h4>
+                    <p>Sports specialists available to help</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Filter Section -->
+    <section class="filter-section">
+        <div class="filter-group">
+            <label>Category</label>
+            <select>
+                <option>All Sports</option>
+                <option>Gym Equipment</option>
+                <option>Team Sports</option>
+                <option>Fitness Accessories</option>
+                <option>Outdoor Sports</option>
+                <option>Water Sports</option>
+                <option>Racquet Sports</option>
+                <option>Combat Sports</option>
+            </select>
+        </div>
+        <div class="filter-group">
+            <label>Brand</label>
+            <select>
+                <option>All Brands</option>
+                <option>Nike</option>
+                <option>Adidas</option>
+                <option>Under Armour</option>
+                <option>Reebok</option>
+                <option>Puma</option>
+                <option>Wilson</option>
+                <option>Decathlon</option>
+            </select>
+        </div>
+        <div class="filter-group">
+            <label>Price Range</label>
+            <select>
+                <option>Any Price</option>
+                <option>Under $50</option>
+                <option>$50 - $100</option>
+                <option>$100 - $200</option>
+                <option>Over $200</option>
+            </select>
+        </div>
+        <div class="filter-group">
+            <label>Sort By</label>
+            <select>
+                <option>Featured</option>
+                <option>Price: Low to High</option>
+                <option>Price: High to Low</option>
+                <option>Customer Rating</option>
+                <option>Newest Arrivals</option>
+            </select>
+        </div>
+    </section>
+
+    <!-- Featured Sports -->
+    <section class="section">
+        <div class="section-header">
+            <h2 class="section-title">Popular Sports Equipment</h2>
+            <div class="view-all">Showing 20 products</div>
+        </div>
+        
+        <div class="products-grid">
+            <!-- Product 1 -->
+            <div class="product-card">
+                <div class="product-badge">Bestseller</div>
+                <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Treadmill" class="product-image">
+                <div class="product-info">
+                    <div class="product-category">Cardio Equipment</div>
+                    <div class="product-name">Professional Electric Treadmill</div>
+                    <div class="product-price">
+                        <span class="current-price">$899.99</span>
+                        <span class="original-price">$1,199.99</span>
+                        <span class="discount">25% OFF</span>
+                    </div>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                        <span class="rating-count">(1,234)</span>
+                    </div>
+                    <ul class="product-features">
+                        <li>3.0 HP Motor</li>
+                        <li>12 Pre-set Programs</li>
+                        <li>LCD Display</li>
+                        <li>Speed up to 16 km/h</li>
+                    </ul>
+                    <div class="product-actions">
+                        <button class="add-to-cart" onclick="window.location.href='buy.html'">Buy</button>
+                        <button class="wishlist"><i class="far fa-heart"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 2 -->
+            <div class="product-card">
+                <div class="product-badge">New</div>
+                <img src="https://images.unsplash.com/photo-1534258936925-c58bed479fcb?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Dumbbell Set" class="product-image">
+                <div class="product-info">
+                    <div class="product-category">Strength Training</div>
+                    <div class="product-name">Adjustable Dumbbell Set 40kg</div>
+                    <div class="product-price">
+                        <span class="current-price">$299.99</span>
+                        <span class="original-price">$399.99</span>
+                        <span class="discount">25% OFF</span>
+                    </div>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <span class="rating-count">(892)</span>
+                    </div>
+                    <ul class="product-features">
+                        <li>5-40kg Adjustable</li>
+                        <li>Quick Dial System</li>
+                        <li>Compact Design</li>
+                        <li>Includes Storage Tray</li>
+                    </ul>
+                    <div class="product-actions">
+                        <button class="add-to-cart" onclick="window.location.href='buy.html'">Buy</button>
+                        <button class="wishlist"><i class="far fa-heart"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 3 -->
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Yoga Mat" class="product-image">
+                <div class="product-info">
+                    <div class="product-category">Yoga & Pilates</div>
+                    <div class="product-name">Premium Extra Thick Yoga Mat</div>
+                    <div class="product-price">
+                        <span class="current-price">$49.99</span>
+                        <span class="original-price">$69.99</span>
+                        <span class="discount">29% OFF</span>
+                    </div>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <span class="rating-count">(3,456)</span>
+                    </div>
+                    <ul class="product-features">
+                        <li>8mm Thickness</li>
+                        <li>Non-Slip Surface</li>
+                        <li>Eco-friendly TPE</li>
+                        <li>Includes Carry Strap</li>
+                    </ul>
+                    <div class="product-actions">
+                        <button class="add-to-cart" onclick="window.location.href='buy.html'">Buy</button>
+                        <button class="wishlist"><i class="far fa-heart"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 4 -->
+            <div class="product-card">
+                <div class="product-badge">Sale</div>
+                <img src="https://images.unsplash.com/photo-1517649763962-0c623066013b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Football" class="product-image">
+                <div class="product-info">
+                    <div class="product-category">Team Sports</div>
+                    <div class="product-name">Professional Match Football</div>
+                    <div class="product-price">
+                        <span class="current-price">$89.99</span>
+                        <span class="original-price">$129.99</span>
+                        <span class="discount">31% OFF</span>
+                    </div>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                        <span class="rating-count">(1,567)</span>
+                    </div>
+                    <ul class="product-features">
+                        <li>FIFA Quality Pro</li>
+                        <li>Machine Stitched</li>
+                        <li>Water Resistant</li>
+                        <li>Size 5 Official</li>
+                    </ul>
+                    <div class="product-actions">
+                        <button class="add-to-cart" onclick="window.location.href='buy.html'">Buy</button>
+                        <button class="wishlist"><i class="far fa-heart"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 5 -->
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1518640467707-6811f4a6ab73?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Basketball" class="product-image">
+                <div class="product-info">
+                    <div class="product-category">Team Sports</div>
+                    <div class="product-name">Indoor/Outdoor Basketball</div>
+                    <div class="product-price">
+                        <span class="current-price">$59.99</span>
+                        <span class="original-price">$79.99</span>
+                        <span class="discount">25% OFF</span>
+                    </div>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <span class="rating-count">(2,345)</span>
+                    </div>
+                    <ul class="product-features">
+                        <li>Composite Leather</li>
+                        <li>Official Size 7</li>
+                        <li>Durable Grip</li>
+                        <li>All-Weather Use</li>
+                    </ul>
+                    <div class="product-actions">
+                        <button class="add-to-cart" onclick="window.location.href='buy.html'">Buy</button>
+                        <button class="wishlist"><i class="far fa-heart"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 6 -->
+            <div class="product-card">
+                <div class="product-badge">Trending</div>
+                <img src="https://images.unsplash.com/photo-1549060279-7e168fce7090?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Fitness Tracker" class="product-image">
+                <div class="product-info">
+                    <div class="product-category">Fitness Tech</div>
+                    <div class="product-name">Smart Fitness Tracker Watch</div>
+                    <div class="product-price">
+                        <span class="current-price">$149.99</span>
+                        <span class="original-price">$199.99</span>
+                        <span class="discount">25% OFF</span>
+                    </div>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                        <span class="rating-count">(4,123)</span>
+                    </div>
+                    <ul class="product-features">
+                        <li>Heart Rate Monitor</li>
+                        <li>Sleep Tracking</li>
+                        <li>Water Resistant</li>
+                        <li>7-day Battery</li>
+                    </ul>
+                    <div class="product-actions">
+                        <button class="add-to-cart" onclick="window.location.href='buy.html'">Buy</button>
+                        <button class="wishlist"><i class="far fa-heart"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 7 -->
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Resistance Bands" class="product-image">
+                <div class="product-info">
+                    <div class="product-category">Fitness Accessories</div>
+                    <div class="product-name">5-Piece Resistance Band Set</div>
+                    <div class="product-price">
+                        <span class="current-price">$39.99</span>
+                        <span class="original-price">$59.99</span>
+                        <span class="discount">33% OFF</span>
+                    </div>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <span class="rating-count">(2,678)</span>
+                    </div>
+                    <ul class="product-features">
+                        <li>5 Resistance Levels</li>
+                        <li>Includes Door Anchor</li>
+                        <li>Exercise Guide</li>
+                        <li>Travel Bag Included</li>
+                    </ul>
+                    <div class="product-actions">
+                        <button class="add-to-cart" onclick="window.location.href='buy.html'">Buy</button>
+                        <button class="wishlist"><i class="far fa-heart"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 8 -->
+            <div class="product-card">
+                <div class="product-badge">Limited</div>
+                <img src="https://images.unsplash.com/photo-1534258936925-c58bed479fcb?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Tennis Racket" class="product-image">
+                <div class="product-info">
+                    <div class="product-category">Racquet Sports</div>
+                    <div class="product-name">Professional Tennis Racket</div>
+                    <div class="product-price">
+                        <span class="current-price">$199.99</span>
+                        <span class="original-price">$279.99</span>
+                        <span class="discount">29% OFF</span>
+                    </div>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                        <span class="rating-count">(987)</span>
+                    </div>
+                    <ul class="product-features">
+                        <li>Graphite Construction</li>
+                        <li>Pre-strung</li>
+                        <li>Vibration Dampener</li>
+                        <li>Includes Cover</li>
+                    </ul>
+                    <div class="product-actions">
+                        <button class="add-to-cart" onclick="window.location.href='buy.html'">Buy</button>
+                        <button class="wishlist"><i class="far fa-heart"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 9 -->
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Exercise Bike" class="product-image">
+                <div class="product-info">
+                    <div class="product-category">Cardio Equipment</div>
+                    <div class="product-name">Magnetic Exercise Bike</div>
+                    <div class="product-price">
+                        <span class="current-price">$499.99</span>
+                        <span class="original-price">$699.99</span>
+                        <span class="discount">29% OFF</span>
+                    </div>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <span class="rating-count">(567)</span>
+                    </div>
+                    <ul class="product-features">
+                        <li>Magnetic Resistance</li>
+                        <li>LCD Display</li>
+                        <li>Adjustable Seat</li>
+                        <li>Transport Wheels</li>
+                    </ul>
+                    <div class="product-actions">
+                        <button class="add-to-cart" onclick="window.location.href='buy.html'">Buy</button>
+                        <button class="wishlist"><i class="far fa-heart"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 10 -->
+            <div class="product-card">
+                <div class="product-badge">Popular</div>
+                <img src="https://images.unsplash.com/photo-1517649763962-0c623066013b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Boxing Gloves" class="product-image">
+                <div class="product-info">
+                    <div class="product-category">Combat Sports</div>
+                    <div class="product-name">Professional Boxing Gloves</div>
+                    <div class="product-price">
+                        <span class="current-price">$79.99</span>
+                        <span class="original-price">$119.99</span>
+                        <span class="discount">33% OFF</span>
+                    </div>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <span class="rating-count">(1,234)</span>
+                    </div>
+                    <ul class="product-features">
+                        <li>Genuine Leather</li>
+                        <li>Multi-layer Foam</li>
+                        <li>Velcro Strap</li>
+                        <li>Available in 12oz, 14oz, 16oz</li>
+                    </ul>
+                    <div class="product-actions">
+                        <button class="add-to-cart" onclick="window.location.href='buy.html'">Buy</button>
+                        <button class="wishlist"><i class="far fa-heart"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 11 -->
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1518640467707-6811f4a6ab73?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Swimming Goggles" class="product-image">
+                <div class="product-info">
+                    <div class="product-category">Water Sports</div>
+                    <div class="product-name">Anti-Fog Swimming Goggles</div>
+                    <div class="product-price">
+                        <span class="current-price">$29.99</span>
+                        <span class="original-price">$49.99</span>
+                        <span class="discount">40% OFF</span>
+                    </div>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                        <span class="rating-count">(2,345)</span>
+                    </div>
+                    <ul class="product-features">
+                        <li>UV Protection</li>
+                        <li>Adjustable Strap</li>
+                        <li>Comfort Fit</li>
+                        <li>Multiple Colors</li>
+                    </ul>
+                    <div class="product-actions">
+                        <button class="add-to-cart" onclick="window.location.href='buy.html'">Buy</button>
+                        <button class="wishlist"><i class="far fa-heart"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 12 -->
+            <div class="product-card">
+                <div class="product-badge">Hot</div>
+                <img src="https://m.media-amazon.com/images/I/81Leqdvb3NL.jpg" alt="Yoga Block" class="product-image">
+                <div class="product-info">
+                    <div class="product-category">Yoga & Pilates</div>
+                    <div class="product-name">Eco-friendly Yoga Block Set</div>
+                    <div class="product-price">
+                        <span class="current-price">$24.99</span>
+                        <span class="original-price">$39.99</span>
+                        <span class="discount">38% OFF</span>
+                    </div>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <span class="rating-count">(1,876)</span>
+                    </div>
+                    <ul class="product-features">
+                        <li>2 Blocks + Strap</li>
+                        <li>Cork Material</li>
+                        <li>Lightweight</li>
+                        <li>Non-slip Surface</li>
+                    </ul>
+                    <div class="product-actions">
+                        <button class="add-to-cart" onclick="window.location.href='buy.html'">Buy</button>
+                        <button class="wishlist"><i class="far fa-heart"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>Customer Service</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Help Center</a></li>
+                    <li><a href="#">How to Buy</a></li>
+                    <li><a href="#">Returns & Refunds</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">Purchase Protection</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>About Electro Bazzar</h3>
+                <ul class="footer-links">
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Terms & Conditions</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Blog</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Payment Methods</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Credit/Debit Card</a></li>
+                    <li><a href="#">Net Banking</a></li>
+                    <li><a href="#">Cash on Delivery</a></li>
+                    <li><a href="#">EMI Options</a></li>
+                    <li><a href="#">Wallet</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Follow Us</h3>
+                <p>Stay connected with us for the latest updates</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2024 Electro Bazzar. All rights reserved. | Designed with <i class="fas fa-heart" style="color: var(--accent);"></i> for amazing shopping experiences</p>
+        </div>
+    </footer>
+
+    <script>
+        // Category selection functionality
+        document.querySelectorAll('.category-item').forEach(item => {
+            item.addEventListener('click', function() {
+                const categoryName = this.querySelector('h4').textContent;
+                alert(`Filtering by: ${categoryName}`);
+                
+                // Remove active class from all items
+                document.querySelectorAll('.category-item').forEach(i => {
+                    i.style.borderColor = 'transparent';
+                });
+                
+                // Add active state to clicked item
+                this.style.borderColor = 'var(--primary)';
+            });
+        });
+
+        // Add to cart functionality
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+            button.addEventListener('click', function() {
+                const productName = this.closest('.product-card').querySelector('.product-name').textContent;
+                const productPrice = this.closest('.product-card').querySelector('.current-price').textContent;
+                
+                alert(`${productName} added to cart!\nPrice: ${productPrice}`);
+                
+                // Update cart count
+                const cartCount = document.querySelector('.cart-count');
+                cartCount.textContent = parseInt(cartCount.textContent) + 1;
+                
+                // Add animation effect
+                this.style.background = 'var(--success)';
+                setTimeout(() => {
+                    this.style.background = 'var(--primary)';
+                }, 1000);
+            });
+        });
+        
+        // Wishlist functionality
+        document.querySelectorAll('.wishlist').forEach(button => {
+            button.addEventListener('click', function() {
+                const icon = this.querySelector('i');
+                if (icon.classList.contains('far')) {
+                    icon.classList.remove('far');
+                    icon.classList.add('fas');
+                    this.style.color = 'var(--accent)';
+                    this.style.borderColor = 'var(--accent)';
+                    
+                    const productName = this.closest('.product-card').querySelector('.product-name').textContent;
+                    alert(`${productName} added to wishlist!`);
+                } else {
+                    icon.classList.remove('fas');
+                    icon.classList.add('far');
+                    this.style.color = 'var(--text-gray)';
+                    this.style.borderColor = 'var(--border-color)';
+                }
+            });
+        });
+        
+        // Filter functionality
+        document.querySelectorAll('select').forEach(select => {
+            select.addEventListener('change', function() {
+                // In a real application, this would filter the products
+                console.log(`Filter changed: ${this.value}`);
+            });
+        });
+    </script>
+</body>
+</html>

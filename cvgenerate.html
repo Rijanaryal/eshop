@@ -1,0 +1,549 @@
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        
+        <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            "url": "https://electro-bazzar.com",
+            "logo": "https://i.ibb.co/6RNT2Rm4/electro-bazzar-logo.jpg",
+            "name": "Electro-Bazzar",
+            "description": "Your one-stop shop for premium electronics and gadgets in Nepal.",
+            "sameAs": [
+            "https://facebook.com/electrobazzar",
+            "https://instagram.com/electrobazzar"
+            ]
+        }
+        </script>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Electro-Bazzar</title>
+        <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+        <link rel="icon" type="" href="379907369_731692655641513_7342960460164979974_n.jpg" />
+
+        <style>
+            /* Reset and Base Styles */
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                font-family: 'Poppins', sans-serif;
+            }
+
+            body {
+                background-color: #f5f7ff;
+                padding: 20px;
+            }
+
+            /* Action Buttons */
+            .action-buttons {
+                display: flex;
+                justify-content: center;
+                gap: 15px;
+                margin-bottom: 20px;
+                flex-wrap: wrap;
+            }
+
+            .btn {
+                padding: 10px 20px;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                font-size: 16px;
+                transition: all 0.3s;
+                text-decoration: none;
+                color: white;
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+            }
+
+            .btn-print {
+                background-color: #4a6bff;
+            }
+
+            .btn-download {
+                background-color: #ff6b6b;
+            }
+
+            .btn-back {
+                background-color: #6c757d;
+            }
+
+            .btn:hover {
+                opacity: 0.9;
+                transform: translateY(-2px);
+                box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            }
+
+            /* A4 CV Container */
+            .cv-container {
+                width: 210mm;
+                min-height: 297mm;
+                margin: 0 auto;
+                background: white;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                padding: 20mm;
+                position: relative;
+            }
+
+            /* CV Header with Photo */
+            .cv-header {
+                display: flex;
+                align-items: center;
+                margin-bottom: 20px;
+                border-bottom: 2px solid #4a6bff;
+                padding-bottom: 20px;
+            }
+
+            .photo-container {
+                width: 100px;
+                height: 100px;
+                border-radius: 50%;
+                overflow: hidden;
+                border: 3px solid #4a6bff;
+                margin-right: 30px;
+                flex-shrink: 0;
+            }
+
+            .photo-container img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+
+            .header-text {
+                flex: 1;
+            }
+
+            .name {
+                font-size: 28px;
+                font-weight: 700;
+                color: #333;
+                margin-bottom: 5px;
+            }
+
+            .title {
+                font-size: 18px;
+                color: #4a6bff;
+                font-weight: 600;
+                margin-bottom: 10px;
+            }
+
+            /* Contact Information */
+            .contact-info {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 15px;
+                margin-bottom: 15px;
+            }
+
+            .contact-item {
+                display: flex;
+                align-items: center;
+                font-size: 14px;
+            }
+
+            .contact-item i {
+                margin-right: 8px;
+                color: #4a6bff;
+                font-size: 16px;
+            }
+
+            /* CV Sections */
+            .cv-section {
+                margin-bottom: 20px;
+            }
+
+            .section-title {
+                font-size: 20px;
+                color: #4a6bff;
+                border-bottom: 1px solid #eee;
+                padding-bottom: 5px;
+                margin-bottom: 15px;
+                font-weight: 600;
+            }
+
+            /* Summary Section */
+            .summary-text {
+                line-height: 1.6;
+                text-align: justify;
+            }
+
+            /* Experience & Education Items */
+            .item {
+                margin-bottom: 15px;
+            }
+
+            .item-header {
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: 5px;
+                flex-wrap: wrap;
+            }
+
+            .item-title {
+                font-weight: 600;
+                font-size: 16px;
+            }
+
+            .item-subtitle {
+                color: #555;
+                font-size: 14px;
+            }
+
+            .item-duration {
+                color: #4a6bff;
+                font-weight: 500;
+                white-space: nowrap;
+            }
+
+            .item-content {
+                margin-left: 10px;
+            }
+
+            .responsibilities {
+                list-style-type: none;
+            }
+
+            .responsibilities li {
+                position: relative;
+                padding-left: 15px;
+                margin-bottom: 5px;
+            }
+
+            .responsibilities li:before {
+                content: "•";
+                color: #4a6bff;
+                position: absolute;
+                left: 0;
+                font-weight: bold;
+            }
+
+            /* Skills Section */
+            .skills-container {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+
+            .skill-category {
+                margin-bottom: 10px;
+                flex: 1 1 200px;
+            }
+
+            .skill-tag {
+                display: inline-block;
+                background-color: #f0f4ff;
+                color: #4a6bff;
+                padding: 5px 10px;
+                border-radius: 3px;
+                font-size: 14px;
+                margin-right: 5px;
+                margin-bottom: 5px;
+            }
+
+            /* Certificates Section */
+            .certificate-item {
+                display: flex;
+                margin-bottom: 8px;
+                align-items: center;
+            }
+
+            .certificate-year {
+                font-weight: 600;
+                color: #4a6bff;
+                min-width: 50px;
+            }
+
+            /* References Section */
+            .references-container {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                gap: 15px;
+            }
+
+            .reference-item {
+                background-color: #f9f9f9;
+                padding: 10px;
+                border-radius: 5px;
+                font-size: 14px;
+            }
+
+            .reference-name {
+                font-weight: 600;
+                margin-bottom: 5px;
+            }
+
+            /* Print Styles */
+            @media print {
+                body {
+                    background: none;
+                    padding: 0;
+                }
+
+                .action-buttons {
+                    display: none;
+                }
+
+                .cv-container {
+                    box-shadow: none;
+                    padding: 15mm;
+                    width: auto;
+                    min-height: auto;
+                    margin: 0;
+                }
+
+                .btn {
+                    display: none;
+                }
+            }
+
+            /* Responsive Styles */
+            @media (max-width: 768px) {
+                .cv-header {
+                    flex-direction: column;
+                    text-align: center;
+                }
+
+                .photo-container {
+                    margin-right: 0;
+                    margin-bottom: 15px;
+                }
+
+                .contact-info {
+                    justify-content: center;
+                }
+
+                .item-header {
+                    flex-direction: column;
+                    gap: 5px;
+                }
+
+                .item-duration {
+                    margin-top: 5px;
+                }
+            }
+        </style>
+    </head>
+    <body>
+                        <p><a href="cvfill.html" style="list-style-type: none; text-decoration: none; color: red;">Back 🏡</a></p>
+
+        <div class="container">
+            <div class="action-buttons">
+                <button class="btn btn-print" onclick="window.print()">
+                    <i class="fas fa-print"></i> Print CV
+                </button>
+                <button class="btn btn-download" onclick="downloadCV()">
+                    <i class="fas fa-download"></i> Download PDF
+                </button>
+                <a href="cvfill.html" class="btn btn-back">
+                    <i class="fas fa-arrow-left"></i> Back to Editor
+                </a>
+            </div>
+
+            <div class="cv-container" id="cv-content">
+                <!-- CV content will be generated by JavaScript -->
+            </div>
+        </div>
+
+        <script>
+            // Get the CV data from sessionStorage
+            const cvData = JSON.parse(sessionStorage.getItem('cvData'));
+            
+            // Generate the CV HTML
+            document.addEventListener('DOMContentLoaded', function() {
+                const cvContent = document.getElementById('cv-content');
+                
+                if (!cvData) {
+                    cvContent.innerHTML = '<div style="text-align: center; padding: 50px;"><h2>No CV data found</h2><p>Please go back and generate your CV first.</p><a href="index.html" class="btn btn-back" style="margin-top: 20px;">Back to CV Generator</a></div>';
+                    return;
+                }
+                
+                // Generate the CV HTML structure
+                let cvHTML = `
+                    <div class="cv-header">
+                        ${cvData.photo && cvData.photo.includes('data:image') ? 
+                            `<div class="photo-container">
+                                <img src="${cvData.photo}" alt="Profile Photo">
+                            </div>` : 
+                            '<div class="photo-container" style="background-color: #eee; display: flex; align-items: center; justify-content: center;"><i class="fas fa-user" style="font-size: 40px; color: #999;"></i></div>'}
+                        <div class="header-text">
+                            <h1 class="name">${cvData.fullName || 'Your Name'}</h1>
+                            <p class="title">${cvData.jobTitle || 'Professional Title'}</p>
+                            <div class="contact-info">
+                                ${cvData.mobile ? `<div class="contact-item"><i class="fas fa-phone"></i> ${cvData.mobile}</div>` : ''}
+                                ${cvData.email ? `<div class="contact-item"><i class="fas fa-envelope"></i> ${cvData.email}</div>` : ''}
+                                ${cvData.address ? `<div class="contact-item"><i class="fas fa-map-marker-alt"></i> ${cvData.address}</div>` : ''}
+                            </div>
+                        </div>
+                    </div>
+
+                    ${cvData.summary ? `
+                    <div class="cv-section">
+                        <h2 class="section-title">PROFILE SUMMARY</h2>
+                        <p class="summary-text">${cvData.summary.replace(/\n/g, '<br>')}</p>
+                    </div>` : ''}
+
+                    ${cvData.experiences && cvData.experiences.length > 0 ? `
+                    <div class="cv-section">
+                        <h2 class="section-title">WORK EXPERIENCE</h2>
+                        ${cvData.experiences.map(exp => `
+                            <div class="item">
+                                <div class="item-header">
+                                    <div>
+                                        <span class="item-title">${exp.position || 'Position'}</span>
+                                        ${exp.company ? `<span class="item-subtitle">at ${exp.company}</span>` : ''}
+                                    </div>
+                                    ${exp.duration ? `<span class="item-duration">${exp.duration}</span>` : ''}
+                                </div>
+                                <div class="item-content">
+                                    <ul class="responsibilities">
+                                        ${exp.responsibilities.filter(r => r.trim()).map(resp => `<li>${resp}</li>`).join('')}
+                                    </ul>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>` : ''}
+
+                    ${cvData.education && cvData.education.length > 0 ? `
+                    <div class="cv-section">
+                        <h2 class="section-title">EDUCATION</h2>
+                        ${cvData.education.map(edu => `
+                            <div class="item">
+                                <div class="item-header">
+                                    <div>
+                                        <span class="item-title">${edu.degree || 'Degree'}</span>
+                                        ${edu.institution ? `<span class="item-subtitle">, ${edu.institution}</span>` : ''}
+                                    </div>
+                                    ${edu.duration ? `<span class="item-duration">${edu.duration}</span>` : ''}
+                                </div>
+                                ${edu.grade ? `<div class="item-content">Grade: ${edu.grade}</div>` : ''}
+                            </div>
+                        `).join('')}
+                    </div>` : ''}
+
+                    ${cvData.skills && cvData.skills.length > 0 ? `
+                    <div class="cv-section">
+                        <h2 class="section-title">SKILLS</h2>
+                        <div class="skills-container">
+                            ${cvData.skills.map(skillGroup => `
+                                <div class="skill-category">
+                                    ${skillGroup.filter(skill => skill.trim()).map(skill => `<span class="skill-tag">${skill.trim()}</span>`).join('')}
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>` : ''}
+
+                    ${cvData.certificates && cvData.certificates.length > 0 ? `
+                    <div class="cv-section">
+                        <h2 class="section-title">CERTIFICATIONS</h2>
+                        ${cvData.certificates.map(cert => `
+                            <div class="certificate-item">
+                                <div class="certificate-year">${cert.year || ''}</div>
+                                <div>${cert.name || ''}</div>
+                            </div>
+                        `).join('')}
+                    </div>` : ''}
+
+                    ${cvData.references && cvData.references.length > 0 ? `
+                    <div class="cv-section">
+                        <h2 class="section-title">REFERENCES</h2>
+                        <div class="references-container">
+                            ${cvData.references.map(ref => `
+                                <div class="reference-item">
+                                    <div class="reference-name">${ref.name || ''}</div>
+                                    ${ref.contact ? `<div><i class="fas fa-phone"></i> ${ref.contact}</div>` : ''}
+                                    ${ref.address ? `<div><i class="fas fa-map-marker-alt"></i> ${ref.address}</div>` : ''}
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>` : ''}
+                `;
+                
+                cvContent.innerHTML = cvHTML;
+            });
+
+            // Function to download CV as PDF
+            function downloadCV() {
+                // For a more robust solution, you could integrate a library like jsPDF or html2pdf.js
+                // This simple solution uses the browser's print to PDF functionality
+                window.print();
+            }
+        </script>
+    </body>
+    </html>
+
+
+
+
+      function generateCV() {
+            // Collect all form data
+            const formData = {
+                photo: document.getElementById('photo-preview').src,
+                fullName: document.getElementById('full-name').value,
+                jobTitle: document.getElementById('job-title').value,
+                summary: document.getElementById('summary').value,
+                mobile: document.getElementById('mobile').value,
+                email: document.getElementById('email').value,
+                address: document.getElementById('address').value,
+                experiences: [],
+                education: [],
+                skills: [],
+                certificates: [],
+                references: []
+            };
+
+            // Collect experiences
+            document.querySelectorAll('.experience-item').forEach(item => {
+                formData.experiences.push({
+                    company: item.querySelector('input[name="company[]"]').value,
+                    position: item.querySelector('input[name="position[]"]').value,
+                    duration: item.querySelector('input[name="duration[]"]').value,
+                    responsibilities: item.querySelector('textarea[name="responsibilities[]"]').value.split('\n')
+                });
+            });
+
+            // Collect education
+            document.querySelectorAll('.education-item').forEach(item => {
+                formData.education.push({
+                    degree: item.querySelector('input[name="degree[]"]').value,
+                    institution: item.querySelector('input[name="institution[]"]').value,
+                    duration: item.querySelector('input[name="education-duration[]"]').value,
+                    grade: item.querySelector('input[name="grade[]"]').value
+                });
+            });
+
+            // Collect skills
+            document.querySelectorAll('.skill-item').forEach(item => {
+                formData.skills.push(item.querySelector('input[name="skills[]"]').value.split(','));
+            });
+
+            // Collect certificates
+            document.querySelectorAll('.certificate-item').forEach(item => {
+                formData.certificates.push({
+                    year: item.querySelector('input[name="cert-year[]"]').value,
+                    name: item.querySelector('input[name="cert-name[]"]').value
+                });
+            });
+
+            // Collect references
+            const refNames = document.querySelectorAll('input[name="ref-name[]"]');
+            const refContacts = document.querySelectorAll('input[name="ref-contact[]"]');
+            const refAddresses = document.querySelectorAll('input[name="ref-address[]"]');
+            
+            for (let i = 0; i < refNames.length; i++) {
+                formData.references.push({
+                    name: refNames[i].value,
+                    contact: refContacts[i].value,
+                    address: refAddresses[i].value
+                });
+            }
+
+            // Store in sessionStorage to pass to the next page
+            sessionStorage.setItem('cvData', JSON.stringify(formData));
+
+            // Redirect to preview page
+            window.location.href = 'cvgenerate.html';
+        }

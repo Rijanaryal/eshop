@@ -1,0 +1,1147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electronics - Electro Bazzar</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #667eea;
+            --primary-dark: #5a6fd8;
+            --secondary: #764ba2;
+            --accent: #ff6b6b;
+            --success: #28a745;
+            --warning: #ffc107;
+            --dark-bg: #1a1a2e;
+            --darker-bg: #16213e;
+            --card-bg: #2d3748;
+            --text-light: #f8f9fa;
+            --text-gray: #a0aec0;
+            --border-color: #4a5568;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--dark-bg), var(--darker-bg));
+            color: var(--text-light);
+            min-height: 100vh;
+        }
+
+        /* Header Styles */
+        .header {
+            background: rgba(26, 26, 46, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .top-bar {
+            background: var(--darker-bg);
+            padding: 0.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .top-links a {
+            color: var(--text-gray);
+            text-decoration: none;
+            margin-right: 1.5rem;
+            transition: color 0.3s;
+        }
+
+        .top-links a:hover {
+            color: var(--primary);
+        }
+
+        .main-header {
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo i {
+            margin-right: 0.5rem;
+            font-size: 2.2rem;
+        }
+
+        .search-bar {
+            flex: 0 1 600px;
+            display: flex;
+            margin: 0 2rem;
+        }
+
+        .search-bar input {
+            flex: 1;
+            padding: 0.8rem 1rem;
+            border: none;
+            border-radius: 25px 0 0 25px;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-light);
+            font-size: 1rem;
+        }
+
+        .search-bar button {
+            padding: 0 1.5rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border: none;
+            border-radius: 0 25px 25px 0;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .search-bar button:hover {
+            background: linear-gradient(135deg, var(--primary-dark), var(--secondary));
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .action-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .action-btn i {
+            font-size: 1.5rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .action-btn:hover {
+            color: var(--primary);
+        }
+
+        .cart-count {
+            background: var(--accent);
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            font-size: 0.7rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            top: -5px;
+            right: -5px;
+        }
+
+        /* Navigation */
+        .main-nav {
+            background: rgba(45, 55, 72, 0.9);
+            padding: 0.8rem 2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-links a i {
+            margin-right: 0.5rem;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        /* Category Header */
+        .category-header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            padding: 3rem 2rem;
+            text-align: center;
+            margin: 1rem 2rem;
+            border-radius: 15px;
+        }
+
+        .category-header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .category-header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        /* Filter Section */
+        .filter-section {
+            background: var(--card-bg);
+            margin: 2rem;
+            padding: 1.5rem;
+            border-radius: 10px;
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .filter-group label {
+            font-weight: 600;
+            color: var(--text-gray);
+        }
+
+        .filter-group select {
+            padding: 0.5rem;
+            border-radius: 5px;
+            background: var(--darker-bg);
+            color: var(--text-light);
+            border: 1px solid var(--border-color);
+        }
+
+        /* Products Grid */
+        .section {
+            margin: 2rem;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .product-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid var(--border-color);
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            border-color: var(--primary);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: var(--accent);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            z-index: 2;
+        }
+
+        .product-image {
+            height: 220px;
+            width: 100%;
+            object-fit: cover;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+        }
+
+        .product-info {
+            padding: 1.5rem;
+        }
+
+        .product-category {
+            color: var(--primary);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-name {
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+            font-size: 1.1rem;
+            line-height: 1.4;
+        }
+
+        .product-price {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .current-price {
+            color: var(--primary);
+            font-weight: bold;
+            font-size: 1.3rem;
+        }
+
+        .original-price {
+            color: var(--text-gray);
+            text-decoration: line-through;
+            font-size: 1rem;
+        }
+
+        .discount {
+            color: var(--accent);
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .product-rating {
+            color: var(--warning);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .rating-count {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+        }
+
+        .product-features {
+            list-style: none;
+            margin-bottom: 1.5rem;
+        }
+
+        .product-features li {
+            color: var(--text-gray);
+            margin-bottom: 0.3rem;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .product-features li:before {
+            content: "✓";
+            color: var(--success);
+            margin-right: 0.5rem;
+            font-weight: bold;
+        }
+
+        .product-actions {
+            display: flex;
+            gap: 0.8rem;
+        }
+
+        .add-to-cart {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            flex: 1;
+            font-weight: 600;
+        }
+
+        .add-to-cart:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .wishlist {
+            background: transparent;
+            color: var(--text-gray);
+            border: 1px solid var(--border-color);
+            padding: 0.8rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .wishlist:hover {
+            color: var(--accent);
+            border-color: var(--accent);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--darker-bg);
+            padding: 3rem 2rem 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: var(--text-gray);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            color: var(--text-gray);
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: var(--primary);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid var(--border-color);
+            padding-top: 1.5rem;
+            text-align: center;
+            color: var(--text-gray);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .search-bar {
+                flex: 0 1 400px;
+            }
+            
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-header {
+                flex-wrap: wrap;
+            }
+            
+            .search-bar {
+                order: 3;
+                flex: 1 1 100%;
+                margin: 1rem 0 0;
+            }
+            
+            .category-header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            }
+            
+            .filter-section {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .top-bar {
+                flex-direction: column;
+                align-items: center;
+                gap: 0.5rem;
+            }
+            
+            .main-nav {
+                overflow-x: auto;
+            }
+            
+            .nav-links {
+                gap: 1rem;
+            }
+            
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .category-header {
+                margin: 1rem;
+                padding: 2rem 1rem;
+            }
+            
+            .section {
+                margin: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>a
+    <!-- Header -->
+    <header class="header">
+        <div class="top-bar">
+            <div class="top-links">
+                <a href="privacy.html"><i class="fas fa-question-circle"></i> Privacy Policy</a>
+                <a href="customercare.html"><i class="fas fa-headset"></i> Customer Support</a>
+                <a href="location.html"><i class="fas fa-truck"></i> Track Order(location)</a>
+            </div>
+    
+        </div>
+        
+        <div class="main-header">
+            <a href="visit.html" class="logo">
+                <i class="fas fa-bolt"></i>
+                Electro Bazzar
+            </a>
+            
+            <div class="search-bar">
+                <input type="text" placeholder="Search for electronics, brands and categories...">
+                <button><i class="fas fa-search"></i></button>
+            </div>
+            
+            <div class="header-actions">
+                <a href="#" class="action-btn">
+                    <i class="fas fa-user"></i>
+                    <span>Account</span>
+                </a>
+                <a href="#" class="action-btn">
+                    <i class="fas fa-heart"></i>
+                    <span>Wishlist</span>
+                </a>
+               
+            </div>
+        </div>
+        
+        <nav class="main-nav">
+            <ul class="nav-links">
+                <li><a href="visit.html"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="electronics.html" style="color: var(--primary);"><i class="fas fa-laptop"></i> Electronics</a></li>
+                <li><a href="fashion.html"><i class="fas fa-tshirt"></i> Fashion</a></li>
+                <li><a href="home-kitchen.html"><i class="fas fa-home"></i> Home & Kitchen</a></li>
+                <li><a href="furniture.html"><i class="fas fa-couch"></i> Furniture</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Category Header -->
+    <section class="category-header">
+        <h1><i class="fas fa-laptop"></i> Electronics Store</h1>
+        <p>Discover the latest gadgets, computers, and electronic devices with amazing deals</p>
+    </section>
+
+    <!-- Filter Section -->
+    <section class="filter-section">
+        <div class="filter-group">
+            <label>Category</label>
+            <select>
+                <option>All Electronics</option>
+                <option>Laptops & Computers</option>
+                <option>Smartphones & Tablets</option>
+                <option>Audio & Headphones</option>
+                <option>Cameras & Photography</option>
+                <option>Gaming Consoles</option>
+                <option>Smart Watches</option>
+                <option>Home Appliances</option>
+            </select>
+        </div>
+        <div class="filter-group">
+            <label>Brand</label>
+            <select>
+                <option>All Brands</option>
+                <option>Apple</option>
+                <option>Samsung</option>
+                <option>Sony</option>
+                <option>Dell</option>
+                <option>HP</option>
+                <option>Lenovo</option>
+                <option>Asus</option>
+            </select>
+        </div>
+        <div class="filter-group">
+            <label>Price Range</label>
+            <select>
+                <option>Any Price</option>
+                <option>Under $100</option>
+                <option>$100 - $500</option>
+                <option>$500 - $1000</option>
+                <option>Over $1000</option>
+            </select>
+        </div>
+        <div class="filter-group">
+            <label>Sort By</label>
+            <select>
+                <option>Featured</option>
+                <option>Price: Low to High</option>
+                <option>Price: High to Low</option>
+                <option>Customer Rating</option>
+                <option>Newest Arrivals</option>
+            </select>
+        </div>
+    </section>
+
+    <!-- Featured Electronics -->
+    <section class="section">
+        <div class="section-header">
+            <h2 class="section-title">Featured Electronics</h2>
+            <div class="view-all">Showing 24 products</div>
+        </div>
+        
+        <div class="products-grid">
+            <!-- Product 1 -->
+            <div class="product-card">
+                <div class="product-badge">Hot</div>
+                <img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="MacBook Pro" class="product-image">
+                <div class="product-info">
+                    <div class="product-category">Laptop</div>
+                    <div class="product-name">Apple MacBook Pro 16-inch M2 Max</div>
+                    <div class="product-price">
+                        <span class="current-price">$3,299.00</span>
+                        <span class="original-price">$3,599.00</span>
+                        <span class="discount">8% OFF</span>
+                    </div>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                        <span class="rating-count">(1,234)</span>
+                    </div>
+                    <ul class="product-features">
+                        <li>M2 Max Chip with 12-core CPU</li>
+                        <li>32GB Unified Memory</li>
+                        <li>1TB SSD Storage</li>
+                        <li>16-inch Liquid Retina XDR Display</li>
+                    </ul>
+                    <div class="product-actions">
+                        <button class="add-to-cart" onclick="window.location.href='buy.html'">Buy</button>
+                        <button class="wishlist"><i class="far fa-heart"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 2 -->
+            <div class="product-card">
+                <div class="product-badge">New</div>
+                <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Wireless Headphones" class="product-image">
+                <div class="product-info">
+                    <div class="product-category">Audio</div>
+                    <div class="product-name">Sony WH-1000XM5 Wireless Headphones</div>
+                    <div class="product-price">
+                        <span class="current-price">$399.99</span>
+                        <span class="original-price">$449.99</span>
+                        <span class="discount">11% OFF</span>
+                    </div>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <span class="rating-count">(892)</span>
+                    </div>
+                    <ul class="product-features">
+                        <li>Industry-leading noise cancellation</li>
+                        <li>30-hour battery life</li>
+                        <li>Touch sensor controls</li>
+                        <li>Quick charge: 3 mins = 3 hours</li>
+                    </ul>
+                    <div class="product-actions">
+                        <button class="add-to-cart" onclick="window.location.href='buy.html'">Buy</button>
+                        <button class="wishlist"><i class="far fa-heart"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 3 -->
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="4K Camera" class="product-image">
+                <div class="product-info">
+                    <div class="product-category">Camera</div>
+                    <div class="product-name">Canon EOS R5 Mirrorless Camera</div>
+                    <div class="product-price">
+                        <span class="current-price">$3,899.00</span>
+                        <span class="original-price">$4,299.00</span>
+                        <span class="discount">9% OFF</span>
+                    </div>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                        <span class="rating-count">(567)</span>
+                    </div>
+                    <ul class="product-features">
+                        <li>45MP Full-Frame CMOS Sensor</li>
+                        <li>8K Video Recording</li>
+                        <li>5-axis Image Stabilization</li>
+                        <li>Dual Pixel CMOS AF II</li>
+                    </ul>
+                    <div class="product-actions">
+                        <button class="add-to-cart" onclick="window.location.href='buy.html'">Buy</button>
+                        <button class="wishlist"><i class="far fa-heart"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 4 -->
+            <div class="product-card">
+                <div class="product-badge">Sale</div>
+                <img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Smart Watch" class="product-image">
+                <div class="product-info">
+                    <div class="product-category">Wearable</div>
+                    <div class="product-name">Apple Watch Series 9 GPS + Cellular</div>
+                    <div class="product-price">
+                        <span class="current-price">$529.00</span>
+                        <span class="original-price">$599.00</span>
+                        <span class="discount">12% OFF</span>
+                    </div>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <span class="rating-count">(1,045)</span>
+                    </div>
+                    <ul class="product-features">
+                        <li>Always-On Retina display</li>
+                        <li>Blood oxygen & ECG apps</li>
+                        <li>Water resistant 50m</li>
+                        <li>GPS + Cellular</li>
+                    </ul>
+                    <div class="product-actions">
+                        <button class="add-to-cart" onclick="window.location.href='buy.html'">Buy</button>
+                        <button class="wishlist"><i class="far fa-heart"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 5 -->
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1593640408182-31c70c8268f5?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Gaming Laptop" class="product-image">
+                <div class="product-info">
+                    <div class="product-category">Gaming</div>
+                    <div class="product-name">ASUS ROG Zephyrus G16 Gaming Laptop</div>
+                    <div class="product-price">
+                        <span class="current-price">$2,199.00</span>
+                        <span class="original-price">$2,499.00</span>
+                        <span class="discount">12% OFF</span>
+                    </div>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                        <span class="rating-count">(723)</span>
+                    </div>
+                    <ul class="product-features">
+                        <li>Intel Core i9-13900H Processor</li>
+                        <li>NVIDIA GeForce RTX 4070</li>
+                        <li>32GB DDR5 RAM, 1TB SSD</li>
+                        <li>16-inch QHD+ 240Hz Display</li>
+                    </ul>
+                    <div class="product-actions">
+                        <button class="add-to-cart" onclick="window.location.href='buy.html'">Buy</button>
+                        <button class="wishlist"><i class="far fa-heart"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 6 -->
+            <div class="product-card">
+                <div class="product-badge">Best Seller</div>
+                <img src="https://images.unsplash.com/photo-1502920917128-1aa500764cbd?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Tablet" class="product-image">
+                <div class="product-info">
+                    <div class="product-category">Tablet</div>
+                    <div class="product-name">Samsung Galaxy Tab S9 Ultra</div>
+                    <div class="product-price">
+                        <span class="current-price">$1,199.99</span>
+                        <span class="original-price">$1,399.99</span>
+                        <span class="discount">14% OFF</span>
+                    </div>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <span class="rating-count">(634)</span>
+                    </div>
+                    <ul class="product-features">
+                        <li>14.6-inch Dynamic AMOLED 2X</li>
+                        <li>Snapdragon 8 Gen 2 Processor</li>
+                        <li>12GB RAM, 512GB Storage</li>
+                        <li>S Pen Included</li>
+                    </ul>
+                    <div class="product-actions">
+                        <button class="add-to-cart" onclick="window.location.href='buy.html'">Buy</button>
+                        <button class="wishlist"><i class="far fa-heart"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 7 -->
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1605236453806-6ff36851218e?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Gaming Console" class="product-image">
+                <div class="product-info">
+                    <div class="product-category">Gaming</div>
+                    <div class="product-name">PlayStation 5 Digital Edition</div>
+                    <div class="product-price">
+                        <span class="current-price">$449.99</span>
+                        <span class="original-price">$499.99</span>
+                        <span class="discount">10% OFF</span>
+                    </div>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                        <span class="rating-count">(2,156)</span>
+                    </div>
+                    <ul class="product-features">
+                        <li>Ultra-high speed SSD</li>
+                        <li>Integrated I/O</li>
+                        <li>4K Gaming at 120fps</li>
+                        <li>Ray Tracing Support</li>
+                    </ul>
+                    <div class="product-actions">
+                        <button class="add-to-cart" onclick="window.location.href='buy.html'">Buy</button>
+                        <button class="wishlist"><i class="far fa-heart"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 8 -->
+            <div class="product-card">
+                <div class="product-badge">Limited</div>
+                <img src="https://images.unsplash.com/photo-1541807084-5c52b6b3adef?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Drone" class="product-image">
+                <div class="product-info">
+                    <div class="product-category">Drone</div>
+                    <div class="product-name">DJI Mavic 3 Pro Cine Premium Combo</div>
+                    <div class="product-price">
+                        <span class="current-price">$4,299.00</span>
+                        <span class="original-price">$4,799.00</span>
+                        <span class="discount">10% OFF</span>
+                    </div>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <span class="rating-count">(289)</span>
+                    </div>
+                    <ul class="product-features">
+                        <li>Tri-Camera System</li>
+                        <li>5.1K Video Recording</li>
+                        <li>46 minutes flight time</li>
+                        <li>15km HD Video Transmission</li>
+                    </ul>
+                    <div class="product-actions">
+                        <button class="add-to-cart" onclick="window.location.href='buy.html'">Buy</button>
+                        <button class="wishlist"><i class="far fa-heart"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 9 -->
+            <div class="product-card">
+                <img src="https://bcdn.alfuhod.com/media/catalog/product/cache/6e1b18c962905f3060c591e2c7ca3fb6/image/13071535d/samsung-odyssey-g9-neo-49-inch-curved-gaming-monitor.jpg" alt="Monitor" class="product-image">
+                <div class="product-info">
+                    <div class="product-category">Monitor</div>
+                    <div class="product-name">Samsung Odyssey Neo G9 49" Curved</div>
+                    <div class="product-price">
+                        <span class="current-price">$1,599.99</span>
+                        <span class="original-price">$1,899.99</span>
+                        <span class="discount">16% OFF</span>
+                    </div>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <span class="rating-count">(412)</span>
+                    </div>
+                    <ul class="product-features">
+                        <li>49-inch Dual QHD Display</li>
+                        <li>240Hz Refresh Rate</li>
+                        <li>Quantum Matrix Technology</li>
+                        <li>HDR2000</li>
+                    </ul>
+                    <div class="product-actions">
+                        <button class="add-to-cart" onclick="window.location.href='buy.html'">Buy</button>
+                        <button class="wishlist"><i class="far fa-heart"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 10 -->
+            <div class="product-card">
+                <div class="product-badge">Trending</div>
+                <img src="https://m.media-amazon.com/images/I/71NKP5DeIZL._AC_SL1500_.jpg" alt="Speaker" class="product-image">
+                <div class="product-info">
+                    <div class="product-category">Audio</div>
+                    <div class="product-name">Sonos Era 300 Wireless Speaker</div>
+                    <div class="product-price">
+                        <span class="current-price">$449.00</span>
+                        <span class="original-price">$499.00</span>
+                        <span class="discount">10% OFF</span>
+                    </div>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                        <span class="rating-count">(567)</span>
+                    </div>
+                    <ul class="product-features">
+                        <li>Six Class-D Digital Amplifiers</li>
+                        <li>Dolby Atmos Spatial Audio</li>
+                        <li>Voice Control with Amazon Alexa</li>
+                        <li>Bluetooth 5.0 & Wi-Fi 6</li>
+                    </ul>
+                    <div class="product-actions">
+                        <button class="add-to-cart" onclick="window.location.href='buy.html'">Buy</button>
+                        <button class="wishlist"><i class="far fa-heart"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 11 -->
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1593640408182-31c70c8268f5?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Keyboard" class="product-image">
+                <div class="product-info">
+                    <div class="product-category">Accessories</div>
+                    <div class="product-name">Logitech MX Mechanical Wireless Keyboard</div>
+                    <div class="product-price">
+                        <span class="current-price">$169.99</span>
+                        <span class="original-price">$199.99</span>
+                        <span class="discount">15% OFF</span>
+                    </div>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <span class="rating-count">(834)</span>
+                    </div>
+                    <ul class="product-features">
+                        <li>Tactile Quiet Mechanical Switches</li>
+                        <li>Smart Illuminated Keys</li>
+                        <li>Multi-Device Connectivity</li>
+                        <li>USB-C Quick Charge</li>
+                    </ul>
+                    <div class="product-actions">
+                        <button class="add-to-cart" onclick="window.location.href='buy.html'">Buy</button>
+                        <button class="wishlist"><i class="far fa-heart"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 12 -->
+            <div class="product-card">
+                <div class="product-badge">Hot</div>
+                <img src="https://cdn.mos.cms.futurecdn.net/jerTCgwTP2nbkyLZbK7GmW.jpg" alt="Mouse" class="product-image">
+                <div class="product-info">
+                    <div class="product-category">Accessories</div>
+                    <div class="product-name">Razer DeathAdder V3 Pro Wireless Mouse</div>
+                    <div class="product-price">
+                        <span class="current-price">$149.99</span>
+                        <span class="original-price">$179.99</span>
+                        <span class="discount">17% OFF</span>
+                    </div>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                        <span class="rating-count">(723)</span>
+                    </div>
+                    <ul class="product-features">
+                        <li>Focus Pro 30K Optical Sensor</li>
+                        <li>HyperSpeed Wireless Technology</li>
+                        <li>90-hour Battery Life</li>
+                        <li>Optical Mouse Switches Gen-3</li>
+                    </ul>
+                    <div class="product-actions">
+                        <button class="add-to-cart" onclick="window.location.href='buy.html'">Buy</button>
+                        <button class="wishlist"><i class="far fa-heart"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>Customer Service</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Help Center</a></li>
+                    <li><a href="#">How to Buy</a></li>
+                    <li><a href="#">Returns & Refunds</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">Purchase Protection</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>About Electro Bazzar</h3>
+                <ul class="footer-links">
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Terms & Conditions</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Blog</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Payment Methods</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Credit/Debit Card</a></li>
+                    <li><a href="#">Net Banking</a></li>
+                    <li><a href="#">Cash on Delivery</a></li>
+                    <li><a href="#">EMI Options</a></li>
+                    <li><a href="#">Wallet</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Follow Us</h3>
+                <p>Stay connected with us for the latest updates</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2024 Electro Bazzar. All rights reserved. | Designed with <i class="fas fa-heart" style="color: var(--accent);"></i> for amazing shopping experiences</p>
+        </div>
+    </footer>
+
+    <script>
+        // Add to cart functionality
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+            button.addEventListener('click', function() {
+                const productName = this.closest('.product-card').querySelector('.product-name').textContent;
+                const productPrice = this.closest('.product-card').querySelector('.current-price').textContent;
+                
+                alert(`${productName} added to cart!\nPrice: ${productPrice}`);
+                
+                // Update cart count
+                const cartCount = document.querySelector('.cart-count');
+                cartCount.textContent = parseInt(cartCount.textContent) + 1;
+                
+                // Add animation effect
+                this.style.background = 'var(--success)';
+                setTimeout(() => {
+                    this.style.background = 'var(--primary)';
+                }, 1000);
+            });
+        });
+        
+        // Wishlist functionality
+        document.querySelectorAll('.wishlist').forEach(button => {
+            button.addEventListener('click', function() {
+                const icon = this.querySelector('i');
+                if (icon.classList.contains('far')) {
+                    icon.classList.remove('far');
+                    icon.classList.add('fas');
+                    this.style.color = 'var(--accent)';
+                    this.style.borderColor = 'var(--accent)';
+                    
+                    const productName = this.closest('.product-card').querySelector('.product-name').textContent;
+                    alert(`${productName} added to wishlist!`);
+                } else {
+                    icon.classList.remove('fas');
+                    icon.classList.add('far');
+                    this.style.color = 'var(--text-gray)';
+                    this.style.borderColor = 'var(--border-color)';
+                }
+            });
+        });
+        
+        // Filter functionality
+        document.querySelectorAll('select').forEach(select => {
+            select.addEventListener('change', function() {
+                // In a real application, this would filter the products
+                console.log(`Filter changed: ${this.value}`);
+            });
+        });
+        
+    </script>
+</body>
+</html>

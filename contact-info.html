@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Message Sent | Electro-Bazzar</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="" href="379907369_731692655641513_7342960460164979974_n.jpg" />
+  
+  <style>
+    :root {
+      --primary-color: #00ff91;
+      --secondary-color: #00aaff;
+      --accent-color: #eb0d76;
+      --dark-bg: #19173a;
+      --darker-bg: #1e1a42;
+      --light-text: #fff;
+      --gray-text: #ddd;
+      --glass-bg: rgba(255, 255, 255, 0.05);
+      --glass-border: rgba(255, 255, 255, 0.1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: linear-gradient(135deg, var(--dark-bg), var(--darker-bg));
+      color: var(--light-text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 40px;
+      background-color: rgba(0, 0, 0, 0.9);
+      border-bottom: 2px solid var(--accent-color);
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      transition: all 0.3s ease;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+      color: var(--primary-color);
+      z-index: 2;
+      font-family: 'Orbitron', sans-serif;
+    }
+    .logo span {
+      color: var(--secondary-color);
+    }
+
+    /* Centered Navigation - Underline Only */
+    nav {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 30px;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: white;
+      font-weight: 600;
+      position: relative;
+      transition: all 0.3s;
+      padding: 5px 0;
+    }
+    
+    nav a::after {
+      content: '';
+      position: absolute;
+      width: 0%;
+      height: 3px;
+      bottom: 0;
+      left: 0;
+      background-color: var(--secondary-color);
+      transition: width 0.4s ease;
+    }
+    
+    nav a:hover {
+      color: white;
+    }
+    
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    .success-container {
+      margin-top: 150px;
+      max-width: 800px;
+      width: 100%;
+      padding: 0 20px;
+    }
+
+    .success-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 50px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--glass-border);
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .success-icon {
+      font-size: 80px;
+      margin-bottom: 20px;
+      color: var(--primary-color);
+    }
+
+    .success-card h1 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      color: var(--primary-color);
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    .success-card p {
+      font-size: 1.2rem;
+      color: var(--gray-text);
+      margin-bottom: 30px;
+    }
+
+    .message-details {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 15px;
+      padding: 30px;
+      margin-top: 30px;
+      text-align: left;
+      border-left: 4px solid var(--secondary-color);
+    }
+
+    .message-details h2 {
+      color: var(--secondary-color);
+      margin-bottom: 20px;
+      font-size: 1.5rem;
+    }
+
+    .detail-row {
+      display: flex;
+      margin-bottom: 15px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .detail-label {
+      font-weight: 600;
+      color: var(--primary-color);
+      min-width: 120px;
+    }
+
+    .detail-value {
+      color: var(--light-text);
+      flex: 1;
+    }
+
+    .action-buttons {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      margin-top: 30px;
+    }
+
+    .btn {
+      padding: 14px 30px;
+      font-weight: 600;
+      font-size: 1rem;
+      border-radius: 10px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      display: inline-block;
+    }
+
+    .btn-primary {
+      background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+      color: #000;
+      box-shadow: 0 6px 18px rgba(0, 255, 145, 0.3);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--light-text);
+      border: 1px solid var(--glass-border);
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(0, 255, 145, 0.5);
+    }
+
+    /* Mobile menu styles */
+    .menu-toggle {
+      display: none;
+      cursor: pointer;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 30px;
+      height: 21px;
+    }
+    
+    .menu-toggle span {
+      display: block;
+      height: 3px;
+      width: 100%;
+      background-color: white;
+      border-radius: 3px;
+      transition: all 0.3s ease;
+    }
+    
+    @media (max-width: 768px) {
+      header {
+        padding: 15px 20px;
+      }
+      
+      nav {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 70%;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.95);
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        transition: right 0.4s ease;
+        z-index: 999;
+      }
+      
+      nav.active {
+        right: 0;
+      }
+      
+      nav a {
+        margin: 15px 0;
+        font-size: 20px;
+      }
+      
+      .menu-toggle {
+        display: flex;
+        z-index: 1000;
+      }
+      
+      .menu-toggle.active span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+      }
+      
+      .menu-toggle.active span:nth-child(2) {
+        opacity: 0;
+      }
+      
+      .menu-toggle.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(7px, -6px);
+      }
+      
+      .success-container {
+        margin-top: 120px;
+      }
+      
+      .success-card {
+        padding: 30px;
+      }
+      
+      .action-buttons {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">Electro-<span>Bazzar</span></div>
+    
+    <div class="menu-toggle" id="mobileMenu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    
+    <nav id="mainNav">
+      <a href="real.html">HOME</a>
+      <a href="shop.html">SHOP</a>
+      <a href="contact.html">CONTACT</a>
+      <a href="about.html">ABOUT-US</a>
+    </nav>  
+  </header>
+
+  <div class="success-container">
+    <div class="success-card">
+      <div class="success-icon">✓</div>
+      <h1>Message Sent Successfully!</h1>
+      <p>Thank you for contacting Electro-Bazzar. We have received your message and will get back to you within 24 hours.</p>
+      
+      <div class="message-details" id="messageDetails">
+        <h2>Your Message Details</h2>
+        <!-- Details will be populated by JavaScript -->
+      </div>
+      
+      <div class="action-buttons">
+        <a href="contact.html" class="btn btn-primary">Send Another Message</a>
+        <a href="real.html" class="btn btn-secondary">Back to Home</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Display the submitted message details
+    document.addEventListener('DOMContentLoaded', function() {
+      const messageDetails = document.getElementById('messageDetails');
+      const contactData = JSON.parse(localStorage.getItem('contactData'));
+      
+      if (contactData) {
+        const detailsHTML = `
+          <div class="detail-row">
+            <div class="detail-label">Full Name:</div>
+            <div class="detail-value">${contactData.fullName}</div>
+          </div>
+          <div class="detail-row">
+            <div class="detail-label">Email:</div>
+            <div class="detail-value">${contactData.email}</div>
+          </div>
+          <div class="detail-row">
+            <div class="detail-label">Phone:</div>
+            <div class="detail-value">${contactData.phone || 'Not provided'}</div>
+          </div>
+          <div class="detail-row">
+            <div class="detail-label">Subject:</div>
+            <div class="detail-value">${contactData.subject || 'No subject'}</div>
+          </div>
+          <div class="detail-row">
+            <div class="detail-label">Message:</div>
+            <div class="detail-value">${contactData.message}</div>
+          </div>
+          <div class="detail-row">
+            <div class="detail-label">Submitted:</div>
+            <div class="detail-value">${contactData.timestamp}</div>
+          </div>
+        `;
+        
+        messageDetails.innerHTML += detailsHTML;
+      } else {
+        messageDetails.innerHTML = '<p>No message data found. Please submit a message from the contact form.</p>';
+      }
+    });
+
+    // Mobile menu toggle
+    const mobileMenu = document.getElementById('mobileMenu');
+    const mainNav = document.getElementById('mainNav');
+
+    mobileMenu.addEventListener('click', () => {
+      mainNav.classList.toggle('active');
+      mobileMenu.classList.toggle('active');
+    });
+
+    // Close mobile menu when clicking on a link
+    const navLinks = document.querySelectorAll('nav a');
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        mainNav.classList.remove('active');
+        mobileMenu.classList.remove('active');
+      });
+    });
+  </script>
+</body>
+</html>

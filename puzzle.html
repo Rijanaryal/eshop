@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Electro-Bazzar Puzzle Game</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+/* Body & Fonts */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+  color: #fff;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 20px;
+}
+
+/* Header / Navigation */
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 25px 40px;
+  background-color: rgba(0, 0, 0, 0.8);
+  border-bottom: 2px solid #eb0d76;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(10px);
+}
+
+.logo {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 24px;
+  font-weight: bold;
+  color: #00ff91;
+  z-index: 2;
+  letter-spacing: 1px;
+}
+
+.logo span {
+  color: #00aaff;
+}
+
+/* Centered nav */
+nav {
+  display: flex;
+  gap: 25px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+nav a {
+  text-decoration: none;
+  color: white;
+  font-weight: 600;
+  position: relative;
+  padding: 5px 0;
+  transition: color 0.3s;
+}
+
+nav a::after {
+  content: '';
+  position: absolute;
+  width: 0%;
+  height: 3px;
+  bottom: 0;
+  left: 0;
+  background: linear-gradient(90deg, cyan, #00ff91);
+  transition: width 0.3s;
+}
+
+nav a:hover {
+  color: #00ffcc;
+}
+
+nav a:hover::after { 
+  width: 100%; 
+}
+
+/* Mobile menu toggle */
+.menu-toggle {
+  display: none;
+  cursor: pointer;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 24px;
+}
+
+@media (max-width: 900px){
+  .menu-toggle { 
+    display: block; 
+  }
+  
+  nav { 
+    position: fixed;
+    top: 70px;
+    left: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 0;
+    transform: translateY(-100%);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s ease;
+  }
+  
+  nav.active { 
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+  }
+  
+  nav a {
+    padding: 12px 0;
+    font-size: 18px;
+  }
+}
+
+/* Main Content */
+main {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 100px;
+  flex: 1;
+}
+
+/* Puzzle Game Container */
+.game-container {
+  width: 100%;
+  max-width: 700px;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 0 30px rgba(0, 255, 255, 0.2);
+  text-align: center;
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 30px;
+}
+
+.game-title {
+  font-family: 'Orbitron', sans-serif;
+  margin-bottom: 25px;
+  color: #00ffcc;
+  text-shadow: 0 0 10px rgba(0, 255, 204, 0.5);
+  font-size: 28px;
+}
+
+.controls {
+  margin-bottom: 25px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+  align-items: center;
+}
+
+.controls input, .controls select, .controls button {
+  padding: 12px 18px;
+  border-radius: 10px;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s;
+  outline: none;
+}
+
+.controls input {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  width: 220px;
+}
+
+.controls input::file-selector-button {
+  background: #00ffcc;
+  color: #000;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  margin-right: 10px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.controls select {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 16px;
+  padding-right: 40px;
+}
+
+.controls button {
+  background: linear-gradient(90deg, #00ffcc, #00aaff);
+  color: #000;
+  font-weight: bold;
+  box-shadow: 0 4px 15px rgba(0, 255, 204, 0.3);
+}
+
+.controls button:hover { 
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 255, 204, 0.4);
+}
+
+.controls button:active { 
+  transform: translateY(0);
+}
+
+#puzzleBoard {
+  display: grid;
+  margin: 0 auto;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  width: 100%;
+  max-width: 600px;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.piece {
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s, opacity 0.3s;
+  background-size: cover;
+  position: relative;
+}
+
+.piece:hover { 
+  transform: scale(1.05); 
+  box-shadow: 0 0 15px #fffb00;
+  z-index: 2;
+}
+
+.piece.moving {
+  opacity: 0.9;
+  z-index: 3;
+}
+
+#timer {
+  margin: 20px 0;
+  font-size: 20px;
+  font-weight: bold;
+  color: #00ffcc;
+  font-family: 'Orbitron', sans-serif;
+  letter-spacing: 1px;
+}
+
+#promo {
+  margin-top: 25px;
+  font-size: 22px;
+  color: #00ffcc;
+  animation: glow 1.5s infinite alternate;
+  padding: 15px;
+  border-radius: 10px;
+  background: rgba(0, 255, 204, 0.1);
+  border: 1px solid rgba(0, 255, 204, 0.3);
+}
+
+#promo.hidden { 
+  display: none; 
+}
+
+.promo-code {
+  font-family: 'Orbitron', sans-serif;
+  letter-spacing: 2px;
+  font-weight: bold;
+}
+
+.win-message {
+  margin-top: 15px;
+  font-size: 18px;
+  color: #fffb00;
+}
+
+@keyframes glow {
+  from { 
+    text-shadow: 0 0 5px #00ffcc, 0 0 10px #00ffcc; 
+    box-shadow: 0 0 10px rgba(0, 255, 204, 0.3);
+  }
+  to { 
+    text-shadow: 0 0 20px #00ffcc, 0 0 30px #00ffcc; 
+    box-shadow: 0 0 20px rgba(0, 255, 204, 0.5);
+  }
+}
+
+@media (max-width: 900px){
+  header {
+    padding: 15px 20px;
+  }
+  
+  .game-container {
+    padding: 20px;
+    margin-top: 20px;
+  }
+  
+  .controls {
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .controls input, .controls select, .controls button {
+    width: 100%;
+    max-width: 300px;
+  }
+  
+  #puzzleBoard {
+    max-width: 100%;
+  }
+}
+
+/* Footer */
+footer {
+  margin-top: auto;
+  padding: 20px;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 14px;
+  width: 100%;
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">Electro-<span>Bazzar</span></div>
+  <button class="menu-toggle" id="mobileMenu">
+    <i class="fas fa-bars"></i>
+  </button>
+  <nav id="mainNav">
+    <a href="real.html"><i class="fas fa-home"></i> HOME</a>
+    <a href="shop.html"><i class="fas fa-shopping-cart"></i> SHOP</a>
+    <a href="contact.html"><i class="fas fa-envelope"></i> CONTACT</a>
+    <a href="about.html"><i class="fas fa-info-circle"></i> ABOUT-US</a>
+  </nav>
+</header>
+
+<main>
+  <div class="game-container">
+    <h1 class="game-title"><i class="fas fa-puzzle-piece"></i> Electro Bazzar Puzzle Challenge <i class="fas fa-puzzle-piece"></i></h1>
+    <div class="controls">
+      <input type="file" id="uploadImage" accept="image/*">
+      <select id="difficulty">
+        <option value="3">Easy (3x3)</option>
+        <option value="4">Medium (4x4)</option>
+        <option value="5">Hard (5x5)</option>
+        <option value="6">Expert (6x6)</option>
+      </select>
+      <button id="startBtn"><i class="fas fa-play"></i> Start Puzzle</button>
+    </div>
+    
+    <div id="timer">Time: 00:00</div>
+    
+    <div id="puzzleBoard"></div>
+    
+    <div id="promo" class="hidden">
+      <div class="win-message">Congratulations! You solved the puzzle!</div>
+      🎉 Your Promo Code: <span id="code" class="promo-code">EB2025</span> 🎉
+    </div>
+  </div>
+</main>
+
+<footer>
+  <p>&copy; 2023 Electro-Bazzar. All rights reserved.</p>
+</footer>
+
+<script>
+const puzzleBoard = document.getElementById('puzzleBoard');
+const uploadImage = document.getElementById('uploadImage');
+const difficulty = document.getElementById('difficulty');
+const startBtn = document.getElementById('startBtn');
+const promo = document.getElementById('promo');
+const mobileMenu = document.getElementById('mobileMenu');
+const mainNav = document.getElementById('mainNav');
+const timerElement = document.getElementById('timer');
+
+let imageSrc = "https://source.unsplash.com/600x600/?electronics";
+let gridSize = 3;
+let gameStarted = false;
+let startTime;
+let timerInterval;
+
+// Mobile menu toggle
+mobileMenu.addEventListener('click', () => {
+  mainNav.classList.toggle('active');
+  mobileMenu.innerHTML = mainNav.classList.contains('active') ? 
+    '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+});
+
+// Start puzzle
+startBtn.addEventListener('click', () => {
+  gridSize = parseInt(difficulty.value);
+  startGame();
+});
+
+// Upload image
+uploadImage.addEventListener('change', (e) => {
+  const file = e.target.files[0];
+  if(file){
+    const reader = new FileReader();
+    reader.onload = function(event){ 
+      imageSrc = event.target.result; 
+    }
+    reader.readAsDataURL(file);
+  }
+});
+
+function startGame() {
+  createPuzzle(imageSrc, gridSize);
+  gameStarted = true;
+  startTimer();
+  promo.classList.add('hidden');
+}
+
+function createPuzzle(imgSrc, size){
+  puzzleBoard.innerHTML = '';
+  puzzleBoard.style.gridTemplateColumns = `repeat(${size}, 1fr)`;
+  puzzleBoard.style.gridTemplateRows = `repeat(${size}, 1fr)`;
+  
+  const pieces = [];
+  
+  for(let i = 0; i < size * size; i++){
+    const div = document.createElement('div');
+    div.classList.add('piece');
+    div.style.backgroundImage = `url(${imgSrc})`;
+    div.style.backgroundSize = `${size * 100}% ${size * 100}%`;
+    
+    const row = Math.floor(i / size);
+    const col = i % size;
+    div.style.backgroundPosition = `${(col / (size - 1)) * 100}% ${(row / (size - 1)) * 100}%`;
+    div.dataset.correctIndex = i;
+    
+    pieces.push(div);
+  }
+  
+  // Remove the last piece to create an empty space
+  const emptyIndex = pieces.length - 1;
+  pieces[emptyIndex].style.backgroundColor = 'rgba(0, 0, 0, 0.3)';
+  pieces[emptyIndex].style.backgroundImage = 'none';
+  pieces[emptyIndex].classList.add('empty');
+  pieces[emptyIndex].dataset.isEmpty = true;
+  
+  shuffle(pieces).forEach(p => puzzleBoard.appendChild(p));
+  addPieceClick(pieces, size);
+}
+
+function shuffle(array){
+  // Fisher-Yates shuffle algorithm
+  for(let i = array.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+}
+
+function addPieceClick(pieces, size){
+  pieces.forEach(piece => {
+    piece.addEventListener('click', () => {
+      if (!gameStarted || piece.dataset.isEmpty) return;
+      
+      const emptyPiece = document.querySelector('.piece[data-is-empty="true"]');
+      const emptyIndex = Array.from(puzzleBoard.children).indexOf(emptyPiece);
+      const pieceIndex = Array.from(puzzleBoard.children).indexOf(piece);
+      
+      // Check if the clicked piece is adjacent to the empty space
+      if (isAdjacent(pieceIndex, emptyIndex, size)) {
+        // Swap positions in the DOM
+        swapPieces(piece, emptyPiece);
+        checkWin(pieces);
+      }
+    });
+  });
+}
+
+function isAdjacent(index1, index2, size) {
+  const row1 = Math.floor(index1 / size);
+  const col1 = index1 % size;
+  const row2 = Math.floor(index2 / size);
+  const col2 = index2 % size;
+  
+  return (
+    (Math.abs(row1 - row2) === 1 && col1 === col2) ||
+    (Math.abs(col1 - col2) === 1 && row1 === row2)
+  );
+}
+
+function swapPieces(piece1, piece2) {
+  // Create a temporary element to handle the swap animation
+  const temp = document.createElement('div');
+  puzzleBoard.insertBefore(temp, piece1);
+  puzzleBoard.insertBefore(piece1, piece2);
+  puzzleBoard.insertBefore(piece2, temp);
+  puzzleBoard.removeChild(temp);
+}
+
+function checkWin(pieces){
+  const currentPieces = Array.from(puzzleBoard.children);
+  let won = true;
+  
+  for (let i = 0; i < currentPieces.length - 1; i++) {
+    if (parseInt(currentPieces[i].dataset.correctIndex) !== i) {
+      won = false;
+      break;
+    }
+  }
+  
+  if (won) {
+    promo.classList.remove('hidden');
+    clearInterval(timerInterval);
+    gameStarted = false;
+    
+    // Show the complete image
+    const emptyPiece = document.querySelector('.empty');
+    emptyPiece.style.backgroundImage = `url(${imageSrc})`;
+    emptyPiece.style.backgroundSize = `${gridSize * 100}% ${gridSize * 100}%`;
+    emptyPiece.style.backgroundPosition = `${((gridSize - 1) % gridSize) / (gridSize - 1) * 100}% ${(Math.floor((gridSize - 1) / gridSize) / (gridSize - 1)) * 100}%`;
+    emptyPiece.dataset.isEmpty = false;
+  }
+}
+
+function startTimer() {
+  clearInterval(timerInterval);
+  startTime = new Date();
+  
+  timerInterval = setInterval(() => {
+    const currentTime = new Date();
+    const elapsedTime = new Date(currentTime - startTime);
+    
+    const minutes = elapsedTime.getMinutes().toString().padStart(2, '0');
+    const seconds = elapsedTime.getSeconds().toString().padStart(2, '0');
+    
+    timerElement.textContent = `Time: ${minutes}:${seconds}`;
+  }, 1000);
+}
+
+// Initialize with a default puzzle
+createPuzzle(imageSrc, gridSize);
+</script>
+</body>
+</html>

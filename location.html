@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Location | Electro-Bazzar</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="" href="379907369_731692655641513_7342960460164979974_n.jpg" />
+  
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "url": "https://electro-bazzar.com",
+    "logo": "https://i.ibb.co/6RNT2Rm4/electro-bazzar-logo.jpg",
+    "name": "Electro-Bazzar",
+    "description": "Your one-stop shop for premium electronics and gadgets in Nepal.",
+    "sameAs": [
+      "https://facebook.com/electrobazzar",
+      "https://instagram.com/electrobazzar"
+    ]
+  }
+  </script>
+  
+  <style>
+    :root {
+      --primary-color: #00ff91;
+      --secondary-color: #00aaff;
+      --accent-color: #eb0d76;
+      --dark-bg: #19173a;
+      --darker-bg: #1e1a42;
+      --light-text: #fff;
+      --gray-text: #ddd;
+      --glass-bg: rgba(255, 255, 255, 0.05);
+      --glass-border: rgba(255, 255, 255, 0.1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: linear-gradient(135deg, var(--dark-bg), var(--darker-bg));
+      color: var(--light-text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 40px;
+      background-color: rgba(0, 0, 0, 0.9);
+      border-bottom: 2px solid var(--accent-color);
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      transition: all 0.3s ease;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+      color: var(--primary-color);
+      z-index: 2;
+      font-family: 'Orbitron', sans-serif;
+    }
+    .logo span {
+      color: var(--secondary-color);
+    }
+
+    /* Centered Navigation - Underline Only */
+    nav {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 30px;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: white;
+      font-weight: 600;
+      position: relative;
+      transition: all 0.3s;
+      padding: 5px 0;
+    }
+    
+    /* Underline effect only - no color change */
+    nav a::after {
+      content: '';
+      position: absolute;
+      width: 0%;
+      height: 3px;
+      bottom: 0;
+      left: 0;
+      background-color: var(--secondary-color);
+      transition: width 0.4s ease;
+    }
+    
+    nav a:hover {
+      color: white; /* Keep text color the same */
+    }
+    
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    /* Enhanced scroll animation */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 1.2s ease, transform 1s ease;
+    }
+    
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .scroll-to-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 50px;
+      height: 50px;
+      background-color: var(--secondary-color);
+      color: black;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.4s ease;
+      z-index: 999;
+      box-shadow: 0 0 15px rgba(0, 170, 255, 0.5);
+    }
+
+    .scroll-to-top.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .scroll-to-top:hover {
+      transform: translateY(-5px) scale(1.05);
+      background: var(--primary-color);
+      color: rgb(255, 18, 18);
+    }
+
+    .scroll-to-top svg {
+      width: 24px;
+      height: 24px;
+      transition: transform 0.3s ease;
+    }
+
+    .scroll-to-top:hover svg {
+      transform: translateY(-3px);
+    }
+
+    .location-container {
+      margin-top: 120px;
+      max-width: 1000px;
+      width: 100%;
+      padding: 0 20px;
+    }
+
+    .location-hero {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .location-hero h1 {
+      font-size: 3rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    .location-hero p {
+      font-size: 1.2rem;
+      color: var(--gray-text);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .map-container {
+      background: var(--glass-bg);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--glass-border);
+      margin-bottom: 40px;
+    }
+
+    .map-container iframe {
+      width: 100%;
+      height: 450px;
+      border: none;
+      border-radius: 15px;
+    }
+
+    .location-details {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      margin-bottom: 60px;
+    }
+
+    .detail-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(10px);
+      border-radius: 15px;
+      padding: 30px;
+      border: 1px solid var(--glass-border);
+      text-align: center;
+    }
+
+    .detail-card h3 {
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-size: 1.5rem;
+    }
+
+    .detail-card p {
+      color: var(--gray-text);
+      margin-bottom: 10px;
+    }
+
+    .detail-icon {
+      font-size: 40px;
+      margin-bottom: 20px;
+      color: var(--secondary-color);
+    }
+
+    /* Footer Styles */
+    .footer-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      max-width: 1200px;
+      margin: auto;
+      gap: 30px;
+      padding: 50px 20px;
+    }
+    .footer {
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.9rem;
+      color: var(--main-color);
+      background: radial-gradient(circle, #2c275e, #4d487d, #494985);    
+      width: 100%;
+    }
+    .footer-section {
+      flex: 1 1 300px;
+    }
+
+    .footer-section h2 {
+      font-size: 28px;
+      margin-bottom: 10px;
+      border-bottom: none;
+    }
+
+    .footer-section h4 {
+      margin-bottom: 15px;
+      color: var(--primary-color);
+    }
+
+    .footer-section p {
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .footer-section ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .footer-section ul li {
+      margin-bottom: 8px;
+    }
+
+    .footer-section ul li a {
+      text-decoration: none;
+      color: #f8e8e8;
+      transition: color 0.3s;
+    }
+
+    .footer-section ul li a:hover {
+      color: var(--secondary-color);
+    }
+
+    .footer-bottom {
+      text-align: center;
+      padding: 20px;
+      font-size: 14px;
+      color: hsl(0, 12%, 78%);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .footer-bottom .footer-links {
+      margin-bottom: 10px;
+    }
+
+    .footer-bottom .footer-links a {
+      margin: 0 10px;
+      text-decoration: none;
+      color: var(--primary-color);
+      font-weight: 500;
+    }
+
+    .footer-bottom .footer-links a:hover {
+      text-decoration: underline;
+    }
+
+    .social-section {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      margin: 30px 0;
+    }
+
+    .social-link {
+      display: flex;
+      align-items: center;
+      margin: 10px 0;
+      color: #ebe1e1;
+      font-size: 18px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      padding: 10px 20px;
+      border-radius: 30px;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .social-link:hover {
+      color: var(--secondary-color);
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0, 170, 255, 0.3);
+    }
+
+    .social-link img {
+      width: 24px;
+      height: 24px;
+      margin-right: 10px;
+    }
+
+    /* Mobile menu styles */
+    .menu-toggle {
+      display: none;
+      cursor: pointer;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 30px;
+      height: 21px;
+    }
+    
+    .menu-toggle span {
+      display: block;
+      height: 3px;
+      width: 100%;
+      background-color: white;
+      border-radius: 3px;
+      transition: all 0.3s ease;
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 1024px) {
+      nav {
+        gap: 20px;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      header {
+        padding: 15px 20px;
+      }
+      
+      .location-hero h1 {
+        font-size: 2.2rem;
+      }
+      
+      nav {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 70%;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.95);
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        transition: right 0.4s ease;
+        z-index: 999;
+      }
+      
+      nav.active {
+        right: 0;
+      }
+      
+      nav a {
+        margin: 15px 0;
+        font-size: 20px;
+      }
+      
+      .menu-toggle {
+        display: flex;
+        z-index: 1000;
+      }
+      
+      .menu-toggle.active span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+      }
+      
+      .menu-toggle.active span:nth-child(2) {
+        opacity: 0;
+      }
+      
+      .menu-toggle.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(7px, -6px);
+      }
+      
+      .map-container {
+        padding: 20px;
+      }
+      
+      .map-container iframe {
+        height: 350px;
+      }
+      
+      .location-details {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    @media (max-width: 500px) {
+      .location-hero h1 {
+        font-size: 1.8rem;
+      }
+      
+      .location-hero p {
+        font-size: 1rem;
+      }
+      
+      .map-container iframe {
+        height: 300px;
+      }
+      
+      .detail-card {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="scroll-to-top" id="scrollToTop">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 4l-8 8h5v8h6v-8h5z"/>
+    </svg>
+  </div>
+
+  <header>
+    <div class="logo">Electro-<span>Bazzar</span></div>
+    
+    <div class="menu-toggle" id="mobileMenu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    
+    <nav id="mainNav">
+      <a href="real.html">HOME</a>
+      <a href="shop.html">SHOP</a>
+      <a href="contact.html">CONTACT</a>
+      <a href="about.html">ABOUT-US</a>
+    </nav>  
+  </header>
+
+  <div class="location-container">
+    <section class="location-hero fade-in">
+      <h1>Our Location</h1>
+      <p>Visit us at our store in Darbang, Myagdi, Nepal. We're here to serve you with the latest electronics and gadgets.</p>
+    </section>
+
+    <div class="map-container fade-in">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3531.616236609179!2d83.38428861507427!3d28.414289392449833!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39961b7c7ff5293f%3A0xae876acda6d2fc1c!2sDarbang%2C%20Myagdi%2C%20Nepal!5e0!3m2!1sen!2sus!4v1686381034621!5m2!1sen!2sus"
+        allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+        title="Google Map showing Darbang, Myagdi, Nepal">
+      </iframe>
+    </div>
+
+    <div class="location-details fade-in">
+      <div class="detail-card">
+        <div class="detail-icon">📍</div>
+        <h3>Address</h3>
+        <p>Darbang, Myagdi</p>
+        <p>Gandaki Province, Nepal</p>
+      </div>
+      
+      <div class="detail-card">
+        <div class="detail-icon">🕒</div>
+        <h3>Opening Hours</h3>
+        <p>Sunday - Friday: 9AM - 7PM</p>
+        <p>Saturday: 10AM - 5PM</p>
+      </div>
+      
+      <div class="detail-card">
+        <div class="detail-icon">📞</div>
+        <h3>Contact</h3>
+        <p>+977 9867741488</p>
+        <p>+977 9764514855</p>
+        <p>info@electro-bazzar.com</p>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-section about fade-in">
+        <h2><strong style="color: #34ef82;">Electro</strong> <strong style="color: #f4f4f4;">- Bazzar</strong></h2>
+        <h4>🛒 About Electro-Bazaar</h4>
+        <p>Electro-Bazaar is your reliable online shopping destination, offering a wide range of quality products at great prices. We ensure secure payments 🔒, fast delivery 🚛, and excellent customer support 💬 to make your shopping experience easy and enjoyable.</p>
+      </div>
+
+      <div class="footer-section links fade-in">
+        <h4>Company</h4>
+        <ul>
+          <li><a href='real.html'>Home</a></li>
+          <li><a href='about.html'>About us</a></li>
+          <li><a href='contact.html'>Contact us</a></li>
+                <a href="visit.html">STORE</a>
+          <li><a href='privacy.html'>Privacy policy</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section contact fade-in">
+        <h4>Get in touch</h4>
+        <p>+9779867741488</p>
+        <p>+9779764514855</p>
+        <p>info@electro-bazzar.com</p>
+      </div>
+    </div>
+    <div class="social-section fade-in">
+      <a href="https://www.facebook.com/electrobazzar" class="social-link" target="_blank">
+        <img src="https://cdn-icons-png.flaticon.com/512/124/124010.png" alt="Facebook Icon">
+        Facebook
+      </a>
+
+      <a href="https://www.instagram.com/electrobazzar" class="social-link" target="_blank">
+        <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram Icon">
+        Instagram
+      </a>
+
+      <a href="https://github.com/electrobazzar" class="social-link" target="_blank">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Octicons-mark-github.svg/1200px-Octicons-mark-github.svg.png" alt="github">Github
+      </a>  
+    </div>
+    <div class="footer-bottom fade-in">
+      <div class="footer-links">
+        <a href="privacy.html">Return Policy</a>
+        <a href="location.html">Location</a>
+        <a href="#">Terms of Service</a>
+      </div>
+      <p>© 2025 Electro-Bazzar. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Enhanced scroll animation functionality
+    function checkScroll() {
+      const elements = document.querySelectorAll('.fade-in');
+      const windowHeight = window.innerHeight;
+      
+      elements.forEach(element => {
+        const positionFromTop = element.getBoundingClientRect().top;
+        
+        if (positionFromTop - windowHeight <= -100) {
+          element.classList.add('visible');
+        }
+      });
+    }
+    
+    // Initial check on page load
+    window.addEventListener('load', checkScroll);
+    // Check on scroll with throttling for performance
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          checkScroll();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    });
+    
+    // Scroll-to-top functionality
+    const scrollToTopBtn = document.getElementById('scrollToTop');
+
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        scrollToTopBtn.classList.add('visible');
+      } else {
+        scrollToTopBtn.classList.remove('visible');
+      }
+    });
+
+    scrollToTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+
+    // Mobile menu toggle
+    const mobileMenu = document.getElementById('mobileMenu');
+    const mainNav = document.getElementById('mainNav');
+
+    mobileMenu.addEventListener('click', () => {
+      mainNav.classList.toggle('active');
+      mobileMenu.classList.toggle('active');
+    });
+
+    // Close mobile menu when clicking on a link
+    const navLinks = document.querySelectorAll('nav a');
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        mainNav.classList.remove('active');
+        mobileMenu.classList.remove('active');
+      });
+    });
+  </script>
+</body>
+</html>
